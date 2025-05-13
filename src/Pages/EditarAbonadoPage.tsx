@@ -1,8 +1,12 @@
 // src/Pages/EditarAbonadoPage.tsx
 import React from "react";
 import { Link } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import ClienteBotonActualizar from "../Components/Clientes/ClienteBotonActualizar";
 
 const EditarAbonadoPage = () => {
+      const queryClient = new QueryClient()
+  
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800 font-sans px-4 py-6">
       {/* Botón Volver */}
@@ -19,6 +23,9 @@ const EditarAbonadoPage = () => {
       <header className="text-center mb-10">
         <h1 className="text-4xl font-bold text-blue-700">Editar Abonado</h1>
         <p className="text-lg text-gray-600 mt-2">Aquí podrás modificar los datos de un abonado.</p>
+       <QueryClientProvider client={queryClient}>
+          <ClienteBotonActualizar/>                
+        </QueryClientProvider>
       </header>
 
       {/* Contenido vacío por ahora */}

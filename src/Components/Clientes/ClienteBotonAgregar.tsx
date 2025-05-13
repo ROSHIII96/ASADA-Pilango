@@ -1,10 +1,9 @@
-
-import GenericModal from "../../Components/Customers/GerericModal";
-import AddUserForm from "./AddCustomerForm";
+import ClienteGenericModal from "../../Components/Clientes/ClienteGenericModal";
+import ClienteFormulario from "./ClienteFormulario";
 import { useState } from "react";
 
 
-const AddCustomerButton = () =>
+const ClienteBotonAgregar = () =>
 {
     const [showAddModal,  setShowAddModal]  = useState(false);
 
@@ -23,16 +22,16 @@ const AddCustomerButton = () =>
             </div>
 
             {/* Modal */}
-            <GenericModal
+            <ClienteGenericModal
                 show={showAddModal}
                 onClose={() => setShowAddModal(false)}
                 title="Create New User"
             >
-                <AddUserForm />
-            </GenericModal>
+                <ClienteFormulario />
+            </ClienteGenericModal>
             
         </>
     )
 }
 
-export default AddCustomerButton;
+export default ClienteBotonAgregar;

@@ -2,7 +2,7 @@ import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-tabl
 import { useMemo } from "react";
 import { useUsers } from '../../Services/UsersService';
 
-const CustomerList = () => {
+const ClientesLista = () => {
     
   //Obtiene los datos de useUsers y los guarda en data
   const { data, isLoading, isError, error } = useUsers();
@@ -85,4 +85,4 @@ return(
 )
 }
 
-export default CustomerList;
+export default ClientesLista;

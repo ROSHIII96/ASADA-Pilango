@@ -1,8 +1,7 @@
-
 import { useForm } from '@tanstack/react-form'
 import { useAddUser } from '../../Services/UsersService'
 
-const AddUserForm = () => {
+const ClienteFormulario = () => {
 
   // 1) grab your mutation
   const {
@@ -136,4 +135,4 @@ const AddUserForm = () => {
     )
 }
 
-export default AddUserForm;
+export default ClienteFormulario;

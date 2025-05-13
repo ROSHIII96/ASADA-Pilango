@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       email: "geraldalv9@gmail.com",
       password: "Gerald.13",
       name: "Gerald Alvarez",
-      role: "user"  
+      role: "admin"  
     },
     {
       email: "1@gmail.com",
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       email: "eporrascastro2004@gmail.com",
       password: "Emmanuel",
       name: "Emmanuel Porras",
-      role: "user"
+      role: "admin"
     }
   ];
 

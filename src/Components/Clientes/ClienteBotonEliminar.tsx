@@ -1,9 +1,8 @@
-import ClienteGenericModal from "../../Components/Clientes/ClienteGenericModal";
+import ClienteGenericModal from "./ClienteGenericModal";
 import ClienteFormulario from "./ClienteFormulario";
 import { useState } from "react";
 
-
-const ClienteBotonAgregar = () =>
+const ClienteBotonEliminar = () =>
 {
     const [showAddModal,  setShowAddModal]  = useState(false);
 
@@ -34,4 +33,4 @@ const ClienteBotonAgregar = () =>
     )
 }
 
-export default ClienteBotonAgregar;
+export default ClienteBotonEliminar;

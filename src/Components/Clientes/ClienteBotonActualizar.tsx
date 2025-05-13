@@ -3,7 +3,7 @@ import ClienteFormulario from "./ClienteFormulario";
 import { useState } from "react";
 
 
-const ClienteBotonAgregar = () =>
+const ClienteBotonActualizar = () =>
 {
     const [showAddModal,  setShowAddModal]  = useState(false);
 
@@ -34,4 +34,4 @@ const ClienteBotonAgregar = () =>
     )
 }
 
-export default ClienteBotonAgregar;
+export default ClienteBotonActualizar;

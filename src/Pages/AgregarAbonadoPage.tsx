@@ -1,8 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { UserPlus2 } from "lucide-react";
+import ClienteBotonAgregar from '../Components/Clientes/ClienteBotonAgregar'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const AgregarAbonadoPage = () => {
+  const queryClient = new QueryClient()
+  
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800 font-sans px-4 py-6">
       {/* Botón Volver */}
@@ -18,15 +22,14 @@ const AgregarAbonadoPage = () => {
       {/* Encabezado */}
       <header className="text-center mb-10">
         <h1 className="text-4xl font-bold text-blue-700">Añadir Abonado</h1>
+
+        <QueryClientProvider client={queryClient}>
+          <ClienteBotonAgregar/>                
+        </QueryClientProvider>
+
         <p className="text-lg text-gray-600 mt-2">Aquí podrás agregar nuevos abonados.</p>
       </header>
 
-      {/* Contenido vacío temporal */}
-      <div className="flex flex-col items-center justify-center mt-20">
-        <UserPlus2 className="w-16 h-16 text-gray-400 mb-4" />
-        <p className="text-xl text-gray-500">Esta función estará disponible pronto.</p>
-        <p className="text-sm text-gray-400">Estamos trabajando en el formulario de registro.</p>
-      </div>
     </div>
   );
 };

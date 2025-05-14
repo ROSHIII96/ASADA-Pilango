@@ -8,22 +8,16 @@ import ClienteBotonAgregar from '../Components/Clientes/ClienteBotonAgregar'
 
 
 const ListaAbonadosPage = () => {
+      //const {user} = useContext(AuthContext)
+
       const queryClient = new QueryClient()
 
       
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-800 font-sans px-4 py-6">
-      {/* Botón Volver */}
-      <div className="mb-6">
-        <Link
-          to="/"
-          className="inline-flex items-center text-white bg-blue-800 py-2 px-4 rounded-lg shadow-md hover:bg-blue-900 transition-colors duration-300"
-        >
-          <span className="mr-2">&larr;</span> Volver al Inicio
-        </Link>
-      </div>
 
-      {/* Encabezado */}
+    <QueryClientProvider client={queryClient}>
+                  
+             {/* Encabezado */}
       <header className="text-center mb-10">
         <h1 className="text-4xl font-bold text-blue-700">Lista de Abonados</h1>
               <QueryClientProvider client={queryClient}>
@@ -39,7 +33,9 @@ const ListaAbonadosPage = () => {
         <p className="text-xl text-gray-500">No hay abonados registrados todavía.</p>
         <p className="text-sm text-gray-400">Puedes agregar nuevos registros cuando estén disponibles.</p>
       </div>
-    </div>
+            
+        </QueryClientProvider>
+       
   );
 };
 

@@ -5,16 +5,7 @@ import { Link } from "react-router-dom";
 const QuienesSomosPage = () => {
   return (
     <div className="min-h-screen bg-blue-50 text-gray-800 font-sans">
-      {/* Botón de Atrás */}
-      <section className="absolute top-4 left-4">
-        <Link
-          to="/"
-          className="flex items-center text-white bg-blue-800 py-2 px-4 rounded-lg shadow-md hover:bg-blue-900 transition-colors duration-300"
-        >
-          <span className="mr-2">&larr;</span> Volver al Inicio
-        </Link>
-      </section>
-
+      
       {/* Encabezado */}
       <header className="text-center py-12 bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-lg">
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-wider drop-shadow-lg">
@@ -117,3 +108,16 @@ const QuienesSomosPage = () => {
 };
 
 export default QuienesSomosPage;
+
+/*
+{ /*Botón de Atrás
+ */ /*}
+      <section className="absolute top-4 left-4">
+        <Link
+          to="/"
+          className="flex items-center text-white bg-blue-800 py-2 px-4 rounded-lg shadow-md hover:bg-blue-900 transition-colors duration-300"
+        >
+          <span className="mr-2">&larr;</span> Volver al Inicio
+        </Link>
+      </section>
+*/

@@ -1,7 +1,7 @@
 // src/Pages/ListaReportesPage.tsx
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useRouter } from "@tanstack/react-router";
 
 interface Averia {
   detalle: string;
@@ -11,7 +11,9 @@ interface Averia {
 }
 
 const ListaReportesPage = () => {
-  const navigate = useNavigate();
+    const router = useRouter(); // Usa el hook useRouter
+
+  //const navigate = useNavigate();
   const { user } = useAuth();
   const [listaAverias, setListaAverias] = useState<Averia[]>(() => {
     const stored = localStorage.getItem("averias");
@@ -82,7 +84,7 @@ const ListaReportesPage = () => {
 
         <div className="mt-8 text-center">
           <button
-            onClick={() => navigate("/")}
+            onClick={() => router.navigate({ to: "/" })} // Reemplaza navigate con router.navigate
             className="bg-gray-600 hover:bg-gray-500 text-white px-4 py-2 rounded shadow"
           >
             Volver al inicio

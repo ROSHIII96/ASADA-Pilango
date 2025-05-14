@@ -40,7 +40,7 @@ const ClienteFormulario = () => {
         {/* ─── ID Field ───────────────────────── */}
         <div className="flex flex-col">
           <label htmlFor="id" className="mb-1 text-gray-700 font-medium">
-            ID:
+            Cedula:
           </label>
           <form.Field name="id">
             {field => (
@@ -59,7 +59,7 @@ const ClienteFormulario = () => {
         {/* ─── Name Field ─────────────────────── */}
         <div className="flex flex-col">
           <label htmlFor="name" className="mb-1 text-gray-700 font-medium">
-            Name:
+            Nombre:
           </label>
           <form.Field name="name">
             {field => (
@@ -78,7 +78,7 @@ const ClienteFormulario = () => {
         {/* ─── Email Field ────────────────────── */}
         <div className="flex flex-col">
           <label htmlFor="email" className="mb-1 text-gray-700 font-medium">
-            Email:
+            Correo Electronico:
           </label>
           <form.Field name="email">
             {field => (
@@ -98,7 +98,7 @@ const ClienteFormulario = () => {
         {/* ─── Role Field ─────────────────────── */}
         <div className="flex flex-col">
           <label htmlFor="role" className="mb-1 text-gray-700 font-medium">
-            Role:
+            Dirección exacta:
           </label>
           <form.Field name="role">
             {field => (
@@ -121,14 +121,14 @@ const ClienteFormulario = () => {
             disabled={!form.state.canSubmit}
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
           >
-            Submit
+            Agregar
           </button>
           <button
             type="button"
             onClick={() => form.reset()}
             className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300"
           >
-            Reset
+            Limpiar formulario
           </button>
         </div>
       </form>      

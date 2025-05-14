@@ -1,6 +1,7 @@
-import ClienteGenericModal from "../../Components/Clientes/ClienteGenericModal";
-import ClienteFormulario from "./ClienteFormulario";
+import GenericModal from "./GenericModal";
+import ClienteFormularioEditar from "./ClienteFormularioEditar";
 import { useState } from "react";
+//import ClienteFormularioEditar from "./ClienteFormularioEditar";
 
 
 const ClienteBotonActualizar = () =>
@@ -17,18 +18,18 @@ const ClienteBotonActualizar = () =>
                             bg-blue-600 rounded-lg hover:bg-blue-700 
                             focus:outline-none focus:ring-4 focus:ring-blue-300"
                 >
-                    Add User
+                    Editar cliente
                 </button>
             </div>
 
             {/* Modal */}
-            <ClienteGenericModal
+            <GenericModal
                 show={showAddModal}
                 onClose={() => setShowAddModal(false)}
-                title="Create New User"
+                title="Actualizar cliente"
             >
-                <ClienteFormulario />
-            </ClienteGenericModal>
+                <ClienteFormularioEditar />
+            </GenericModal>
             
         </>
     )

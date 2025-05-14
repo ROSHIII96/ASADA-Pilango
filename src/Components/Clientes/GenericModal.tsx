@@ -1,6 +1,6 @@
-import ClientesGenericModal from './ClienteBotonAgregar';
+import ClienteFormulario from './ClienteFormulario';
 
-const ClientesGenericModal = ({ show, onClose, title, children }) => {
+const GenericModal = ({ show, onClose, title, children }) => {
 
     if (!show) return null;
 
@@ -27,4 +27,4 @@ const ClientesGenericModal = ({ show, onClose, title, children }) => {
     );
 }
 
-export default ClientesGenericModal;
+export default GenericModal;

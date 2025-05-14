@@ -1,13 +1,15 @@
-
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useRouter } from "@tanstack/react-router";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
-  const navigate = useNavigate();
+    const router = useRouter(); // Usa el hook useRouter
+
+  //const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -18,9 +20,11 @@ const Login = () => {
     if (success) {
       // Log para depurar si se está alcanzando el bloque exitoso
       console.log("Inicio de sesión exitoso, redirigiendo...");
+            router.navigate({ to: "/" }); // Redirige a la página de inicio (home)
+
       
       // Asegúrate de que navigate se está llamando correctamente
-      navigate("/"); // Redirige al Home
+     // navigate("/"); // Redirige al Home
 
     } else {
       // En caso de error, mostrar mensaje de error

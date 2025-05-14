@@ -28,105 +28,11 @@ const HomePage = () => {
       <div className="fixed top-0 left-0 w-full bg-blue-500 z-10 py-2 px-4 shadow-md">
         <div className="flex justify-between items-center">
           <div className="flex gap-2">
-            <Link
-              to="/quienes-somos"
-              className="bg-blue-700 hover:bg-blue-600 text-white py-2 px-4 rounded shadow-lg transition duration-300"
-            >
-              Quiénes somos
-            </Link>
-            {!isAuthenticated && (
-              <Link
-                to="/reportes"
-                className="bg-yellow-600 hover:bg-yellow-500 text-white py-2 px-4 rounded shadow-lg transition duration-300"
-              >
-                Reportar Avería
-              </Link>
-            )}
-            {isAuthenticated && (
-              <Link
-                to="/reportes/lista"
-                className="bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded shadow-lg transition duration-300"
-              >
-                Ver Reportes
-              </Link>
-            )}
+
           </div>
 
           <div className="flex gap-4 items-center">
-            {!isAuthenticated ? (
-              <Link
-                to="/login"
-                className="bg-blue-700 hover:bg-blue-600 text-white py-2 px-4 rounded shadow-lg transition duration-300"
-              >
-                Iniciar sesión
-              </Link>
-            ) : (
-              <div className="flex gap-4 items-center">
-                {/* Botón ABONADOS con submenú */}
-                <div className="relative">
-                  <button
-                    onClick={toggleAbonadosMenu}
-                    className="bg-green-700 hover:bg-green-600 text-white py-2 px-4 rounded-full shadow-lg transition duration-300 flex items-center gap-2"
-                  >
-                    <span>ABONADOS</span>
-                    <svg
-                      className={`transform transition-transform duration-300 ${showAbonadosMenu ? "rotate-180" : "rotate-0"}`}
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M1.5 5.5l6 6 6-6" />
-                    </svg>
-                  </button>
-
-                  {showAbonadosMenu && (
-                    <div className="absolute left-0 bg-indigo-600 text-white border border-indigo-800 rounded-lg shadow-xl mt-2 p-2 w-48 z-20">
-                      <Link
-                        to="/abonados"
-                        className="block px-4 py-2 hover:bg-indigo-500 rounded-lg transition duration-300"
-                      >
-                        Lista de Abonados
-                      </Link>
-                      <Link
-                        to="/abonados/agregar"
-                        className="block px-4 py-2 hover:bg-indigo-500 rounded-lg transition duration-300 mt-1"
-                      >
-                        Añadir Abonado
-                      </Link>
-                      <Link
-                        to="/abonados/editar/1"
-                        className="block px-4 py-2 hover:bg-indigo-500 rounded-lg transition duration-300 mt-1"
-                      >
-                        Editar Abonado
-                      </Link>
-                      <Link
-                        to="/abonados/eliminar/1"
-                        className="block px-4 py-2 hover:bg-indigo-500 rounded-lg transition duration-300 mt-1"
-                      >
-                        Eliminar Abonado
-                      </Link>
-                    </div>
-                  )}
-                </div>
-
-                <span
-                  onClick={toggleCredentials}
-                  title={user?.email}
-                  className="bg-blue-700 hover:bg-blue-600 text-white py-2 px-4 rounded shadow-lg cursor-pointer transition duration-300"
-                >
-                  {user?.name || "ADMIN"}
-                </span>
-
-                <button
-                  onClick={logout}
-                  className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded shadow-lg transition duration-300"
-                >
-                  Cerrar sesión
-                </button>
-              </div>
-            )}
+           
           </div>
         </div>
       </div>

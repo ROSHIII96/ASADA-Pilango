@@ -16,6 +16,7 @@ const ClienteFormulario = () => {
      // 1️⃣ Initialize form state with defaultValues and a submit handler
   const form = useForm({
     defaultValues: {
+      numMedidor: '',
       id: '',
       name: '',
       email: '',
@@ -37,6 +38,26 @@ const ClienteFormulario = () => {
           form.handleSubmit()
         }}
       >
+
+        {/* ─── Numero medidor Field ───────────────────────── */}
+        <div className="flex flex-col">
+          <label htmlFor="numMedidor" className="mb-1 text-gray-700 font-medium">
+            Numero medidor:
+          </label>
+          <form.Field name="numMedidor">
+            {field => (
+              <input
+                id="numMedidor"
+                name="numMedidor"
+                value={field.state.value}
+                onChange={e => field.handleChange(e.target.value)}
+                onBlur={field.handleBlur}
+                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            )}
+          </form.Field>
+        </div>
+        
         {/* ─── ID Field ───────────────────────── */}
         <div className="flex flex-col">
           <label htmlFor="id" className="mb-1 text-gray-700 font-medium">

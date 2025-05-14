@@ -18,12 +18,13 @@ const ClientesLista = () => {
   const columns = useMemo(
     () => [
     //ID es el nombre de la columna y id es el nombre de la propiedad en el objeto, osea en JSONBin
-    { header: 'ID',    accessorKey: 'id' }, 
-    { header: 'Name',  accessorKey: 'name' },
-    { header: 'Email', accessorKey: 'email' },
-    { header: 'Role',  accessorKey: 'role' },
+    { header: 'Numero medidor',    accessorKey: 'id' }, 
+    { header: 'Cedula',    accessorKey: 'id' }, 
+    { header: 'Nombre',  accessorKey: 'name' },
+    { header: 'Correo electronico', accessorKey: 'email' },
+    { header: 'Direccion exacta',  accessorKey: 'role' },
     {
-      header: 'Actions', // Nueva columna para el botón
+      header: 'Acciones', // Nueva columna para el botón
       cell: ({ row }) =>  // Renderiza el botón en cada fila
       <div className="flex space-x-2">
           <ClienteBotonActualizar />
@@ -52,47 +53,49 @@ if (isError) {
 
 return(
 <div className="p-4 bg-gray-100 min-h-screen">
-        <div className="overflow-x-auto bg-white rounded shadow">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              {table.getHeaderGroups().map(headerGroup => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map(header => (
-                    <th
-                      key={header.id}
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {table.getRowModel().rows.map(row => (
-                <tr key={row.id}>
-                  {row.getVisibleCells().map(cell => (
-                    <td
-                      key={cell.id}
-                      className="px-6 py-4 whitespace-nowrap text-sm text-gray-700"
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div>
-        </div>
-      </div>
+  <div className="overflow-x-auto bg-white rounded shadow-md hover:shadow-lg transition-shadow duration-300">
+    <table className="min-w-full table-auto divide-y divide-gray-200 text-sm">
+      <thead className="bg-gray-50">
+        {table.getHeaderGroups().map(headerGroup => (
+          <tr key={headerGroup.id}>
+            {headerGroup.headers.map(header => (
+              <th
+                key={header.id}
+                className="px-6 py-3 w-1/5 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+              >
+                {flexRender(
+                  header.column.columnDef.header,
+                  header.getContext()
+                )}
+              </th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody className="bg-white divide-y divide-gray-200">
+        {table.getRowModel().rows.map(row => (
+          <tr
+            key={row.id}
+            className="hover:bg-gray-100 transition-colors"
+          >
+            {row.getVisibleCells().map(cell => (
+              <td
+                key={cell.id}
+                className="px-6 py-4 text-left text-sm text-gray-700 align-middle"
+              >
+                {flexRender(
+                  cell.column.columnDef.cell,
+                  cell.getContext()
+                )}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <div></div>
+</div>
 )
 }
 

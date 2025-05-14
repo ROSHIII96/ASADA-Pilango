@@ -1,18 +1,21 @@
-import { createBrowserRouter } from "react-router-dom";
+import { RootLayout } from './Components/RootLayout';
+import { createRootRoute, createRoute, createRouter, createBrowserHistory } from "@tanstack/react-router"
+//Se importan todas las paginas que vamos a usar
 import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
 import ListaAbonadosPage from "./Pages/ListaAbonadosPage";
 import ListaReportesPage from './Pages/ListaReportesPage'
 import QuienesSomosPage from './Pages/QuienesSomosPage'
 import ReportesPage from "./Pages/ReportesPage";
-import { RootLayout } from './Components/RootLayout';
-import { createRootRoute, createRoute, createRouter, createBrowserHistory } from "@tanstack/react-router"
+import ContactanosPage from './Pages/ContactanosPage'
+
 
 
 const rootRoute = createRootRoute({ //Crea una ruta base o raiz
     component: RootLayout,          //indica que el componente RootLayout sera el componente principal
 })
 
+//Se crean las rutas hijas de la ruta raiz
 const homeRoute = createRoute({ 
     getParentRoute: () => rootRoute, 
     path: '/',
@@ -49,36 +52,25 @@ const quienesSomosRoute = createRoute({
     component: QuienesSomosPage,
 })
 
-rootRoute.addChildren([  //adChildren agrega rutas hijas a la ruta raiz
+const contactanosRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/contactanos',
+    component: ContactanosPage,
+})
+
+rootRoute.addChildren([  //Se agrega rutas hijas a la ruta raiz
     homeRoute,
     loginRoute,
     listaAbonadosRoute,
     listaReportesRoute,
     reportesRoute,
     quienesSomosRoute,
+    contactanosRoute,
 ]);
 
-const router = createRouter({
+const router = createRouter({ //Crea el router
     routeTree: rootRoute,
     history: createBrowserHistory(),
     defaultErrorComponent: () => <div>Something went wrong</div>,
 });
-
-
-/*
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomePage />,
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/quienes-somos",
-    element: <QuienesSomosPage />,
-  },
-]);
-*/
 export default router;

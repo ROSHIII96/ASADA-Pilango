@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+import asada1 from '../Fotos/Asada1.png';
+import asada2 from '../Fotos/Asada2.png';
+import asada3 from '../Fotos/Asada3.png';
+import asada4 from '../Fotos/Asada4.png';
 
-const images = [
-  "https://images.pexels.com/photos/9400874/pexels-photo-9400874.jpeg",
-  "https://images.pexels.com/photos/9400885/pexels-photo-9400885.jpeg",
-  "https://images.pexels.com/photos/29293217/pexels-photo-29293217.jpeg",
-];
+const images = [asada1, asada2, asada3, asada4];
 
 const Carousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -14,7 +14,7 @@ const Carousel: React.FC = () => {
       setCurrentIndex((prevIndex) =>
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000); // Cambiar imagen cada 3 segundos
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 
@@ -27,29 +27,27 @@ const Carousel: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto h-64 md:h-96 overflow-hidden rounded-xl shadow-lg">
-      {/* Imágenes del carrusel */}
+    <div className="relative w-full max-w-2xl mx-auto overflow-hidden rounded-xl shadow-lg">
       {images.map((src, index) => (
         <img
           key={index}
-          src={`${src}?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940`} // Optimiza la carga de imágenes
+          src={src}
           alt={`Imagen ${index + 1}`}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
-            index === currentIndex ? "opacity-100" : "opacity-0"
+          className={`w-full h-auto object-contain transition-opacity duration-1000 ease-in-out ${
+            index === currentIndex ? "opacity-100 block" : "opacity-0 hidden"
           }`}
         />
       ))}
 
-      {/* Controles de navegación */}
       <button
         onClick={goToPrevious}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black text-white p-2 rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-300"
+        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-1 rounded-full hover:bg-blue-700 transition"
       >
         &lt;
       </button>
       <button
         onClick={goToNext}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black text-white p-2 rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-300"
+        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-1 rounded-full hover:bg-blue-700 transition"
       >
         &gt;
       </button>

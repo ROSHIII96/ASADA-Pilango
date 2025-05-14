@@ -1,6 +1,8 @@
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { useUsers } from '../../Services/UsersService';
+import ClienteBotonEliminar from "././ClienteBotonEliminar";
+import ClienteBotonActualizar from './ClienteBotonActualizar'
 
 const ClientesLista = () => {
     
@@ -20,6 +22,14 @@ const ClientesLista = () => {
     { header: 'Name',  accessorKey: 'name' },
     { header: 'Email', accessorKey: 'email' },
     { header: 'Role',  accessorKey: 'role' },
+    {
+      header: 'Actions', // Nueva columna para el botón
+      cell: ({ row }) =>  // Renderiza el botón en cada fila
+      <div className="flex space-x-2">
+          <ClienteBotonActualizar />
+          <ClienteBotonEliminar row={row} />
+      </div>
+    },
     ],
     []
   );
@@ -42,7 +52,6 @@ if (isError) {
 
 return(
 <div className="p-4 bg-gray-100 min-h-screen">
-        <h1 className="text-3xl font-bold mb-4">Users</h1>
         <div className="overflow-x-auto bg-white rounded shadow">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
@@ -80,6 +89,8 @@ return(
               ))}
             </tbody>
           </table>
+        </div>
+        <div>
         </div>
       </div>
 )

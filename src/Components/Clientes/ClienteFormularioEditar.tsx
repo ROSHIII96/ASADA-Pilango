@@ -1,17 +1,17 @@
 import { useForm } from '@tanstack/react-form'
-import { useAddUser } from '../../Services/UsersService'
+import { useUpdateUser } from '../../Services/UsersService'
 
-const ClienteFormulario = () => {
+const ClienteFormularioEditar = () => {
 
   // 1) grab your mutation
   const {
-    mutate: addUser,
+    mutate: updateuser,
     isLoading,
     isAdding,
     isError,
     error,
     isSuccess,
-  } = useAddUser()
+  } = useUpdateUser()
 
      // 1️⃣ Initialize form state with defaultValues and a submit handler
   const form = useForm({
@@ -24,7 +24,7 @@ const ClienteFormulario = () => {
      // 3) when the user submits, call your mutation
     onSubmit: async ({ value }) => {
       // value is { id, name, email, role }
-      addUser({ newUser: value })  //contiene los datos actuales del formulario
+      updateuser({ updatedUser: value })  //contiene los datos actuales del formulario
     },
   })
 
@@ -135,4 +135,4 @@ const ClienteFormulario = () => {
     )
 }
 
-export default ClienteFormulario;
+export default ClienteFormularioEditar;

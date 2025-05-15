@@ -36,24 +36,26 @@ const HomePage = () => {
               Quiénes somos
             </Link>
 
-            {!isAuthenticated && (
-              <Link
-                to="/reportes"
-                className="bg-yellow-600 hover:bg-yellow-500 text-white py-2 px-4 rounded shadow-lg transition duration-300"
-              >
-                Reportar Avería
-              </Link>
-            )}
+           {/* Para no autenticados y usuarios normales: mostrar "Reportar Avería" */}
+{(!isAuthenticated || (user && user.role === "user")) && (
+  <Link
+    to="/reporte"
+    className="bg-yellow-600 hover:bg-yellow-500 text-white py-2 px-4 rounded shadow-lg transition duration-300"
+  >
+    Reportar Avería
+  </Link>
+)}
 
-            {/* Mostrar el botón "Ver Reportes" solo si el usuario está autenticado */}
-            {isAuthenticated && (
-              <Link
-                to="/reportes/lista"
-                className="bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded shadow-lg transition duration-300"
-              >
-                Ver Reportes
-              </Link>
-            )}
+{/* Solo el admin ve "Ver Reportes" */}
+{isAuthenticated && user?.role === "admin" && (
+  <Link
+    to="/reportes/lista"
+    className="bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded shadow-lg transition duration-300"
+  >
+    Ver Reportes
+  </Link>
+)}
+
           </div>
 
           {/* Sesión / usuario */}

@@ -1,4 +1,3 @@
-// src/Pages/ListaReportesPage.tsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -12,7 +11,16 @@ interface Averia {
 
 const ListaReportesPage = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
+
+  // Validación solo admins pueden entrar aquí
+  useEffect(() => {
+    if (!isAuthenticated || user?.role !== "admin") {
+      alert("Acceso denegado: solo administradores pueden ver esta página.");
+      navigate("/reportes"); // o cualquier otra ruta de solo visualización
+    }
+  }, [user, isAuthenticated, navigate]);
+
   const [listaAverias, setListaAverias] = useState<Averia[]>(() => {
     const stored = localStorage.getItem("averias");
     return stored ? JSON.parse(stored) : [];

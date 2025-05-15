@@ -5,9 +5,9 @@ import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
 import QuienesSomosPage from "./Pages/QuienesSomosPage";
 import ListaAbonadosPage from "./Pages/ListaAbonadosPage";
-import AgregarAbonadoPage from "./Pages/AgregarAbonadoPage";
-import EditarAbonadoPage from "./Pages/EditarAbonadoPage";
-import EliminarAbonadoPage from "./Pages/EliminarAbonadoPage";
+//import AgregarAbonadoPage from "./Pages/AgregarAbonadoPage";
+//import EditarAbonadoPage from "./Pages/EditarAbonadoPage";
+//import EliminarAbonadoPage from "./Pages/EliminarAbonadoPage";
 import ReportesPage from "./Pages/ReportesPage"; // Página pública para reportar averías
 import ListaReportesPage from "./Pages/ListaReportesPage"; // Página protegida para ver reportes
 import { useAuth } from "./context/AuthContext";

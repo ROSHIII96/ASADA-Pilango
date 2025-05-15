@@ -1,11 +1,25 @@
 // src/Pages/QuienesSomosPage.tsx
 import React from "react";
-import { Link } from "react-router-dom";
+
+import PresidenteImg from "../Fotos/Presidente.png";
+import VicepresidenteImg from "../Fotos/Vicepresidente.png";
+import SecretariaImg from "../Fotos/Secretaria.png";
+import TesoreroImg from "../Fotos/Tesorero.png";
+import Fontanero1Img from "../Fotos/Fontanero1.png";
+import Fontanero2Img from "../Fotos/Fontanero2.png";
 
 const QuienesSomosPage = () => {
+  const otrosMiembros = [
+    { rol: "Vicepresidente", img: VicepresidenteImg },
+    { rol: "Secretaria", img: SecretariaImg },
+    { rol: "Tesorero", img: TesoreroImg },
+    { rol: "Fontanero", img: Fontanero1Img },
+    { rol: "Fontanero", img: Fontanero2Img },
+  ];
+
   return (
     <div className="min-h-screen bg-blue-50 text-gray-800 font-sans">
-      
+
       {/* Encabezado */}
       <header className="text-center py-12 bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-lg">
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-wider drop-shadow-lg">
@@ -48,34 +62,35 @@ const QuienesSomosPage = () => {
       </section>
 
       {/* Miembros */}
-      <section className="text-center mb-20">
-        <h2 className="text-3xl font-semibold text-blue-700 mb-8">Nuestros Miembros</h2>
+      <section className="text-center mb-20 px-6">
+        <h2 className="text-3xl font-semibold text-blue-700 mb-10">Nuestros Miembros</h2>
 
-        {/* Presidente */}
-        <div className="mb-12">
-          <div className="text-center">
+        {/* Presidente destacado */}
+        <div className="mb-16">
+          <div className="flex flex-col items-center">
             <img
-              src="https://i.pinimg.com/originals/9e/4b/e4/9e4be45c7fbb46b05aaee2b203a35232.jpg"
+              src={PresidenteImg}
               alt="Presidente"
-              className="w-28 h-28 rounded-full mx-auto mb-4 border-4 border-blue-700 shadow-lg"
+              className="w-32 h-32 rounded-full mb-4 border-4 border-blue-600 shadow-xl object-cover"
             />
             <p className="font-semibold text-lg">Presidente</p>
           </div>
         </div>
 
-        {/* Fila de los demás miembros */}
-        <div className="flex flex-wrap justify-center gap-10 px-6">
-          {[ "Vicepresidente", "Tesorero", "Secretario", "Fontanero", "Fontanero" ].map((rol, i) => (
-            <div key={i} className="text-center">
-              <img
-                src="https://i.pinimg.com/originals/9e/4b/e4/9e4be45c7fbb46b05aaee2b203a35232.jpg"
-                alt={rol}
-                className="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-blue-500 shadow-lg"
-              />
-              <p className="font-semibold text-sm">{rol}</p>
-            </div>
-          ))}
-        </div>
+        {/* Otros miembros */}
+<div className="flex flex-wrap justify-center gap-10">
+  {otrosMiembros.map((miembro, i) => (
+    <div key={i} className="text-center">
+      <img
+        src={miembro.img}
+        alt={miembro.rol}
+        className="w-28 h-28 rounded-full mx-auto mb-2 border-4 border-blue-400 object-cover shadow-lg"
+      />
+      <p className="font-semibold text-sm">{miembro.rol}</p>
+    </div>
+  ))}
+</div>
+
       </section>
 
       {/* Ubicación */}
@@ -108,16 +123,3 @@ const QuienesSomosPage = () => {
 };
 
 export default QuienesSomosPage;
-
-/*
-{ /*Botón de Atrás
- */ /*}
-      <section className="absolute top-4 left-4">
-        <Link
-          to="/"
-          className="flex items-center text-white bg-blue-800 py-2 px-4 rounded-lg shadow-md hover:bg-blue-900 transition-colors duration-300"
-        >
-          <span className="mr-2">&larr;</span> Volver al Inicio
-        </Link>
-      </section>
-*/

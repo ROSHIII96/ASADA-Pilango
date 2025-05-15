@@ -29,6 +29,33 @@ const HomePage = () => {
         <div className="flex justify-between items-center">
           <div className="flex gap-2">
 
+            <Link
+              to="/quienes-somos"
+              className="bg-blue-700 hover:bg-blue-600 text-white py-2 px-4 rounded shadow-lg transition duration-300"
+            >
+              Quiénes somos
+            </Link>
+
+           {/* Para no autenticados y usuarios normales: mostrar "Reportar Avería" */}
+{(!isAuthenticated || (user && user.role === "user")) && (
+  <Link
+    to="/reporte"
+    className="bg-yellow-600 hover:bg-yellow-500 text-white py-2 px-4 rounded shadow-lg transition duration-300"
+  >
+    Reportar Avería
+  </Link>
+)}
+
+{/* Solo el admin ve "Ver Reportes" */}
+{isAuthenticated && user?.role === "admin" && (
+  <Link
+    to="/reportes/lista"
+    className="bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded shadow-lg transition duration-300"
+  >
+    Ver Reportes
+  </Link>
+)}
+
           </div>
 
           <div className="flex gap-4 items-center">

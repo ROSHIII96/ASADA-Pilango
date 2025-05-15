@@ -1,15 +1,13 @@
-import NavBar from './Navbar'
-import { Outlet } from '@tanstack/react-router'
+import NavBar from './Navbar';
+import { Outlet } from '@tanstack/react-router';
 
 export const RootLayout = () => {
-
-    return (
-        <div>
-           <NavBar />
-            <div className="container mx-auto p-4 py-8">
-                {/* Outlet for nested routes */}
-                <Outlet />
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className="min-h-screen flex flex-col w-full text-gray-800">
+      <NavBar />
+      <main className="flex-grow container max-w-7xl mx-auto p-4 py-8">
+        <Outlet />
+      </main>
+    </div>
+  );
+};

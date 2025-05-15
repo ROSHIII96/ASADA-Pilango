@@ -38,7 +38,7 @@ const ReportesPage = () => {
     setFormulario({ ...formulario, [name]: value });
   };
 
-  // Guardar una nueva avería 
+  // Guardar una nueva avería (sin capacidad de edición)
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const { nombre, identificacion, telefono, direccion, detalle } = formulario;
@@ -124,7 +124,7 @@ const ReportesPage = () => {
   );
 };
 
-// Componente reutilizable para los inputs del formulario
+// Componente reutilizable para los inputs del formulario (se mantiene igual)
 const renderInput = (
   label: string,
   name: string,
@@ -144,7 +144,7 @@ const renderInput = (
   </div>
 );
 
-
+// Estilos (se mantienen igual)
 const buttonStyle = {
   padding: "10px",
   backgroundColor: "#007bff",

@@ -1,19 +1,21 @@
 // src/App.tsx
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
 import QuienesSomosPage from "./Pages/QuienesSomosPage";
 import ListaAbonadosPage from "./Pages/ListaAbonadosPage";
+
 //import AgregarAbonadoPage from "./Pages/AgregarAbonadoPage";
 //import EditarAbonadoPage from "./Pages/EditarAbonadoPage";
 //import EliminarAbonadoPage from "./Pages/EliminarAbonadoPage";
 import ReportesPage from "./Pages/ReportesPage"; // Página pública para reportar averías
 import ListaReportesPage from "./Pages/ListaReportesPage"; // Página protegida para ver reportes
+
 import { useAuth } from "./context/AuthContext";
 
 const App = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   return (
     <Router>
@@ -22,9 +24,17 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/quienes-somos" element={<QuienesSomosPage />} />
         <Route path="/reportes" element={<ReportesPage />} />
+        <Route path="/reporte" element={<Navigate to="/reportes" />} />
+
         <Route
           path="/reportes/lista"
-          element={isAuthenticated ? <ListaReportesPage /> : <LoginPage />}
+          element={
+            isAuthenticated && user?.role === "admin" ? (
+              <ListaReportesPage />
+            ) : (
+              <LoginPage />
+            )
+          }
         />
         <Route
           path="/abonados"

@@ -6,7 +6,7 @@ const Navbar = () => {
   const { isAuthenticated, logout, user } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,7 +42,18 @@ const Navbar = () => {
           Quienes somos
         </Link>
 
-        {isAuthenticated && (
+        {isAuthenticated && user?.role === "user" &&(
+          <>
+            <Link to="/listareportes" className={buttonClass}>
+              Reportes
+            </Link>
+            <Link to="/reportes" className={buttonClass}>
+               Reporte averia
+            </Link>
+          </>
+        )}
+
+         {isAuthenticated && user?.role === "admin" &&(
           <>
             <Link to="/listareportes" className={buttonClass}>
               Reportes

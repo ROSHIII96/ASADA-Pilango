@@ -11,16 +11,16 @@ interface Averia {
 
 const ListaReportesPage = () => {
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const { user, isAuthenticated } = useAuth();
 
   // Validación solo admins pueden entrar aquí
   useEffect(() => {
     if (!isAuthenticated || user?.role !== "admin") {
       alert("Acceso denegado: solo administradores pueden ver esta página.");
-      navigate("/reportes"); // o cualquier otra ruta de solo visualización
+      //navigate("/reportes"); // o cualquier otra ruta de solo visualización
     }
-  }, [user, isAuthenticated, navigate]);
+  }, [user, isAuthenticated/*, navigate*/]);
 
   const [listaAverias, setListaAverias] = useState<Averia[]>(() => {
     const stored = localStorage.getItem("averias");
@@ -91,7 +91,7 @@ const ListaReportesPage = () => {
 
         <div className="mt-8 text-center">
           <button
-            onClick={() => router.navigate({ to: "/" })} // Reemplaza navigate con router.navigate
+            //onClick={() => router.navigate({ to: "/" })} // Reemplaza navigate con router.navigate
             className="bg-gray-600 hover:bg-gray-500 text-white px-4 py-2 rounded shadow"
           >
             Volver al inicio

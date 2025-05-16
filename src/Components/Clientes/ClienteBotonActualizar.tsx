@@ -2,9 +2,10 @@ import GenericModal from "./GenericModal";
 import ClienteFormularioEditar from "./ClienteFormularioEditar";
 import { useState } from "react";
 
-const ClienteBotonActualizar = () =>
-{
+const ClienteBotonActualizar = ({ row }) =>{
     const [showAddModal,  setShowAddModal]  = useState(false);
+
+    const cliente = row.original;
 
     return (
         <>
@@ -26,7 +27,7 @@ const ClienteBotonActualizar = () =>
                 onClose={() => setShowAddModal(false)}
                 title="Actualizar cliente"
             >
-                <ClienteFormularioEditar />
+                <ClienteFormularioEditar cliente={cliente} onClose={() => setShowAddModal(false)} />
             </GenericModal>
             
         </>

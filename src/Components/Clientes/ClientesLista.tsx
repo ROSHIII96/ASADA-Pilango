@@ -10,24 +10,30 @@ const ClientesLista = () => {
 
   //si data es null se usa arreglo vacio
   //Mientras que no se realice ningun cambio en data, no se vuelve a calcular users
-	const users = useMemo(() => data ?? [], [data]);
+
+  //Se usa useMemo para evitar que la tabla se vuelva a renderizar
+  const users = useMemo(() => {
+    // Si data es null, se usa un arreglo vacio
+  const arr = data ?? [];
+  // Ordena por numMedidor de menor a mayor
+  return [...arr].sort((a, b) => Number(a.numMedidor) - Number(b.numMedidor));
+}, [data]);
 
   //Define las columnas de la tabla
   const columns = useMemo(
     () => [
-    //ID es el nombre de la columna y id es el nombre de la propiedad en el objeto, osea en JSONBin
-
+    //Cedula es el nombre de la columna y id es el nombre
+    // de la propiedad en el objeto, osea en JSONBin
     { header: 'Numero de medidor',    accessorKey: 'numMedidor' }, 
-
     { header: 'Cedula',    accessorKey: 'id' }, 
     { header: 'Nombre',  accessorKey: 'name' },
     { header: 'Correo electronico', accessorKey: 'email' },
-    { header: 'Direccion exacta',  accessorKey: 'role' },
+    { header: 'Direccion exacta',  accessorKey: 'direccion' },
     {
-      header: 'Acciones', // Nueva columna para el botón
-      cell: ({ row }) =>  // Renderiza el botón en cada fila
+      header: 'Acciones', // Nueva columna donde iran los botones
+      cell: ({ row }) =>  // Renderiza el botón editar y eliminar en cada fila
       <div className="flex space-x-2">
-          <ClienteBotonActualizar />
+          <ClienteBotonActualizar row={row}/>  
           <ClienteBotonEliminar row={row} />
       </div>
     },
@@ -35,7 +41,7 @@ const ClientesLista = () => {
     []
   );
 
-  // Create table instance
+  // Crea la tabla 
   const table = useReactTable({
         data: users,  //aqui funciona igual si se elimina users y se deja data solamente
         columns,
@@ -46,10 +52,10 @@ const ClientesLista = () => {
  //Si isLoading es verdadero muestra el mensaje de carga, si es falso muestra el mensaje de error
  if (isLoading) {
   return <div className="p-4">Loading users...</div>;
-}
-if (isError) {
-   return <div className="p-4 text-red-500">Error: {er-ror.message}</div>;
-}
+  }
+ if (isError) {
+    return <div className="p-4 text-red-500">Error: {er-ror.message}</div>;
+  }
 
 return(
 <div className="p-4 bg-gray-100 min-h-screen">
@@ -94,7 +100,6 @@ return(
       </tbody>
     </table>
   </div>
-  <div></div>
 </div>
 )
 }

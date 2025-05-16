@@ -1,7 +1,28 @@
 import { useForm } from '@tanstack/react-form'
-import { useAddUser } from '../../Services/UsersService'
+import { useAddUser, useUsers } from '../../Services/UsersService'
 
-const ClienteFormulario = () => {
+
+const ClienteFormulario = ({ onClose }) => {
+  const { data: users } = useUsers();
+
+// 1. Obtén todos los números de medidor existentes y ordénalos
+  const medidores = users
+    ? users.map(u => Number(u.numMedidor)).filter(n => !isNaN(n)).sort((a, b) => a - b)
+    : [];
+
+  // 2. Encuentra el menor número positivo que no esté en la lista
+  let nextNumMedidor = 1;
+  for (let i = 0; i < medidores.length; i++) {
+    if (medidores[i] === nextNumMedidor) {
+      nextNumMedidor++;
+    } else if (medidores[i] > nextNumMedidor) {
+      break;
+    }
+  }
+/*
+  const nextNumMedidor = users && users.length > 0
+  ? Math.max(...users.map(u => Number(u.numMedidor) || 0)) + 1
+  : 1;*/
 
   // 1) grab your mutation
   const {
@@ -16,16 +37,22 @@ const ClienteFormulario = () => {
      // 1️⃣ Initialize form state with defaultValues and a submit handler
   const form = useForm({
     defaultValues: {
-      numMedidor: '', // Usa el prop si está disponible
+      numMedidor: nextNumMedidor.toString(), // Usa el prop si está disponible
       id: '',
       name: '',
       email: '',
-      role: '',
+      direccion: '',
     },
-     // 3) when the user submits, call your mutation
+     //Cuando se presiona el boton de agregar, se ejecuta la mutacion
     onSubmit: async ({ value }) => {
-      // value is { id, name, email, role }
-      addUser({ newUser: value })  //contiene los datos actuales del formulario
+      addUser(
+        { newUser: value },
+        {
+        onSuccess: () => {
+          if (onClose) onClose(); // Cierra el modal al agregar exitosamente
+        }
+        }
+        )
     },
   })
 
@@ -39,24 +66,7 @@ const ClienteFormulario = () => {
         }}
       >
 
-        {/* ─── Numero medidor Field ───────────────────────── */}
-        <div className="flex flex-col">
-          <label htmlFor="numMedidor" className="mb-1 text-gray-700 font-medium">
-            Numero medidor:
-          </label>
-          <form.Field name="numMedidor">
-            {field => (
-              <input
-                id="numMedidor"
-                name="numMedidor"
-                value={field.state.value}
-                onChange={e => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            )}
-          </form.Field>
-        </div>
+        
         
         {/* ─── Cedula ───────────────────────── */}
         <div className="flex flex-col">
@@ -118,14 +128,14 @@ const ClienteFormulario = () => {
       
         {/* ─── Direccion exacta ─────────────────────── */}
         <div className="flex flex-col">
-          <label htmlFor="role" className="mb-1 text-gray-700 font-medium">
+          <label htmlFor="direccion" className="mb-1 text-gray-700 font-medium">
             Dirección exacta:
           </label>
-          <form.Field name="role">
+          <form.Field name="direccion">
             {field => (
               <input
-                id="role"
-                name="role"
+                id="direccion"
+                name="direccion"
                 value={field.state.value}
                 onChange={e => field.handleChange(e.target.value)}
                 onBlur={field.handleBlur}
@@ -157,3 +167,23 @@ const ClienteFormulario = () => {
 }
 
 export default ClienteFormulario;
+
+/*
+{/* ─── Numero medidor Field ───────────────────────── *//*}
+        <div className="flex flex-col">
+          <label htmlFor="numMedidor" className="mb-1 text-gray-700 font-medium">
+            Numero medidor:
+          </label>
+          <form.Field name="numMedidor">
+           /* {field => (
+              <input
+                id="numMedidor"
+                name="numMedidor"
+                value={field.state.value}
+                onChange={e => field.handleChange(e.target.value)}
+                onBlur={field.handleBlur}
+                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            )}
+          </form.Field>
+        </div>*/

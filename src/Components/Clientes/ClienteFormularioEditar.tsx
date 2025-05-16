@@ -1,7 +1,9 @@
 import { useForm } from '@tanstack/react-form'
 import { useUpdateUser } from '../../Services/UsersService'
 
-const ClienteFormularioEditar = () => {
+//const ClienteFormularioEditar = () => {
+  const ClienteFormularioEditar = ({ cliente, onClose }) => {
+
 
   // 1) grab your mutation
   const {
@@ -16,15 +18,23 @@ const ClienteFormularioEditar = () => {
      // 1️⃣ Initialize form state with defaultValues and a submit handler
   const form = useForm({
     defaultValues: {
-      id: '',
+      numMedidor: cliente.numMedidor,
+      id: cliente.id,
       name: '',
       email: '',
-      role: '',
+      direccion: '',
     },
      // 3) when the user submits, call your mutation
     onSubmit: async ({ value }) => {
       // value is { id, name, email, role }
-      updateuser({ updatedUser: value })  //contiene los datos actuales del formulario
+      updateuser(
+        { updatedUser: value },
+        {
+        onSuccess: () => {
+          if (onClose) onClose(); // Cierra el modal al agregar exitosamente
+        }
+      }
+      )  //contiene los datos actuales del formulario
     },
   })
 
@@ -37,24 +47,6 @@ const ClienteFormularioEditar = () => {
           form.handleSubmit()
         }}
       >
-        {/* ─── ID Field ───────────────────────── */}
-        <div className="flex flex-col">
-          <label htmlFor="id" className="mb-1 text-gray-700 font-medium">
-            ID:
-          </label>
-          <form.Field name="id">
-            {field => (
-              <input
-                id="id"
-                name="id"
-                value={field.state.value}
-                onChange={e => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            )}
-          </form.Field>
-        </div>
       
         {/* ─── Name Field ─────────────────────── */}
         <div className="flex flex-col">
@@ -97,14 +89,14 @@ const ClienteFormularioEditar = () => {
       
         {/* ─── Role Field ─────────────────────── */}
         <div className="flex flex-col">
-          <label htmlFor="role" className="mb-1 text-gray-700 font-medium">
+          <label htmlFor="direccion" className="mb-1 text-gray-700 font-medium">
            Dirección:
           </label>
-          <form.Field name="role">
+          <form.Field name="direccion">
             {field => (
               <input
-                id="role"
-                name="role"
+                id="direccion"
+                name="direccion"
                 value={field.state.value}
                 onChange={e => field.handleChange(e.target.value)}
                 onBlur={field.handleBlur}
@@ -136,3 +128,23 @@ const ClienteFormularioEditar = () => {
 }
 
 export default ClienteFormularioEditar;
+
+/*
+ {/* ─── ID Field ───────────────────────── *//*}
+        <div className="flex flex-col">
+          <label htmlFor="id" className="mb-1 text-gray-700 font-medium">
+            ID:
+          </label>
+          <form.Field name="id">
+            /*{field => (
+              <input
+                id="id"
+                name="id"
+                value={field.state.value}
+                onChange={e => field.handleChange(e.target.value)}
+                onBlur={field.handleBlur}
+                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            )}
+          </form.Field>
+        </div>*/

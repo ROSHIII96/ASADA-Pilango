@@ -15,7 +15,9 @@ const LoginPage = () => {
   };
 
   return (
+    <div className="pt-16"> {/* Ajusta pt-16 según la altura de tu navbar */}
     <Login />
+    </div>
   );
 };
 

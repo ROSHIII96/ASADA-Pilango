@@ -47,6 +47,7 @@ const ListaReportesPage = () => {
   };
 
   return (
+  <div className="pt-16"> {/* Ajusta pt-16 según la altura de tu navbar */}
     <div className="min-h-screen bg-gray-100 p-6">
       <h1 className="text-3xl font-bold text-center text-blue-800 mb-6">Reportes de Averías (Admin)</h1>
 
@@ -99,6 +100,7 @@ const ListaReportesPage = () => {
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

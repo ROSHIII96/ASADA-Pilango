@@ -17,7 +17,7 @@ const ListaReportesPage = () => {
   // Validación solo admins pueden entrar aquí
   useEffect(() => {
     if (!isAuthenticated || user?.role !== "admin") {
-      alert("Acceso denegado: solo administradores pueden ver esta página.");
+   
       //navigate("/reportes"); // o cualquier otra ruta de solo visualización
     }
   }, [user, isAuthenticated/*, navigate*/]);
@@ -91,12 +91,6 @@ const ListaReportesPage = () => {
         </table>
 
         <div className="mt-8 text-center">
-          <button
-            //onClick={() => router.navigate({ to: "/" })} // Reemplaza navigate con router.navigate
-            className="bg-gray-600 hover:bg-gray-500 text-white px-4 py-2 rounded shadow"
-          >
-            Volver al inicio
-          </button>
         </div>
       </div>
     </div>

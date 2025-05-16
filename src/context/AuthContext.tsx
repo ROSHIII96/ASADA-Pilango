@@ -5,7 +5,7 @@ interface User {
   email: string;
   password: string;
   name: string;
-  role: "admin" | "user";  // Agregamos el rol
+  role: "admin" | "user" | "fontanero";  // Se agrega el rol para cada usuario
 }
 
 interface AuthContextType {
@@ -30,14 +30,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       role: "admin"  
     },
     {
-      email: "1@gmail.com",
+      email: "fontanero@gmail.com",
       password: "1",
-      name: "PUTO",
-      role: "user"  
+      name: "Mauricio",
+      role: "fontanero"  
     },
     {
-      email: "Joseth.vargas.venegas@est.una.ac.cr",
-      password: "Joseth",
+      email: "2@gmail.com",
+      password: "2",
       name: "Joseth Vargas",
       role: "user"
     },

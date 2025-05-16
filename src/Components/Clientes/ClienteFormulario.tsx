@@ -16,7 +16,7 @@ const ClienteFormulario = () => {
      // 1️⃣ Initialize form state with defaultValues and a submit handler
   const form = useForm({
     defaultValues: {
-      numMedidor: '',
+      numMedidor: '', // Usa el prop si está disponible
       id: '',
       name: '',
       email: '',
@@ -58,7 +58,7 @@ const ClienteFormulario = () => {
           </form.Field>
         </div>
         
-        {/* ─── ID Field ───────────────────────── */}
+        {/* ─── Cedula ───────────────────────── */}
         <div className="flex flex-col">
           <label htmlFor="id" className="mb-1 text-gray-700 font-medium">
             Cedula:
@@ -77,7 +77,7 @@ const ClienteFormulario = () => {
           </form.Field>
         </div>
       
-        {/* ─── Name Field ─────────────────────── */}
+        {/* ─── Nombre abonado ─────────────────────── */}
         <div className="flex flex-col">
           <label htmlFor="name" className="mb-1 text-gray-700 font-medium">
             Nombre:
@@ -96,7 +96,7 @@ const ClienteFormulario = () => {
           </form.Field>
         </div>
       
-        {/* ─── Email Field ────────────────────── */}
+        {/* ─── Correo electronico ────────────────────── */}
         <div className="flex flex-col">
           <label htmlFor="email" className="mb-1 text-gray-700 font-medium">
             Correo Electronico:
@@ -116,7 +116,7 @@ const ClienteFormulario = () => {
           </form.Field>
         </div>
       
-        {/* ─── Role Field ─────────────────────── */}
+        {/* ─── Direccion exacta ─────────────────────── */}
         <div className="flex flex-col">
           <label htmlFor="role" className="mb-1 text-gray-700 font-medium">
             Dirección exacta:

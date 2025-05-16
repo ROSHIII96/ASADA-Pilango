@@ -5,20 +5,18 @@ import ClienteBotonEliminar from "././ClienteBotonEliminar";
 import ClienteBotonActualizar from './ClienteBotonActualizar'
 
 const ClientesLista = () => {
-    
   //Obtiene los datos de useUsers y los guarda en data
   const { data, isLoading, isError, error } = useUsers();
 
-  //Users es una version procesada de los datos obtenidos de useUsers
   //si data es null se usa arreglo vacio
   //Mientras que no se realice ningun cambio en data, no se vuelve a calcular users
 	const users = useMemo(() => data ?? [], [data]);
 
-  //2. Define table columns
+  //Define las columnas de la tabla
   const columns = useMemo(
     () => [
     //ID es el nombre de la columna y id es el nombre de la propiedad en el objeto, osea en JSONBin
-    { header: 'Numero medidor',    accessorKey: 'numMedidor' }, 
+    { header: 'Numero de medidor',    accessorKey: 'numMedidor' }, 
     { header: 'Cedula',    accessorKey: 'id' }, 
     { header: 'Nombre',  accessorKey: 'name' },
     { header: 'Correo electronico', accessorKey: 'email' },

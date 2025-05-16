@@ -25,15 +25,17 @@ const ClienteBotonEliminar = ({ row }) =>
     }
   };
 
-    //const [showAddModal,  setShowAddModal]  = useState(false);
-
     return (
+      <div className="flex justify-end mb-4">
        <button
       onClick={handleDelete}
-      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-    >
+      className="px-5 py-2.5 text-sm font-medium text-white 
+                            bg-red-600 rounded-lg hover:bg-blue-700 
+                            focus:outline-none focus:ring-4 focus:ring-blue-300"
+                >
       Eliminar
     </button>
+    </div>
     )
 }
 

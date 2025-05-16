@@ -1,5 +1,5 @@
 import GenericModal from "./GenericModal";
-import ClienteFormulario from "./ClienteFormulario";
+import ClienteFormulario from "./ClienteFormularioAgregar";
 import { useState } from "react";
 
 

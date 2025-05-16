@@ -1,4 +1,6 @@
+
 //import ClienteFormulario from './ClienteFormularioAgregar';
+
 
 const GenericModal = ({ show, onClose, title, children }) => {
 

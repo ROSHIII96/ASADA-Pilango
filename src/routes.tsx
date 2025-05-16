@@ -9,13 +9,11 @@ import QuienesSomosPage from './Pages/QuienesSomosPage'
 import ReportesPage from "./Pages/ReportesPage";
 import ContactanosPage from './Pages/ContactanosPage'
 
-
-
 const rootRoute = createRootRoute({ //Crea una ruta base o raiz
     component: RootLayout,          //indica que el componente RootLayout sera el componente principal
 })
 
-//Se crean las rutas hijas de la ruta raiz
+//Se crean todas las rutas hijas de la ruta raiz
 const homeRoute = createRoute({ 
     getParentRoute: () => rootRoute, 
     path: '/',
@@ -73,4 +71,5 @@ const router = createRouter({ //Crea el router
     history: createBrowserHistory(),
     defaultErrorComponent: () => <div>Something went wrong</div>,
 });
+
 export default router;

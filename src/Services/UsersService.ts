@@ -1,11 +1,14 @@
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 
+// JSONBin de los abonados
 const BIN = '6820eeeb8a456b79669bc349';
 const USERS_API_URL = 'https://api.jsonbin.io/v3/b/' + BIN;
 const API_KEY = '$2a$10$wUJhtUn1l0GFbHj0iXwYsek/JCBnzx0S4f.9kb.bA0fnc0XDYRKzS';
 
-const fetchUsers = async () => {  //Obtiene users desde la JSONBin
+//////////////////////Leer Usuarios//////////////////////
+
+const fetchUsers = async () => {  //Obtiene users desde JSONBin
   try 
   {
     const response = await axios.get(USERS_API_URL,
@@ -14,11 +17,11 @@ const fetchUsers = async () => {  //Obtiene users desde la JSONBin
           'X-Access-Key': API_KEY,
         }
       });
-    return response.data.record.users;  // assumes response.data has the shape { id, record, metadata }
+    return response.data.record.users;
   }
-  catch (error) {
+  catch (error) {  //Sucede en caso de algun error y retorna esto en consola
     console.error("Error fetching users:", error);
-    return []; // Return an empty array on error
+    return [];
   }
 };
 
@@ -31,32 +34,25 @@ export const useUsers = () => {  //Corre la función fetchUsers
     });
   };
 
- /**
- * Custom hook to retrieve users via React Query.
- * Returns { data, isLoading, isError, error } where data is an array of us-ers.
- * Uses the object syntax required by React Query.
- */
-
-//////////////////////Agregar usuario//////////////////////
+//////////////////////Agregar Usuarios//////////////////////
 
 export async function postUser({ newUser }) {
-
-
-   // Validar que el objeto newUser sea válido
-  if (!newUser || !newUser.id) {
-    throw new Error("El objeto newUser es inválido o no tiene un ID.");
-  }
-
   const users = await fetchUsers();
 
-    // Verificar si el ID ya existe en el servidor
-  const userExistsInServer = users.some((user) => user.id === newUser.id);
-  if (userExistsInServer) {
-    alert(`El usuario con ID ${newUser.id} ya existe en el servidor.`);
-    throw new Error(`El usuario con ID ${newUser.id} ya existe en el servidor.`);
+   // Valida que newUser exista o tenga un ID, si no lanza un error y una alerta
+  if (!newUser || !newUser.id) {
+    alert("Formulario incompleto o no cuenta con un ID.");  
+    throw new Error("El objeto newUser es inválido o no tiene un ID.");   //Muestra el error y detiene la ejecución de la función
   }
 
-  users.push(newUser);
+// Verificar si el ID ya existe en el servidor
+const userExistsInServer = users.some((user) => user.id === newUser.id);
+if (userExistsInServer) {
+  alert(`El usuario con ID ${newUser.id} ya existe en el servidor.`);
+  throw new Error(`El usuario con ID ${newUser.id} ya existe en el servidor.`);
+}
+
+users.push(newUser);
 
   try {
       const response = await axios.put(
@@ -78,11 +74,10 @@ export async function postUser({ newUser }) {
   }
 }
 
-  // Hook to encapsulate the mutation + cache updates
+  // Hook para encapsular la mutation + cache updates
   export function useAddUser() {
     const queryClient = useQueryClient()
     
-    // **Optimistic update**: before the request fires
     return useMutation({
       mutationFn: postUser,
       onMutate: async ({ newUser }) => {
@@ -102,64 +97,6 @@ export async function postUser({ newUser }) {
     })
 }
 
-//////////////////////Eliminar usuario//////////////////////
-
-export async function deleteUser({ userId }) {
-  const users = await fetchUsers(); // Obtiene la lista actual de usuarios
-  //const updatedUsers = users.filter((user) => user.id !== userId); // Filtra al usuario que se desea eliminar
-  const updatedUsers = users.filter((user) => String(user.id) !== String(userId)); // Filtra al usuario que se desea eliminar
-
-  try {
-    const response = await axios.put(
-      USERS_API_URL,
-      { users: updatedUsers }, // Actualiza la lista sin el usuario eliminado
-      {
-        headers: {
-          'X-Access-Key': API_KEY,
-        },
-      }
-      
-    );
-
-    if (response.status !== 200) {
-      throw new Error("Error deleting user");
-    }
-    alert('El usuario con ID ${userId} ha sido eliminado.')
-    return userId; // Devuelve el ID del usuario eliminado
-  } catch (error) {
-    console.error("Error deleting user:", error);
-    throw error; // Lanza el error para que pueda ser manejado por react-query
-  }
-}
-
-// Hook para manejar la eliminación de usuarios
-export function useDeleteUser() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: deleteUser, // Función que realiza la eliminación
-    onMutate: async ({ userId }) => {
-      await queryClient.cancelQueries(['users']); // Cancela cualquier consulta en curso
-      const previous = queryClient.getQueryData(['users']); // Obtiene los datos actuales en caché
-
-      // Actualización optimista: elimina el usuario de la caché antes de que la solicitud se complete
-      queryClient.setQueryData(['users'], (old) =>
-        old ? old.filter((user) => user.id !== userId) : []
-      );
-
-      return { previous }; // Devuelve los datos anteriores para revertir en caso de error
-    },
-    onError: (err, variables, context) => {
-      if (context?.previous) {
-        queryClient.setQueryData(['users'], context.previous); // Revertir cambios si ocurre un error
-      }
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(['users']); // Invalida la consulta para recargar los datos actualizados
-    },
-  });
-}
-
 //////////////////////Actualizar usuario//////////////////////
 
 export async function updateUser({ updatedUser }) {
@@ -168,10 +105,9 @@ export async function updateUser({ updatedUser }) {
   // Verifica si el usuario con el ID proporcionado existe
   const userExists = users.some((user) => user.id === updatedUser.id);
   if (!userExists) {
+    alert(`El usuario con ID ${updatedUser.id} no se encuentra en el servidor.`);
     throw new Error(`Usuario con ID ${updatedUser.id} no encontrado`);
   }
-
-  //const updated = users.filter((user) => String(user.id) !== String(userId));
 
   // Actualiza el usuario con el mismo ID
   const updatedUsers = users.map((user) =>
@@ -196,7 +132,7 @@ export async function updateUser({ updatedUser }) {
     return updatedUser; // Devuelve el usuario actualizado
   } catch (error) {
     console.error("Error updating user:", error);
-    throw error; // Lanza el error para que pueda ser manejado por react-query
+    throw error;
   }
 }
 
@@ -211,13 +147,71 @@ export function useUpdateUser() {
       await queryClient.cancelQueries(['users']); // Cancela cualquier consulta en curso
       const previous = queryClient.getQueryData(['users']); // Obtiene los datos actuales en caché
 
-      // Actualización optimista: actualiza el usuario en la caché antes de que la solicitud se complete
+      // Actualización optimista: esto significa que se actualiza el usuario en la caché antes de que la solicitud se complete
       queryClient.setQueryData(['users'], (old) =>
         old
           ? old.map((user) =>
               user.id === updatedUser.id ? updatedUser : user
             )
           : []
+      );
+
+      return { previous }; // En caso de error, se revertirán los cambios
+    },
+    onError: (err, variables, context) => {
+      if (context?.previous) {
+        queryClient.setQueryData(['users'], context.previous); // Revertir cambios si ocurre un error
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['users']);
+    },
+  });
+}
+
+//////////////////////Eliminar usuario//////////////////////
+
+export async function deleteUser({ userId }) {
+  const users = await fetchUsers(); // Obtiene la lista actual de usuarios
+  // Filtra al usuario que se desea eliminar
+  const updatedUsers = users.filter((user) => String(user.id) !== String(userId)); 
+
+  try {
+    const response = await axios.put(
+      USERS_API_URL,
+      { users: updatedUsers }, // Actualiza la lista sin el usuario eliminado
+      {
+        headers: {
+          'X-Access-Key': API_KEY,
+        },
+      }
+      
+    );
+
+    if (response.status !== 200) {
+      throw new Error("Error deleting user");
+    }
+    alert(`El usuario con ID ${userId} ha sido eliminado.`)
+    return userId; // Devuelve el ID del usuario eliminado
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    throw error; 
+  }
+}
+
+// Hook para manejar la eliminación de usuarios
+export function useDeleteUser() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteUser, // Función que realiza la eliminación
+    onMutate: async ({ userId }) => {
+      await queryClient.cancelQueries(['users']); // Cancela cualquier consulta en curso
+      const previous = queryClient.getQueryData(['users']); // Obtiene los datos actuales en caché
+
+      // Actualización optimista: elimina el usuario de la caché antes de que la solicitud se complete
+      queryClient.setQueryData(['users'], (old) =>
+        old ? old.filter((user) => user.id !== userId) : []
       );
 
       return { previous }; // Devuelve los datos anteriores para revertir en caso de error

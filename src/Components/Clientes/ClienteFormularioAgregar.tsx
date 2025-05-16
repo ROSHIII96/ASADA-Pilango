@@ -5,9 +5,24 @@ import { useAddUser, useUsers } from '../../Services/UsersService'
 const ClienteFormulario = ({ onClose }) => {
   const { data: users } = useUsers();
 
+// 1. Obtén todos los números de medidor existentes y ordénalos
+  const medidores = users
+    ? users.map(u => Number(u.numMedidor)).filter(n => !isNaN(n)).sort((a, b) => a - b)
+    : [];
+
+  // 2. Encuentra el menor número positivo que no esté en la lista
+  let nextNumMedidor = 1;
+  for (let i = 0; i < medidores.length; i++) {
+    if (medidores[i] === nextNumMedidor) {
+      nextNumMedidor++;
+    } else if (medidores[i] > nextNumMedidor) {
+      break;
+    }
+  }
+/*
   const nextNumMedidor = users && users.length > 0
   ? Math.max(...users.map(u => Number(u.numMedidor) || 0)) + 1
-  : 1;
+  : 1;*/
 
   // 1) grab your mutation
   const {

@@ -10,7 +10,14 @@ const ClientesLista = () => {
 
   //si data es null se usa arreglo vacio
   //Mientras que no se realice ningun cambio en data, no se vuelve a calcular users
-	const users = useMemo(() => data ?? [], [data]);
+
+  //Se usa useMemo para evitar que la tabla se vuelva a renderizar
+  const users = useMemo(() => {
+    // Si data es null, se usa un arreglo vacio
+  const arr = data ?? [];
+  // Ordena por numMedidor de menor a mayor
+  return [...arr].sort((a, b) => Number(a.numMedidor) - Number(b.numMedidor));
+}, [data]);
 
   //Define las columnas de la tabla
   const columns = useMemo(

@@ -3,8 +3,7 @@ import { useDeleteUser } from '../../Services/UsersService'
 
 const ClienteFormularioEliminar = () => {
 
-  // 1) grab your mutation
-  const {
+const {
     mutate: deleteUser,
     isLoading,
     isAdding,
@@ -13,14 +12,14 @@ const ClienteFormularioEliminar = () => {
     isSuccess,
   } = useDeleteUser()
 
-     // 1️⃣ Initialize form state with defaultValues and a submit handler
+  //Solo id porque es lo unico que se necesita para eliminar
   const form = useForm({
     defaultValues: {
       id: '',
     },
-     // 3) when the user submits, call your mutation
+
+    //Cuando se presiona el boton de eliminar
     onSubmit: async ({ value }) => {
-      // value is { id, name, email, role }
       deleteUser({ userId: value.id })
     },
   })

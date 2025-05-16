@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-//import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "@tanstack/react-router";
 
@@ -7,28 +6,24 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
-    const router = useRouter(); // Usa el hook useRouter
-
-  //const navigate = useNavigate();
+  const router = useRouter(); 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const success = login(username, password);
-
-    if (success) {
-      // Log para depurar si se está alcanzando el bloque exitoso
-      console.log("Inicio de sesión exitoso, redirigiendo...");
-            router.navigate({ to: "/" }); // Redirige a la página de inicio (home)
-
-      
-      // Asegúrate de que navigate se está llamando correctamente
-     // navigate("/"); // Redirige al Home
-
-    } else {
-      // En caso de error, mostrar mensaje de error
-      setErrorMessage("Credenciales incorrectas");
+  const success = login(username, password);
+   if (success) {
+  setSuccessMessage("--->>> Inicio de sesión exitoso <<<---");
+  setTimeout(() => {
+    setSuccessMessage(null);
+    router.navigate({ to: "/" });
+  }, 1500); // Muestra el mensaje 1.5 segundos antes de redirigir
+} else {
+      // En caso de error, muestra el mensaje
+      setErrorMessage("Usuario o contraseña incorrectos");
     }
   };
 
@@ -58,10 +53,24 @@ const Login = () => {
         </button>
       </form>
 
-      {/* Mostrar un mensaje de error si las credenciales son incorrectas */}
+      {/* Hace que se muestre la animacion si las credenciales son correctas */}
+      {successMessage && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-green-600 text-white px-8 py-6 rounded-xl shadow-2xl text-2xl font-bold animate-bounce border-4 border-green-800">
+            {successMessage}
+          </div>
+        </div>
+      )}
+
+      {/* Muestra un mensaje de error si las credenciales son incorrectas */}
       {errorMessage && (
-        <div className="mt-4 p-2 bg-red-500 text-white rounded">
-          {errorMessage}
+        <div className="mt-6 flex justify-center">
+          <div className="flex items-center gap-2 px-4 py-3 bg-red-600 text-white rounded-lg shadow-lg border-l-4 border-red-800 animate-shake">
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.054 0 1.918-.816 1.995-1.85l.007-.15V6c0-1.054-.816-1.918-1.85-1.995L19 4H5c-1.054 0-1.918.816-1.995 1.85L3 6v12c0 1.054.816 1.918 1.85 1.995L5 20zm7-16v2m0 4v2m0 4v2" />
+            </svg>
+            <span className="font-semibold">{errorMessage}</span>
+          </div>
         </div>
       )}
     </div>

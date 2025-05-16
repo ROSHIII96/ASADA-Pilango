@@ -16,7 +16,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = () => {  //Cuando se cierra sesión, manda a la pagina home
     logout();
     navigate({ to: "/" });
   };
@@ -42,26 +42,26 @@ const Navbar = () => {
           Quienes somos
         </Link>
 
-        {isAuthenticated && user?.role === "user" &&(
+        {isAuthenticated && user?.role === "user" &&(  //Se muestra a user
           <>
-            <Link to="/reportes" className={buttonClass}>
-               Reporte averia
+            <Link to="/reportes" className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-lg font-semibold transition duration-300">
+              Reportar Avería
             </Link>
           </>
         )}
 
- {isAuthenticated && user?.role === "fontanero" &&(
+        {isAuthenticated && user?.role === "fontanero" &&(  //Se muestra al fontanero
           <>
+            <Link to="/reportes" className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-lg font-semibold transition duration-300">
+              Reportar Avería
+            </Link>
             <Link to="/listareportes" className={buttonClass}>
               Reportes
             </Link>
-            <Link to="/reportes" className={buttonClass}>
-               Reporte averia
-            </Link>
           </>
         )}
 
-         {isAuthenticated && user?.role === "admin" &&(
+         {isAuthenticated && user?.role === "admin" &&( //Se muestra al admin
           <>
             <Link to="/listareportes" className={buttonClass}>
               Reportes
@@ -72,10 +72,6 @@ const Navbar = () => {
           </>
         )}
 
-        <Link to="/contactanos" className={buttonClass}>
-          Contáctanos
-        </Link>
-
         {!isAuthenticated && (
           <Link
             to="/reportes"
@@ -84,6 +80,10 @@ const Navbar = () => {
             Reportar Avería
           </Link>
         )}
+
+        <Link to="/contactanos" className={buttonClass}>
+          Contáctanos
+        </Link>
       </div>
 
       <div className="flex items-center gap-4 relative">
@@ -121,6 +121,7 @@ const Navbar = () => {
                 <p className="text-sm font-semibold text-gray-700 mb-1">
                   Nombre: {user?.name}
                 </p>
+                <p className="text-sm text-gray-600 mb-1">Role: {user?.role}</p>
                 <p className="text-sm text-gray-600 mb-1">Correo: {user?.email}</p>
                 <p className="text-sm text-gray-600 mb-4">
                   Contraseña: <span className="font-mono">{maskedPassword}</span>

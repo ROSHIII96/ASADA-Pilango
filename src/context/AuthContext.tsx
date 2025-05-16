@@ -5,7 +5,7 @@ interface User {
   email: string;
   password: string;
   name: string;
-  role: "admin" | "user" | "fontanero";  // Agregamos el rol
+  role: "admin" | "user" | "fontanero";  // Se agrega el rol para cada usuario
 }
 
 interface AuthContextType {

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-//import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "@tanstack/react-router";
 
@@ -7,16 +6,13 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
-    const router = useRouter(); // Usa el hook useRouter
-
-  //const navigate = useNavigate();
+  const router = useRouter(); 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const success = login(username, password);
-
+  const success = login(username, password);
     if (success) {
       // Log para depurar si se está alcanzando el bloque exitoso
       console.log("Inicio de sesión exitoso, redirigiendo...");

@@ -21,29 +21,34 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
 
-  // Usuarios permitidos con su rol
   const validUsers: User[] = [
     {
       email: "geraldalv9@gmail.com",
-      password: "Gerald.13",
+      password: "g",
       name: "Gerald Alvarez",
       role: "admin"  
     },
     {
       email: "fontanero@gmail.com",
-      password: "1",
+      password: "f",
       name: "Mauricio",
       role: "fontanero"  
     },
     {
-      email: "2@gmail.com",
-      password: "2",
+      email: "cobros@gmail.com",
+      password: "c",
+      name: "Liliana",
+      role: "user"  
+    },
+    {
+      email: "josephmanuelva@gmail.com",
+      password: "j",
       name: "Joseth Vargas",
-      role: "user"
+      role: "admin"
     },
     {
       email: "eporrascastro@yahoo.com",
-      password: "1",
+      password: "e",
       name: "Emmanuel Porras",
       role: "admin"
     }
@@ -78,7 +83,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    throw new Error("useAuth  debe usarse dentro de un AuthProvider");
   }
   return context;
 };

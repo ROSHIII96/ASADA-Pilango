@@ -44,6 +44,14 @@ const Navbar = () => {
 
         {isAuthenticated && user?.role === "user" &&(
           <>
+            <Link to="/reportes" className={buttonClass}>
+               Reporte averia
+            </Link>
+          </>
+        )}
+
+ {isAuthenticated && user?.role === "fontanero" &&(
+          <>
             <Link to="/listareportes" className={buttonClass}>
               Reportes
             </Link>

@@ -16,7 +16,9 @@ const ClientesLista = () => {
   const columns = useMemo(
     () => [
     //ID es el nombre de la columna y id es el nombre de la propiedad en el objeto, osea en JSONBin
+
     { header: 'Numero de medidor',    accessorKey: 'numMedidor' }, 
+
     { header: 'Cedula',    accessorKey: 'id' }, 
     { header: 'Nombre',  accessorKey: 'name' },
     { header: 'Correo electronico', accessorKey: 'email' },

@@ -19,7 +19,7 @@ import { useUpdateUser } from '../../Services/UsersService'
   const form = useForm({
     defaultValues: {
       numMedidor: cliente.numMedidor,
-      id: cliente.id,
+      cedula: cliente.cedula,
       name: '',
       email: '',
       direccion: '',
@@ -87,7 +87,7 @@ import { useUpdateUser } from '../../Services/UsersService'
           </form.Field>
         </div>
       
-        {/* ─── Role Field ─────────────────────── */}
+        {/* ─── Direccion  ─────────────────────── */}
         <div className="flex flex-col">
           <label htmlFor="direccion" className="mb-1 text-gray-700 font-medium">
            Dirección:
@@ -128,23 +128,3 @@ import { useUpdateUser } from '../../Services/UsersService'
 }
 
 export default ClienteFormularioEditar;
-
-/*
- {/* ─── ID Field ───────────────────────── *//*}
-        <div className="flex flex-col">
-          <label htmlFor="id" className="mb-1 text-gray-700 font-medium">
-            ID:
-          </label>
-          <form.Field name="id">
-            /*{field => (
-              <input
-                id="id"
-                name="id"
-                value={field.state.value}
-                onChange={e => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            )}
-          </form.Field>
-        </div>*/

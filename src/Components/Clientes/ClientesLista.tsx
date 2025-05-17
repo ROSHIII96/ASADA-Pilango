@@ -1,5 +1,5 @@
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useUsers } from '../../Services/UsersService';
 import ClienteBotonEliminar from "././ClienteBotonEliminar";
 import ClienteBotonActualizar from './ClienteBotonActualizar'
@@ -8,16 +8,22 @@ const ClientesLista = () => {
   //Obtiene los datos de useUsers y los guarda en data
   const { data, isLoading, isError, error } = useUsers();
 
+  // Estado para el filtro de cédula
+  const [cedulaFiltro, setCedulaFiltro] = useState('');
+  const [filtroActivo, setFiltroActivo] = useState(false);
+
   //si data es null se usa arreglo vacio
   //Mientras que no se realice ningun cambio en data, no se vuelve a calcular users
 
-  //Se usa useMemo para evitar que la tabla se vuelva a renderizar
+  // Filtra los clientes por cédula si el filtro está activo
   const users = useMemo(() => {
-    // Si data es null, se usa un arreglo vacio
-  const arr = data ?? [];
-  // Ordena por numMedidor de menor a mayor
-  return [...arr].sort((a, b) => Number(a.numMedidor) - Number(b.numMedidor));
-}, [data]);
+    const arr = data ?? [];
+    let clientes = arr.filter(item => item.numMedidor !== undefined);
+    if (filtroActivo && cedulaFiltro.trim() !== '') {
+      clientes = clientes.filter(item => item.cedula === cedulaFiltro.trim());
+    }
+    return clientes.sort((a, b) => Number(a.numMedidor) - Number(b.numMedidor));
+  }, [data, cedulaFiltro, filtroActivo]);
 
   //Define las columnas de la tabla
   const columns = useMemo(
@@ -25,7 +31,7 @@ const ClientesLista = () => {
     //Cedula es el nombre de la columna y id es el nombre
     // de la propiedad en el objeto, osea en JSONBin
     { header: 'Numero de medidor',    accessorKey: 'numMedidor' }, 
-    { header: 'Cedula',    accessorKey: 'id' }, 
+    { header: 'Cedula',    accessorKey: 'cedula' }, 
     { header: 'Nombre',  accessorKey: 'name' },
     { header: 'Correo electronico', accessorKey: 'email' },
     { header: 'Direccion exacta',  accessorKey: 'direccion' },
@@ -59,6 +65,30 @@ const ClientesLista = () => {
 
 return(
 <div className="p-4 bg-gray-100 min-h-screen">
+
+ {/* Campo y botón de filtro */}
+      <div className="mb-4 flex items-center gap-2">
+        <input
+          type="text"
+          placeholder="Buscar por cédula"
+          value={cedulaFiltro}
+          onChange={e => setCedulaFiltro(e.target.value)}
+          className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          onClick={() => setFiltroActivo(true)}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Buscar
+        </button>
+        <button
+          onClick={() => { setCedulaFiltro(''); setFiltroActivo(false); }}
+          className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
+        >
+          Limpiar
+        </button>
+      </div>
+
   <div className="overflow-x-auto bg-white rounded shadow-md hover:shadow-lg transition-shadow duration-300">
     <table className="min-w-full table-auto divide-y divide-gray-200 text-sm">
       <thead className="bg-gray-50">

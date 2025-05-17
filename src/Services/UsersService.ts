@@ -2,10 +2,18 @@ import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 
 // JSONBin de los abonados
-const BIN = '6820eeeb8a456b79669bc349';
-//const USERS_API_URL = 'https://api.jsonbin.io/v3/b/' + BIN;
-const USERS_API_URL = 'https://corsproxy.io/?' + encodeURIComponent('https://api.jsonbin.io/v3/b/' + BIN);
+const BIN = '682821a68561e97a5015940e';
+const USERS_API_URL = `https://api.jsonbin.io/v3/b/${BIN}`;
 const API_KEY = '$2a$10$wUJhtUn1l0GFbHj0iXwYsek/JCBnzx0S4f.9kb.bA0fnc0XDYRKzS';
+
+/////////////////////Filtra entre cliente o averia//////////////////////
+export function getClientes(data) {
+  return data.filter(item => item.numMedidor !== undefined);
+}
+
+export function getAverias(data) {
+  return data.filter(item => item.numAveria !== undefined);
+}
 
 //////////////////////Leer Usuarios//////////////////////
 
@@ -41,16 +49,16 @@ export async function postUser({ newUser }) {
   const users = await fetchUsers();
 
    // Valida que newUser exista o tenga un ID, si no lanza un error y una alerta
-  if (!newUser || !newUser.id) {
+  if (!newUser || !newUser.cedula) {
     alert("Formulario incompleto o no cuenta con un ID.");  
     throw new Error("El objeto newUser es inválido o no tiene un ID.");   //Muestra el error y detiene la ejecución de la función
   }
 
 // Verificar si el ID ya existe en el servidor
-const userExistsInServer = users.some((user) => user.id === newUser.id);
+const userExistsInServer = users.some((user) => user.cedula === newUser.cedula);
 if (userExistsInServer) {
-  alert(`El usuario con ID ${newUser.id} ya existe en el servidor.`);
-  throw new Error(`El usuario con ID ${newUser.id} ya existe en el servidor.`);
+  alert(`El usuario con cedula ${newUser.cedula} ya existe en el servidor.`);
+  throw new Error(`El usuario con cedula ${newUser.id} ya existe en el servidor.`);
 }
 
 users.push(newUser);
@@ -175,7 +183,7 @@ export function useUpdateUser() {
 export async function deleteUser({ userId }) {
   const users = await fetchUsers(); // Obtiene la lista actual de usuarios
   // Filtra al usuario que se desea eliminar
-  const updatedUsers = users.filter((user) => String(user.id) !== String(userId)); 
+  const updatedUsers = users.filter((user) => String(user.numMedidor) !== String(userId)); 
 
   try {
     const response = await axios.put(

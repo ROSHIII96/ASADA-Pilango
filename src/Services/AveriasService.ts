@@ -2,11 +2,17 @@ import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 
 // JSONBin de los abonados
-const BIN = '682773328960c979a59ad703';
-const USERS_API_URL = 'https://corsproxy.io/?' + encodeURIComponent('https://api.jsonbin.io/v3/b/' + BIN);
+const BIN = '682821a68561e97a5015940e';
+const USERS_API_URL = `https://api.jsonbin.io/v3/b/${BIN}`;
+const API_KEY = '$2a$10$wUJhtUn1l0GFbHj0iXwYsek/JCBnzx0S4f.9kb.bA0fnc0XDYRKzS';
 
-//const USERS_API_URL = 'https://api.jsonbin.io/v3/b/' + BIN;
-const API_KEY = '$2a$10$X3Td65DYfWqI1aW4yOBgRO5aMr3OliESSmtvV3EP5m9H3fqb6kuH2';
+export function getClientes(data) {
+  return data.filter(item => item.numMedidor !== undefined);
+}
+
+export function getAverias(data) {
+  return data.filter(item => item.numAveria !== undefined);
+}
 
 //////////////////////Leer Usuarios//////////////////////
 
@@ -41,18 +47,17 @@ export const useUsers = () => {  //Corre la función fetchUsers
 export async function postUser({ newUser }) {
   const users = await fetchUsers();
 
-   /*// Valida que newUser exista o tenga un ID, si no lanza un error y una alerta
+   // Valida que newUser exista o tenga un ID, si no lanza un error y una alerta
   if (!newUser || !newUser.id) {
     alert("Formulario incompleto o no cuenta con un ID.");  
     throw new Error("El objeto newUser es inválido o no tiene un ID.");   //Muestra el error y detiene la ejecución de la función
   }
-*/
 
 // Verificar si el ID ya existe en el servidor
-const userExistsInServer = users.some((user) => user.numAveria === newUser.numAveria);
+const userExistsInServer = users.some((user) => user.id === newUser.id);
 if (userExistsInServer) {
-  alert(`El usuario con ID ${newUser.numAveria} ya existe en el servidor.`);
-  throw new Error(`El usuario con ID ${newUser.numAveria} ya existe en el servidor.`);
+  alert(`El usuario con ID ${newUser.id} ya existe en el servidor.`);
+  throw new Error(`El usuario con ID ${newUser.id} ya existe en el servidor.`);
 }
 
 users.push(newUser);

@@ -1,7 +1,6 @@
 import { useForm } from '@tanstack/react-form'
 import { useAddUser, useUsers } from '../../Services/UsersService'
 
-
 const ClienteFormulario = ({ onClose }) => {
   const { data: users } = useUsers();
 
@@ -19,10 +18,6 @@ const ClienteFormulario = ({ onClose }) => {
       break;
     }
   }
-/*
-  const nextNumMedidor = users && users.length > 0
-  ? Math.max(...users.map(u => Number(u.numMedidor) || 0)) + 1
-  : 1;*/
 
   // 1) grab your mutation
   const {
@@ -38,7 +33,7 @@ const ClienteFormulario = ({ onClose }) => {
   const form = useForm({
     defaultValues: {
       numMedidor: nextNumMedidor.toString(), // Usa el prop si está disponible
-      id: '',
+      cedula: '',
       name: '',
       email: '',
       direccion: '',
@@ -70,14 +65,14 @@ const ClienteFormulario = ({ onClose }) => {
         
         {/* ─── Cedula ───────────────────────── */}
         <div className="flex flex-col">
-          <label htmlFor="id" className="mb-1 text-gray-700 font-medium">
+          <label htmlFor="cedula" className="mb-1 text-gray-700 font-medium">
             Cedula:
           </label>
-          <form.Field name="id">
+          <form.Field name="cedula">
             {field => (
               <input
-                id="id"
-                name="id"
+                id="cedula"
+                name="cedula"
                 value={field.state.value}
                 onChange={e => field.handleChange(e.target.value)}
                 onBlur={field.handleBlur}

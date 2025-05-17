@@ -1,8 +1,8 @@
 import GenericModal from "../GenericModal";
-import ClienteFormularioEditar from "./ClienteFormularioEditar";
+import AveriaFormularioEditar from "./AveriaFormularioEditar";
 import { useState } from "react";
-
-const ClienteBotonActualizar = ({ row }) =>{
+//test
+const AveriaBotonActualizar = ({ row }) =>{
     const [showAddModal,  setShowAddModal]  = useState(false);
 
     const cliente = row.original;
@@ -25,13 +25,13 @@ const ClienteBotonActualizar = ({ row }) =>{
             <GenericModal
                 show={showAddModal}
                 onClose={() => setShowAddModal(false)}
-                title="Actualizar cliente"
+                title="Actualizar averia"
             >
-                <ClienteFormularioEditar cliente={cliente} onClose={() => setShowAddModal(false)} />
+                <AveriaFormularioEditar cliente={cliente} onClose={() => setShowAddModal(false)} />
             </GenericModal>
             
         </>
     )
 }
 
-export default ClienteBotonActualizar;
+export default AveriaBotonActualizar;

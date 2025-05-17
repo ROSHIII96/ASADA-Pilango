@@ -1,7 +1,7 @@
 import GenericModal from "../GenericModal";
 import AveriaFormularioEditar from "./AveriaFormularioEditar";
 import { useState } from "react";
-
+//test
 const AveriaBotonActualizar = ({ row }) =>{
     const [showAddModal,  setShowAddModal]  = useState(false);
 

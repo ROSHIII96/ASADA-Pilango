@@ -47,7 +47,14 @@ import { useUpdateUser } from '../../Services/UsersService'
           form.handleSubmit()
         }}
       >
-      
+
+    {/* ─── Numero de cedula ─────────────────────── */}
+      <div className="flex flex-col items-center">
+        <label htmlFor="cedula" className="mb-1 text-gray-700 font-bold text-xl text-center">
+          Cedula: {cliente.cedula}
+        </label>
+      </div>
+
         {/* ─── Name Field ─────────────────────── */}
         <div className="flex flex-col">
           <label htmlFor="name" className="mb-1 text-gray-700 font-medium">

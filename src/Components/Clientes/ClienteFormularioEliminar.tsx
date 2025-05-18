@@ -1,5 +1,5 @@
 import { useForm } from '@tanstack/react-form'
-import { useDeleteUser } from '../../Services/AveriasService'
+import { useDeleteUser } from '../../Services/UsersService'
 
 const AveriaFormularioEliminar = () => {
 

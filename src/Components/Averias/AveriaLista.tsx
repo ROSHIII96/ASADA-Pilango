@@ -36,6 +36,7 @@ const AveriaLista = () => {
     {
       header: 'Acciones', // Nueva columna donde iran los botones
       cell: ({ row }) =>  // Renderiza el botón editar y eliminar en cada fila
+      
       <div className="flex space-x-2">
           <AveriaBotonActualizar row={row}/>  
           <AveriaBotonEliminar row={row} />

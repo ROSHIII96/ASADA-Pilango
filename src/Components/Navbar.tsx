@@ -72,6 +72,18 @@ const Navbar = () => {
           </>
         )}
 
+
+
+<Link to="/abonados" className={buttonClass}>
+              Abonados
+            </Link>
+<Link to="/listareportes" className={buttonClass}>
+              Reportes
+            </Link>
+
+
+
+
         {!isAuthenticated && (
           <Link
             to="/reportes"

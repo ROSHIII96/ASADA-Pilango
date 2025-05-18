@@ -6,16 +6,6 @@ const BIN = '6828f6638960c979a59b9c93';
 const USERS_API_URL = `https://api.jsonbin.io/v3/b/${BIN}`;
 const API_KEY = '$2a$10$wUJhtUn1l0GFbHj0iXwYsek/JCBnzx0S4f.9kb.bA0fnc0XDYRKzS';
 
-/*
-/////////////////////Filtra entre cliente o averia//////////////////////
-export function getClientes(data) {
-  return data.filter(item => item.numMedidor !== undefined);
-}
-
-export function getAverias(data) {
-  return data.filter(item => item.numAveria !== undefined);
-}*/
-
 //////////////////////Leer Usuarios//////////////////////
 
 const fetchUsers = async () => {  //Obtiene users desde JSONBin
@@ -27,7 +17,7 @@ const fetchUsers = async () => {  //Obtiene users desde JSONBin
           'X-Access-Key': API_KEY,
         }
       });
-    return response.data.record.users || [];
+    return response.data.record.users;
   }
   catch (error) {  //Sucede en caso de algun error y retorna esto en consola
     console.error("Error fetching users:", error);
@@ -86,7 +76,7 @@ users.push(newUser);
 
       if(response.status != 200) 
           throw new Error("Error adding user");
-        alert(`El usuario con ID ${newUser.cedula} ha sido agregado.`);
+        alert(`El usuario con cedula ${newUser.cedula} ha sido agregado.`);
       return newUser;
   } catch (error) {
       console.error("Error adding user:", error);

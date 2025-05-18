@@ -43,11 +43,13 @@ const Navbar = () => {
         </Link>
 
         {isAuthenticated && user?.role === "user" &&(  //Se muestra a user
-          <>
-            <Link to="/reportes" className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-lg font-semibold transition duration-300">
-              Reportar Avería
-            </Link>
-          </>
+          <Link
+  to="/reportes"
+  state={{ from: location.pathname }} // location viene de useLocation()
+  className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-lg font-semibold transition duration-300"
+>
+  Reportar Avería
+</Link>
         )}
 
         {isAuthenticated && user?.role === "fontanero" &&(  //Se muestra al fontanero
@@ -71,18 +73,6 @@ const Navbar = () => {
             </Link>
           </>
         )}
-
-
-
-<Link to="/abonados" className={buttonClass}>
-              Abonados
-            </Link>
-<Link to="/listareportes" className={buttonClass}>
-              Reportes
-            </Link>
-
-
-
 
         {!isAuthenticated && (
           <Link
@@ -154,3 +144,11 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+/*
+<Link to="/abonados" className={buttonClass}>
+              Abonados
+            </Link>
+<Link to="/listareportes" className={buttonClass}>
+              Reportes
+            </Link>*/

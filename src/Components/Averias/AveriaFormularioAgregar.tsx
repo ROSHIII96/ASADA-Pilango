@@ -1,16 +1,34 @@
 import { useForm } from '@tanstack/react-form'
-import { useAddUser, useUsers } from '../../Services/UsersService'
+import { useAddUser, useUsers } from '../../Services/AveriasService'
 
 
 const AveriaFormularioAgregar = ({ onClose }) => {
   const { data: users } = useUsers();
 
-// 1. Obtén todos los números de avería existentes y ordénalos
+// 1. Obtén todos los ids de avería existentes y ordénalos
+  const averiaIds = users
+    ? users
+        .filter(u => u.numAveria !== undefined)
+        .map(u => Number(u.id))
+        .filter(n => !isNaN(n))
+        .sort((a, b) => a - b)
+    : [];
+
+  // 2. Encuentra el menor número positivo que no esté en la lista
+  let nextId = 1;
+  for (let i = 0; i < averiaIds.length; i++) {
+    if (averiaIds[i] === nextId) {
+      nextId++;
+    } else if (averiaIds[i] > nextId) {
+      break;
+    }
+  }
+
+  // 3. Obtén todos los números de avería existentes y ordénalos
   const averias = users
     ? users.map(u => Number(u.numAveria)).filter(n => !isNaN(n)).sort((a, b) => a - b)
     : [];
 
-  // 2. Encuentra el menor número positivo que no esté en la lista
   let nextNumAveria = 1;
   for (let i = 0; i < averias.length; i++) {
     if (averias[i] === nextNumAveria) {
@@ -33,6 +51,7 @@ const AveriaFormularioAgregar = ({ onClose }) => {
 
   const form = useForm({
     defaultValues: {
+      id: nextId.toString(),
       numAveria: nextNumAveria.toString(), 
       detalle: '',
       Fecha: '',
@@ -62,7 +81,6 @@ const AveriaFormularioAgregar = ({ onClose }) => {
         }}
       >
 
-   
       
         {/* ─── Detalle ─────────────────────── */}
         <div className="flex flex-col">
@@ -144,23 +162,3 @@ const AveriaFormularioAgregar = ({ onClose }) => {
 }
 
 export default AveriaFormularioAgregar;
-
-/*
-{/* ─── Numero medidor Field ───────────────────────── *//*}
-        <div className="flex flex-col">
-          <label htmlFor="numMedidor" className="mb-1 text-gray-700 font-medium">
-            Numero medidor:
-          </label>
-          <form.Field name="numMedidor">
-           /* {field => (
-              <input
-                id="numMedidor"
-                name="numMedidor"
-                value={field.state.value}
-                onChange={e => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            )}
-          </form.Field>
-        </div>*/

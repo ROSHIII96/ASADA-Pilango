@@ -20,7 +20,7 @@ const Login = () => {
   setTimeout(() => {
     setSuccessMessage(null);
     router.navigate({ to: "/" });
-  }, 1500); // Muestra el mensaje 1.5 segundos antes de redirigir
+  }, 700); // Muestra el mensaje 1.5 segundos antes de redirigir
 } else {
       // En caso de error, muestra el mensaje
       setErrorMessage("Usuario o contraseña incorrectos");

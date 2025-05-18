@@ -2,10 +2,19 @@ import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 
 // JSONBin de los abonados
-const BIN = '6820eeeb8a456b79669bc349';
-//const USERS_API_URL = 'https://api.jsonbin.io/v3/b/' + BIN;
-const USERS_API_URL = 'https://corsproxy.io/?' + encodeURIComponent('https://api.jsonbin.io/v3/b/' + BIN);
+const BIN = '6828f6638960c979a59b9c93';
+const USERS_API_URL = `https://api.jsonbin.io/v3/b/${BIN}`;
 const API_KEY = '$2a$10$wUJhtUn1l0GFbHj0iXwYsek/JCBnzx0S4f.9kb.bA0fnc0XDYRKzS';
+
+/*
+/////////////////////Filtra entre cliente o averia//////////////////////
+export function getClientes(data) {
+  return data.filter(item => item.numMedidor !== undefined);
+}
+
+export function getAverias(data) {
+  return data.filter(item => item.numAveria !== undefined);
+}*/
 
 //////////////////////Leer Usuarios//////////////////////
 
@@ -18,7 +27,7 @@ const fetchUsers = async () => {  //Obtiene users desde JSONBin
           'X-Access-Key': API_KEY,
         }
       });
-    return response.data.record.users;
+    return response.data.record.users || [];
   }
   catch (error) {  //Sucede en caso de algun error y retorna esto en consola
     console.error("Error fetching users:", error);
@@ -38,19 +47,28 @@ export const useUsers = () => {  //Corre la función fetchUsers
 //////////////////////Agregar Usuarios//////////////////////
 
 export async function postUser({ newUser }) {
-  const users = await fetchUsers();
+  //const users = await fetchUsers();
+
+   // 1. Lee el objeto completo del bin
+  const response = await axios.get(USERS_API_URL, {
+    headers: { 'X-Access-Key': API_KEY }
+  });
+  const record = response.data.record || {};
+
+  // 2. Trabaja solamente sobre la propiedad
+  const users = record.users || [];
 
    // Valida que newUser exista o tenga un ID, si no lanza un error y una alerta
-  if (!newUser || !newUser.id) {
+  if (!newUser || !newUser.cedula) {
     alert("Formulario incompleto o no cuenta con un ID.");  
     throw new Error("El objeto newUser es inválido o no tiene un ID.");   //Muestra el error y detiene la ejecución de la función
   }
 
 // Verificar si el ID ya existe en el servidor
-const userExistsInServer = users.some((user) => user.id === newUser.id);
+const userExistsInServer = users.some((user) => user.cedula === newUser.cedula);
 if (userExistsInServer) {
-  alert(`El usuario con ID ${newUser.id} ya existe en el servidor.`);
-  throw new Error(`El usuario con ID ${newUser.id} ya existe en el servidor.`);
+  alert(`El usuario con cedula ${newUser.cedula} ya existe en el servidor.`);
+  throw new Error(`El usuario con cedula ${newUser.id} ya existe en el servidor.`);
 }
 
 users.push(newUser);
@@ -58,7 +76,7 @@ users.push(newUser);
   try {
       const response = await axios.put(
         USERS_API_URL,
-          { users: users }, // Envía la lista actualizada a la API
+          { ...record, users: users }, // Envía la lista actualizada a la API
           {
             headers: {
               'X-Access-Key': API_KEY,
@@ -68,7 +86,7 @@ users.push(newUser);
 
       if(response.status != 200) 
           throw new Error("Error adding user");
-        alert(`El usuario con ID ${newUser.id} ha sido agregado.`);
+        alert(`El usuario con ID ${newUser.cedula} ha sido agregado.`);
       return newUser;
   } catch (error) {
       console.error("Error adding user:", error);
@@ -101,24 +119,33 @@ users.push(newUser);
 //////////////////////Actualizar usuario//////////////////////
 
 export async function updateUser({ updatedUser }) {
-  const users = await fetchUsers(); // Obtiene la lista actual de usuarios desde JSONBin
+  //const users = await fetchUsers(); // Obtiene la lista actual de usuarios desde JSONBin
 
+  // 1. Lee el objeto completo del bin
+  const response = await axios.get(USERS_API_URL, {
+    headers: { 'X-Access-Key': API_KEY }
+  });
+  const record = response.data.record || {};
+
+  // 2. Trabaja solamente sobre la propiedad
+  const users = record.users || [];
+  
   // Verifica si el usuario con el ID proporcionado existe
-  const userExists = users.some((user) => user.id === updatedUser.id);
+  const userExists = users.some((user) => user.cedula === updatedUser.cedula);
   if (!userExists) {
-    alert(`El usuario con ID ${updatedUser.id} no se encuentra en el servidor.`);
-    throw new Error(`Usuario con ID ${updatedUser.id} no encontrado`);
+    alert(`El usuario con ID ${updatedUser.cedula} no se encuentra en el servidor.`);
+    throw new Error(`Usuario con ID ${updatedUser.cedula} no encontrado`);
   }
 
   // Actualiza el usuario con el mismo ID
   const updatedUsers = users.map((user) =>
-    user.id === updatedUser.id ? updatedUser : user
+    user.cedula === updatedUser.cedula ? updatedUser : user
   );
 
   try {
     const response = await axios.put(
       USERS_API_URL,
-      { users: updatedUsers }, // Envía la lista actualizada a la API
+      { ...record, users: updatedUsers }, // Envía la lista actualizada a la API
       {
         headers: {
           'X-Access-Key': API_KEY,
@@ -129,7 +156,7 @@ export async function updateUser({ updatedUser }) {
     if (response.status !== 200) {
       throw new Error("Error updating user");
     }
-    alert(`El usuario con ID ${updatedUser.id} ha sido actualizado.`);
+    alert(`El usuario con ID ${updatedUser.cedula} ha sido actualizado.`);
     return updatedUser; // Devuelve el usuario actualizado
   } catch (error) {
     console.error("Error updating user:", error);
@@ -152,7 +179,7 @@ export function useUpdateUser() {
       queryClient.setQueryData(['users'], (old) =>
         old
           ? old.map((user) =>
-              user.id === updatedUser.id ? updatedUser : user
+              user.cedula === updatedUser.cedula ? updatedUser : user
             )
           : []
       );
@@ -173,14 +200,24 @@ export function useUpdateUser() {
 //////////////////////Eliminar usuario//////////////////////
 
 export async function deleteUser({ userId }) {
-  const users = await fetchUsers(); // Obtiene la lista actual de usuarios
-  // Filtra al usuario que se desea eliminar
-  const updatedUsers = users.filter((user) => String(user.id) !== String(userId)); 
+  // 1. Lee el objeto completo del bin
+  const response = await axios.get(USERS_API_URL, {
+    headers: { 'X-Access-Key': API_KEY }
+  });
+  const record = response.data.record || {};
 
+  // 2. Trabaja solamente sobre la propiedad
+  const users = record.users || [];
+
+  // Filtra al usuario que se desea eliminar
+const updatedUsers = users.filter(
+    (user) => String(user.numMedidor) !== String(userId)
+  );
+  
   try {
     const response = await axios.put(
       USERS_API_URL,
-      { users: updatedUsers }, // Actualiza la lista sin el usuario eliminado
+      { ...record, users: updatedUsers }, // Actualiza la lista sin el usuario eliminado
       {
         headers: {
           'X-Access-Key': API_KEY,
@@ -192,7 +229,7 @@ export async function deleteUser({ userId }) {
     if (response.status !== 200) {
       throw new Error("Error deleting user");
     }
-    alert(`El usuario con ID ${userId} ha sido eliminado.`)
+    alert(`El usuario con numero de medidor ${userId} ha sido eliminado.`)
     return userId; // Devuelve el ID del usuario eliminado
   } catch (error) {
     console.error("Error deleting user:", error);

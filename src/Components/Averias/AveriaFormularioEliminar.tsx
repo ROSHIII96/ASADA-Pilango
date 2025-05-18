@@ -15,12 +15,12 @@ const {
   //Solo id porque es lo unico que se necesita para eliminar
   const form = useForm({
     defaultValues: {
-      id: '',
+      numAveria: '',
     },
 
     //Cuando se presiona el boton de eliminar
     onSubmit: async ({ value }) => {
-      deleteUser({ userId: value.id })
+      deleteUser({ userId: value.numAveria })
     },
   })
 

@@ -1,7 +1,7 @@
 import { UserMinus2 } from "lucide-react"; // ícono opcional
 import  AveriaLista from '../Components/Averias/AveriaLista'
 import AveriaBotonAgregar from '../Components/Averias/AveriaBotonAgregar'
-import { useUsers } from '../Services/AveriasService'
+import { useUsers } from '../Services/UsersService'
 
 const ListaReportesPage = () => {
   const { data: users, isLoading } = useUsers();

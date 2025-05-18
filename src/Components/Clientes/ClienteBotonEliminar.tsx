@@ -19,8 +19,8 @@ const ClienteBotonEliminar = ({ row }) =>
   });
 
   const handleDelete = () => {
-    const userId = row.original.id; // Obtiene el ID del cliente desde la fila
-    if (window.confirm(`¿Estás seguro de que deseas eliminar al usuario con ID ${userId}?`)) {
+    const userId = row.original.numMedidor;
+    if (window.confirm(`¿Estás seguro de que deseas eliminar al usuario con numero de medidor -->> ${userId}  ?`)) {
       mutation.mutate({ userId }); // Llama a la mutación para eliminar el usuario
     }
   };

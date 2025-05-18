@@ -1,7 +1,3 @@
-//import GenericModal from "./GenericModal";
-//import ClienteFormularioEliminar from "././ClienteFormularioEliminar";
-//import { useState } from "react";
-
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteUser } from '../../Services/AveriasService';
 
@@ -14,14 +10,14 @@ const AveriaBotonEliminar = ({ row }) =>
     mutationFn: deleteUser, // Asegurarse de usar mutationFn en lugar de pasar directamente la función
     onSuccess: () => {
       // Invalida la caché para recargar los datos actualizados
-      queryClient.invalidateQueries(['users']);
+      queryClient.invalidateQueries(['averias']);
     },
   });
 
 const handleDelete = () => {
-  const numAveria = row.original.numAveria; // Obtiene el ID de la avería desde la fila
-  if (window.confirm(`¿Estás seguro de que deseas eliminar la avería número: ${numAveria}?`)) {
-    mutation.mutate({ numAveria }); // Llama a la mutación para eliminar la avería
+  const userId = row.original.numAveria; // Obtiene el ID de la avería desde la fila
+  if (window.confirm(`¿Estás seguro de que deseas eliminar la avería número: ${userId}?`)) {
+    mutation.mutate({ userId }); // Llama a la mutación para eliminar la avería
   }
 };
 

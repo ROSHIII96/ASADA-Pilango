@@ -1,6 +1,6 @@
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
-import { useMemo } from "react";
-import { useUsers } from '../../Services/UsersService';
+import { useMemo, useState } from "react";
+import { useUsers } from '../../Services/AveriasService';
 import AveriaBotonEliminar from "./AveriaBotonEliminar";
 import AveriaBotonActualizar from './AveriaBotonActualizar'
 
@@ -8,30 +8,35 @@ const AveriaLista = () => {
   //Obtiene los datos de useUsers y los guarda en data
   const { data, isLoading, isError, error } = useUsers();
 
+  // Estado para el filtro de cédula
+    const [averiaFiltro, setCedulaFiltro] = useState('');
+    const [filtroActivo, setFiltroActivo] = useState(false);
+
   //si data es null se usa arreglo vacio
   //Mientras que no se realice ningun cambio en data, no se vuelve a calcular users
 
-  //Se usa useMemo para evitar que la tabla se vuelva a renderizar
-  const users = useMemo(() => {
-    // Si data es null, se usa un arreglo vacio
-  const arr = data ?? [];
-  // Ordena por numMedidor de menor a mayor
-  return [...arr].sort((a, b) => Number(a.numAveria) - Number(b.numAveria));
-}, [data]);
+ // Filtra solo averías
+  const averias = useMemo(() => {
+    const arr = data ?? [];
+    let filtradas = arr.filter(item => item.numAveria !== undefined);
+    if (filtroActivo && averiaFiltro.trim() !== '') {
+      filtradas = filtradas.filter(item => item.id === averiaFiltro.trim());
+    }
+    return filtradas.sort((a, b) => Number(a.numAveria) - Number(b.numAveria));
+  }, [data, averiaFiltro, filtroActivo]);
 
   //Define las columnas de la tabla
   const columns = useMemo(
     () => [
-    //Cedula es el nombre de la columna y id es el nombre
-    // de la propiedad en el objeto, osea en JSONBin
+    { header: 'id',    accessorKey: 'id' }, 
     { header: 'Numero averia',    accessorKey: 'numAveria' }, 
     { header: 'Detalle',    accessorKey: 'detalle' }, 
     { header: 'Fecha',  accessorKey: 'Fecha' },
     { header: 'Hora', accessorKey: 'hora' },
-    //{ header: 'Estado',  accessorKey: 'estado' },
     {
       header: 'Acciones', // Nueva columna donde iran los botones
       cell: ({ row }) =>  // Renderiza el botón editar y eliminar en cada fila
+      
       <div className="flex space-x-2">
           <AveriaBotonActualizar row={row}/>  
           <AveriaBotonEliminar row={row} />
@@ -42,11 +47,11 @@ const AveriaLista = () => {
   );
 
   // Crea la tabla 
-  const table = useReactTable({
-        data: users,  //aqui funciona igual si se elimina users y se deja data solamente
-        columns,
-        getCoreRowModel: getCoreRowModel(),
-  });
+ const table = useReactTable({
+  data: averias,
+  columns,
+  getCoreRowModel: getCoreRowModel(),
+});
 
 
  //Si isLoading es verdadero muestra el mensaje de carga, si es falso muestra el mensaje de error
@@ -59,6 +64,31 @@ const AveriaLista = () => {
 
 return(
 <div className="p-4 bg-gray-100 min-h-screen">
+
+{/* Campo y botón de filtro */}
+      <div className="mb-4 flex items-center gap-2">
+        <input
+          type="text"
+          placeholder="Buscar numero de averia"
+          value={averiaFiltro}
+          onChange={e => setCedulaFiltro(e.target.value)}
+          className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          onClick={() => setFiltroActivo(true)}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Buscar
+        </button>
+        <button
+          onClick={() => { setCedulaFiltro(''); setFiltroActivo(false); }}
+          className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
+        >
+          Limpiar
+        </button>
+      </div>
+
+  
   <div className="overflow-x-auto bg-white rounded shadow-md hover:shadow-lg transition-shadow duration-300">
     <table className="min-w-full table-auto divide-y divide-gray-200 text-sm">
       <thead className="bg-gray-50">

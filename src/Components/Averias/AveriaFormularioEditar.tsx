@@ -18,6 +18,7 @@ import { useUpdateUser } from '../../Services/AveriasService'
      // 1️⃣ Initialize form state with defaultValues and a submit handler
   const form = useForm({
     defaultValues: {
+      id: cliente.numAveria,
       numAveria: cliente.numAveria,
       detalle: '',
       Fecha: '',
@@ -46,6 +47,14 @@ import { useUpdateUser } from '../../Services/AveriasService'
           form.handleSubmit()
         }}
       >
+
+        
+    {/* ─── Numero de cedula ─────────────────────── */}
+      <div className="flex flex-col items-center">
+        <label htmlFor="numAveria" className="mb-1 text-gray-700 font-bold text-xl text-center">
+          Numero de averia: {cliente.numAveria}
+        </label>
+      </div>
       
         {/* ─── detalle ─────────────────────── */}
         <div className="flex flex-col">

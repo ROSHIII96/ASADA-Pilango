@@ -15,10 +15,10 @@ const ClientesLista = () => {
   //si data es null se usa arreglo vacio
   //Mientras que no se realice ningun cambio en data, no se vuelve a calcular users
 
-  // Filtra los clientes por cédula si el filtro está activo
+  // Filtra
   const users = useMemo(() => {
     const arr = data ?? [];
-    let clientes = arr.filter(item => item.numMedidor !== undefined);
+    let clientes = arr.filter(item => item.cedula !== undefined);
     if (filtroActivo && cedulaFiltro.trim() !== '') {
       clientes = clientes.filter(item => item.cedula === cedulaFiltro.trim());
     }

@@ -1,13 +1,13 @@
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
-import { useUsers } from '../../Services/AveriasService';
+import { useAverias } from '../../Services/AveriasService';
 import AveriaBotonEliminar from "./AveriaBotonEliminar";
 import AveriaBotonActualizar from './AveriaBotonActualizar'
 
 const AveriaLista = () => {
   //Obtiene los datos de useUsers y los guarda en data
-  const { data, isLoading, isError, error } = useUsers();
-
+    const { data, isLoading, isError } = useAverias();
+    console.log('Averias data:', data);
   // Estado para el filtro de cédula
     const [averiaFiltro, setCedulaFiltro] = useState('');
     const [filtroActivo, setFiltroActivo] = useState(false);
@@ -20,9 +20,9 @@ const AveriaLista = () => {
     const arr = data ?? [];
     let filtradas = arr.filter(item => item.numAveria !== undefined);
     if (filtroActivo && averiaFiltro.trim() !== '') {
-      filtradas = filtradas.filter(item => item.id === averiaFiltro.trim());
+      filtradas = filtradas.filter(item => item.numAveria === averiaFiltro.trim());
     }
-    return filtradas.sort((a, b) => Number(a.numAveria) - Number(b.numAveria));
+    return filtradas.sort((a, b) => Number(a.id) - Number(b.id));
   }, [data, averiaFiltro, filtroActivo]);
 
   //Define las columnas de la tabla
@@ -108,6 +108,7 @@ return(
           </tr>
         ))}
       </thead>
+
       <tbody className="bg-white divide-y divide-gray-200">
         {table.getRowModel().rows.map(row => (
           <tr

@@ -6,18 +6,9 @@ const BIN = '6828f6638960c979a59b9c93';
 const USERS_API_URL = `https://api.jsonbin.io/v3/b/${BIN}`;
 const API_KEY = '$2a$10$wUJhtUn1l0GFbHj0iXwYsek/JCBnzx0S4f.9kb.bA0fnc0XDYRKzS';
 
-/*
-export function getClientes(data) {
-  return data.filter(item => item.numMedidor !== undefined);
-}
-
-export function getAverias(data) {
-  return data.filter(item => item.numAveria !== undefined);
-}*/
-
 //////////////////////Leer Usuarios//////////////////////
 
-const fetchUsers = async () => {  //Obtiene users desde JSONBin
+const fetchAverias = async () => {  //Obtiene users desde JSONBin
   try 
   {
     const response = await axios.get(USERS_API_URL,
@@ -26,6 +17,8 @@ const fetchUsers = async () => {  //Obtiene users desde JSONBin
           'X-Access-Key': API_KEY,
         }
       });
+          console.log('Respuesta completa de JSONBin:', response.data);
+
     return response.data.record.averias || [];
   }
   catch (error) {  //Sucede en caso de algun error y retorna esto en consola
@@ -34,11 +27,11 @@ const fetchUsers = async () => {  //Obtiene users desde JSONBin
   }
 };
 
-export const useUsers = () => {  //Corre la función fetchUsers
+export const useAverias = () => {  //Corre la función fetchUsers
     return useQuery({
       queryKey: ['averias'],
-      queryFn: fetchUsers,
-      staleTime: 0,   // guarda en cache por 5 minutos
+      queryFn: fetchAverias,
+      staleTime: 1,   // guarda en cache por 5 minutos
       retry: 1,                    // intenta solo 1 vez si falla
     });
   };

@@ -1,9 +1,9 @@
 import { useForm } from '@tanstack/react-form'
-import { useAddUser, useUsers } from '../../Services/AveriasService'
+import { useAddUser, useAverias } from '../../Services/AveriasService'
 
 
 const AveriaFormularioAgregar = ({ onClose }) => {
-  const { data: users } = useUsers();
+  const { data: users } = useAverias();
 
 // 1. Obtén todos los ids de avería existentes y ordénalos
   const averiaIds = users

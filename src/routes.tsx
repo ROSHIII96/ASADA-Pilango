@@ -2,18 +2,20 @@ import { RootLayout } from './Components/RootLayout';
 import { createRootRoute, createRoute, createRouter, createBrowserHistory } from "@tanstack/react-router"
 //Se importan todas las paginas que vamos a usar
 import HomePage from "./Pages/HomePage";
-import LoginPage from "./Pages/LoginPage";
+import LoginPage from "./Pages/LoginPage"
 import ListaAbonadosPage from "./Pages/ListaAbonadosPage";
 import ListaReportesPage from './Pages/ListaReportesPage'
 import QuienesSomosPage from './Pages/QuienesSomosPage'
 import ReportesPage from "./Pages/ReportesPage";
 import ContactanosPage from './Pages/ContactanosPage'
+//Para hacer privada la ruta que queramos
+import PrivateRoute from "./Components/PrivateRoute";
 
 const rootRoute = createRootRoute({ //Crea una ruta base o raiz
     component: RootLayout,          //indica que el componente RootLayout sera el componente principal
 })
 
-//Se crean todas las rutas hijas de la ruta raiz
+//Se crean todas las rutas hijas de la ruta raiz, las cuales son las page que tengamos.
 const homeRoute = createRoute({ 
     getParentRoute: () => rootRoute, 
     path: '/',
@@ -47,7 +49,12 @@ const reportesRoute = createRoute({
 const quienesSomosRoute = createRoute({ 
     getParentRoute: () => rootRoute,
     path: '/quienes-somos',
-    component: QuienesSomosPage,
+    component: () => (
+        //Si no se usa redirectTo="/login", se redirige a la pagina default en privateRoute, en ese caso seria "/""
+        <PrivateRoute redirectTo="/login">
+            <QuienesSomosPage />
+        </PrivateRoute>
+    ),
 })
 
 const contactanosRoute = createRoute({

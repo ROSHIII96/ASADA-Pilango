@@ -2,10 +2,17 @@ import { UserMinus2 } from "lucide-react"; // ícono opcional
 import  ClientesLista from '../Components/Clientes/ClientesLista'
 import ClienteBotonAgregar from '../Components/Clientes/ClienteBotonAgregar'
 import { useUsers } from '../Services/UsersService'
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 const ListaAbonadosPage = () => {
   const { data: users, isLoading } = useUsers();
 
+  //--------nuevo
+  const { user } = useContext(AuthContext)
+  if (user?.role !== "admin") {
+    return <div className="p-4 text-red-600 font-bold">Acceso denegado: solo administradores.</div>;
+  }
 
   return (
   <div className="pt-16"> {/* Ajusta el espacio con el navbar */}

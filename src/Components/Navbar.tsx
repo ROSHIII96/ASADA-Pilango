@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useAuth, AuthContext } from "../context/AuthContext";
 import { useEffect, useState, useContext } from "react";
+import LogoASADA from "../Fotos/Logo de ASADA Pilangosta.jpg";
 
 const Navbar = () => {
   const { isAuthenticated, logout, user } = useAuth();
@@ -36,6 +37,10 @@ const Navbar = () => {
         scrolled ? "bg-blue-700" : "bg-blue-600"
       }`}
     >
+      <Link to="/">
+          <img src={LogoASADA} alt="Logo ASADA Pilangosta" className="h-10 w-auto rounded-full" />
+      </Link>
+
       <div className="flex items-center gap-4">
         <Link to="/" className={buttonClass}>
           Inicio
@@ -45,7 +50,7 @@ const Navbar = () => {
           Quienes somos
         </Link>
 
-        {isAuthenticated && user?.role === "fontanero" &&(  //Se muestra al fontanero
+        { user?.role === "fontanero" &&(  //Se muestra al fontanero
           <>
             <Link to="/reportes" className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-lg font-semibold transition duration-300">
               Reportar Avería

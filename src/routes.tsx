@@ -8,6 +8,8 @@ import ListaReportesPage from './Pages/ListaReportesPage'
 import QuienesSomosPage from './Pages/QuienesSomosPage'
 import ReportesPage from "./Pages/ReportesPage";
 import ContactanosPage from './Pages/ContactanosPage'
+//nuevo
+import PrivateRoute from "./Components/PrivateRoute";
 
 const rootRoute = createRootRoute({ //Crea una ruta base o raiz
     component: RootLayout,          //indica que el componente RootLayout sera el componente principal
@@ -25,6 +27,7 @@ const loginRoute = createRoute({
     path: '/login',
     component: LoginPage,
 })
+
 
 const listaAbonadosRoute = createRoute({ 
     getParentRoute: () => rootRoute,
@@ -44,10 +47,20 @@ const reportesRoute = createRoute({
     component: ReportesPage,
 })
 
+/*
 const quienesSomosRoute = createRoute({ 
     getParentRoute: () => rootRoute,
     path: '/quienes-somos',
     component: QuienesSomosPage,
+})*/
+const quienesSomosRoute = createRoute({ 
+    getParentRoute: () => rootRoute,
+    path: '/quienes-somos',
+    component: () => (
+      <PrivateRoute redirectTo="/login">
+        <QuienesSomosPage />
+      </PrivateRoute>
+    ),
 })
 
 const contactanosRoute = createRoute({

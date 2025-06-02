@@ -1,12 +1,14 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useAuth } from "../context/AuthContext";
-import { useEffect, useState } from "react";
+import { useAuth, AuthContext } from "../context/AuthContext";
+import { useEffect, useState, useContext } from "react";
 
 const Navbar = () => {
   const { isAuthenticated, logout, user } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();  
+  //const { user } = useContext(AuthContext)
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,7 +23,8 @@ const Navbar = () => {
     navigate({ to: "/" });
   };
 
-  const maskedPassword = user?.password.replace(/./g, "*");
+  //aqui es donde crashea
+  //const maskedPassword = user?.password.replace(/./g, "*");
 
   // Clase común para botones azul oscuro con texto blanco
   const buttonClass =
@@ -42,16 +45,6 @@ const Navbar = () => {
           Quienes somos
         </Link>
 
-        {isAuthenticated && user?.role === "user" &&(  //Se muestra a user
-          <Link
-  to="/reportes"
-  state={{ from: location.pathname }} // location viene de useLocation()
-  className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-lg font-semibold transition duration-300"
->
-  Reportar Avería
-</Link>
-        )}
-
         {isAuthenticated && user?.role === "fontanero" &&(  //Se muestra al fontanero
           <>
             <Link to="/reportes" className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-lg font-semibold transition duration-300">
@@ -70,6 +63,14 @@ const Navbar = () => {
             </Link>
             <Link to="/abonados" className={buttonClass}>
               Abonados
+            </Link>
+          </>
+        )}
+
+        {isAuthenticated && user?.role === "gestorcobro" &&( //Se muestra al admin
+          <>
+            <Link to="/" className={buttonClass}>
+              Solo para probar gestor cobro
             </Link>
           </>
         )}

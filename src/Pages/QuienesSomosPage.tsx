@@ -1,10 +1,19 @@
 // src/Pages/QuienesSomosPage.tsx
 import React from "react";
 import { FaFacebook, FaWhatsapp } from "react-icons/fa";
+import TanqueImg from "../Fotos/Tanque.png";
 
 const QuienesSomosPage = () => {
   return (
-    <div className="min-h-screen bg-blue-50 text-gray-800 font-sans">
+    <div
+      className="min-h-screen text-gray-800 font-sans"
+      style={{
+        backgroundImage: `url(${TanqueImg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <section className="group px-6 md:px-16 py-10 bg-gradient-to-r from-blue-600 to-blue-400 rounded-3xl max-w-5xl mx-auto shadow-lg border-t-8 border-blue-700 cursor-pointer select-none">
         <div className="flex items-center justify-center">
           <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg">

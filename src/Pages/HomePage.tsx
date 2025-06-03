@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Carousel from "../Components/Carousel";
 import Proyectos from "../Components/Proyectos";
+import { FaFacebook, FaWhatsapp, FaEnvelope } from "react-icons/fa";
 
 const HomePage = () => {
   const { isAuthenticated, logout, user } = useAuth();
   const [showCredentials, setShowCredentials] = useState(false);
-  const [showAbonadosMenu, setShowAbonadosMenu] = useState(false);
 
   const toggleCredentials = () => {
     setShowCredentials(!showCredentials);
@@ -18,21 +18,17 @@ const HomePage = () => {
     return "*".repeat(password.length);
   };
 
-  const toggleAbonadosMenu = () => {
-    setShowAbonadosMenu(!showAbonadosMenu);
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-600 via-cyan-400 to-green-400 text-gray-100 font-sans">
       {/* Franja superior */}
       <div className="fixed top-0 left-0 w-full bg-blue-500 z-20 py-2 px-4 shadow-md h-12 flex items-center">
         <div className="flex justify-between items-center w-full">
-          <div className="flex gap-2">{/* Aquí puedes añadir elementos si quieres */}</div>
-          <div className="flex gap-4 items-center">{/* Aquí también */}</div>
+          <div className="flex gap-2"></div>
+          <div className="flex gap-4 items-center"></div>
         </div>
       </div>
 
-      {/* Contenedor general con padding para que el contenido no quede tapado */}
+      {/* Contenedor general */}
       <div className="pt-14">
         {/* Credenciales */}
         {showCredentials && user && (
@@ -43,30 +39,28 @@ const HomePage = () => {
 
             <Link
               to="/quienes-somos"
-              className="bg-blue-700 hover:bg-blue-600 text-white py-2 px-4 rounded shadow-lg transition duration-300"
+              className="bg-blue-700 hover:bg-blue-600 text-white py-2 px-4 rounded shadow-lg transition duration-300 block mt-4"
             >
               Quiénes somos
             </Link>
 
-           {/* Para no autenticados y usuarios normales: mostrar "Reportar Avería" */}
-{(!isAuthenticated || (user && user.role === "user")) && (
-  <Link
-    to="/reporte"
-    className="bg-yellow-600 hover:bg-yellow-500 text-white py-2 px-4 rounded shadow-lg transition duration-300"
-  >
-    Reportar Avería
-  </Link>
-)}
+            {(!isAuthenticated || user?.role === "user") && (
+              <Link
+                to="/reporte"
+                className="bg-yellow-600 hover:bg-yellow-500 text-white py-2 px-4 rounded shadow-lg transition duration-300 block mt-2"
+              >
+                Reportar Avería
+              </Link>
+            )}
 
-{/* Solo el admin ve "Ver Reportes" */}
-{isAuthenticated && user?.role === "admin" && (
-  <Link
-    to="/reportes/lista"
-    className="bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded shadow-lg transition duration-300"
-  >
-    Ver Reportes
-  </Link>
-)}
+            {isAuthenticated && user?.role === "admin" && (
+              <Link
+                to="/reportes/lista"
+                className="bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded shadow-lg transition duration-300 block mt-2"
+              >
+                Ver Reportes
+              </Link>
+            )}
           </div>
         )}
 
@@ -98,7 +92,6 @@ const HomePage = () => {
               <p className="text-gray-700">
                 El próximo <strong>jueves 15 de junio</strong> realizaremos un mantenimiento programado
                 en el suministro de agua que afectará temporalmente a varias zonas de Pilangosta.
-                Agradecemos su comprensión.
               </p>
             </div>
             <div className="bg-white border-l-8 border-green-500 p-6 rounded-lg shadow-md hover:shadow-xl transform transition-transform duration-300 hover:scale-105">
@@ -107,7 +100,7 @@ const HomePage = () => {
               </h4>
               <p className="text-gray-700">
                 Iniciamos un nuevo proyecto de expansión para mejorar la cobertura de agua potable
-                en zonas rurales. Muy pronto compartiremos los avances y zonas beneficiadas.
+                en zonas rurales. Muy pronto compartiremos los avances.
               </p>
             </div>
           </div>
@@ -124,36 +117,58 @@ const HomePage = () => {
             ¿Qué dicen nuestros abonados?
           </h3>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <div className="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400 transform transition-transform duration-300 hover:scale-105">
+            <div className="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400 hover:scale-105 transition-transform duration-300">
               <p className="text-gray-800 italic mb-4">
                 "Me encanta que ahora podamos reportar averías fácilmente desde la web. ¡Gran avance!"
               </p>
-              <p className="text-blue-800 font-semibold">– Erika M., Calle Las Rosas</p>
+              <p className="text-blue-800 font-semibold">– Erika M.</p>
             </div>
-            <div className="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400 transform transition-transform duration-300 hover:scale-105">
+            <div className="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400 hover:scale-105 transition-transform duration-300">
               <p className="text-gray-800 italic mb-4">
                 "Desde que se hicieron las mejoras, no hemos tenido cortes inesperados. ¡Gracias ASADA!"
               </p>
-              <p className="text-blue-800 font-semibold">– Karla V., Zona Alta</p>
+              <p className="text-blue-800 font-semibold">– Karla V.</p>
             </div>
-            <div className="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400 transform transition-transform duration-300 hover:scale-105">
+            <div className="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400 hover:scale-105 transition-transform duration-300">
               <p className="text-gray-800 italic mb-4">
-                "El nuevo sistema de registro de abonados ha facilitado muchos trámites. ¡Muy profesional!"
+                "El nuevo sistema de registro de abonados ha facilitado muchos trámites."
               </p>
-              <p className="text-blue-800 font-semibold">– Don Alfredo C., Pilangosta Sur</p>
+              <p className="text-blue-800 font-semibold">– Don Alfredo C.</p>
             </div>
           </div>
         </section>
 
-        {/* Footer */}
-        <footer className="bg-blue-700 text-white py-6 px-4 text-center mt-16">
-          <p className="text-sm mb-2">
+        {/* Footer con íconos */}
+        <footer className="bg-blue-800 text-white py-6 px-4 text-center mt-16 shadow-lg">
+          <p className="text-sm mb-4">
             © 2025 ASADA Pilangosta. Todos los derechos reservados.
           </p>
-          <div className="flex justify-center gap-6 text-sm">
-            <a href="https://www.facebook.com/asada.pilangosta.9/" className="hover:underline" target="_blank" rel="noopener noreferrer">Facebook</a>
-            <a href="https://wa.me/50664568177" className="hover:underline" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-            <a href="mailto:asada@correo.com" className="hover:underline">asada@correo.com</a>
+          <div className="flex justify-center gap-8 text-2xl">
+            <a
+              href="https://www.facebook.com/asada.pilangosta.9/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-300 transition-colors"
+              aria-label="Facebook"
+            >
+              <FaFacebook />
+            </a>
+            <a
+              href="https://wa.me/50664568177"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-green-300 transition-colors"
+              aria-label="WhatsApp"
+            >
+              <FaWhatsapp />
+            </a>
+            <a
+              href="mailto:asada.pilangosta@gmail.com"
+              className="hover:text-yellow-300 transition-colors"
+              aria-label="Correo electrónico"
+            >
+              <FaEnvelope />
+            </a>
           </div>
         </footer>
       </div>

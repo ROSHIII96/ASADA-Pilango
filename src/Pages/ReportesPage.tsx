@@ -10,7 +10,9 @@ const [showAddModal, setShowAddModal] = useState(true);
       show={showAddModal}
       onClose={() => setShowAddModal(false)}
       title="Agregar nueva averia">
+
       <AveriaFormularioAgregar onClose={() => setShowAddModal(false)} />
+
     </GenericModal>
   )
 };

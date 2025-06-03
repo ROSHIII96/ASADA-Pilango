@@ -1,55 +1,46 @@
 import { UserMinus2 } from "lucide-react"; // ícono opcional
 import  ClientesLista from '../Components/Clientes/ClientesLista'
 import ClienteBotonAgregar from '../Components/Clientes/ClienteBotonAgregar'
+//Para obtener la lista de abonados
 import { useUsers } from '../Services/UsersService'
-import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
 
 const ListaAbonadosPage = () => {
-  const { data: users, isLoading } = useUsers();
+  // Hook useUsers para obtener la lista de abonados, se obtiene en data y se renombra a users
+  const { data: users, isLoading } = useUsers(); 
 
-  //--------nuevo
-  const { user } = useContext(AuthContext)
-  if (user?.role !== "admin") {
-    return <div className="p-4 text-red-600 font-bold">Acceso denegado: solo administradores.</div>;
+   //Cuando isLoading es verdadero, muestra un mensaje de carga
+   //hasta que se obtenga la lista de abonados
+  if (isLoading) { 
+    return (
+      <div className="pt-16">
+        <p className="text-center">Cargando...</p>
+      </div>
+    );
   }
 
-  return (
-  <div className="pt-16"> {/* Ajusta el espacio con el navbar */}
-           {/* Muestra la lista de abonados y el boton agregar */}
-      <header className="text-center mb-10">
-        <h1 className="text-4xl font-bold text-blue-700">Lista de Abonados</h1>
-          <ClienteBotonAgregar/>
-      </header>
-    {isLoading ? 
+const vacio = !users || users.length === 0;
+
+return (
+  <div className="pt-16">
+    <header className="text-center mb-10">
+      <h1 className="text-4xl font-bold text-blue-700">Lista de Abonados</h1>
+      <ClienteBotonAgregar/>
+    </header>
+    {vacio ?  //Si vacio es verdadero o falso muestra el mensaje correspondiente
     (
-      <p className="text-center">Cargando...</p>
-    ) : users && users.length === 0 ? 
-    (
-      <div className="flex flex-col items-center justify-center mt-20">
-        <UserMinus2 className="w-16 h-16 text-gray-400 mb-4" />
-        <p className="text-xl text-gray-500">No hay abonados registrados todavía.</p>
-        <p className="text-sm text-gray-400">Puedes agregar nuevos abonados en el boton agregar abonado.</p>
-      </div>
-    ) 
-    : 
+     <div className="pt-16 flex flex-col items-center justify-center mt-20">
+      <UserMinus2 className="w-16 h-16 text-gray-400 mb-4" />
+      <p className="text-xl text-gray-500">No hay abonados registrados todavía.</p>
+      <p className="text-sm text-gray-400">Puedes agregar nuevos abonados en el boton agregar abonado.</p>
+    </div>
+    )
+    :
     (
       <ClientesLista />
     )
     }
   </div>
-  );
-};
+);
+}
 
 export default ListaAbonadosPage;
-
-/*
-//import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
-  const queryClient = new QueryClient()
-
-        <QueryClientProvider client={queryClient}>
-        </QueryClientProvider>
-          <ClientesLista />
-
-*/

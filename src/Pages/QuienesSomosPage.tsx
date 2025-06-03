@@ -2,6 +2,7 @@
 import React from "react";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 
+
 const QuienesSomosPage = () => {
   return (
     <div className="min-h-screen bg-blue-50 text-gray-800 font-sans">

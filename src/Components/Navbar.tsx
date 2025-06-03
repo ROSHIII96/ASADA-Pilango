@@ -66,7 +66,12 @@ const Navbar = () => {
             </Link>
           </>
         )}
-
+        <Link to="/listareportes" className={buttonClass}>
+              Reportes
+            </Link>
+            <Link to="/abonados" className={buttonClass}>
+              Abonados
+            </Link>
         {isAuthenticated && user?.role === "gestorcobro" &&( //Se muestra al admin
           <>
             <Link to="/" className={buttonClass}>

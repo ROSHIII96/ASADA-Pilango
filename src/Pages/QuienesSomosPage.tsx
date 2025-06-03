@@ -1,13 +1,20 @@
 // src/Pages/QuienesSomosPage.tsx
 import React from "react";
-import { FaFacebook, FaInstagram } from "react-icons/fa";
+import { FaFacebook, FaWhatsapp } from "react-icons/fa";
+import TanqueImg from "../Fotos/Tanque.png";
 
 
 const QuienesSomosPage = () => {
   return (
-    <div className="min-h-screen bg-blue-50 text-gray-800 font-sans">
-
-      {/* Sección ¿Quiénes somos? con hover (sin flecha) */}
+    <div
+      className="min-h-screen text-gray-800 font-sans"
+      style={{
+        backgroundImage: `url(${TanqueImg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <section className="group px-6 md:px-16 py-10 bg-gradient-to-r from-blue-600 to-blue-400 rounded-3xl max-w-5xl mx-auto shadow-lg border-t-8 border-blue-700 cursor-pointer select-none">
         <div className="flex items-center justify-center">
           <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg">
@@ -26,7 +33,7 @@ const QuienesSomosPage = () => {
         </div>
       </section>
 
-      {/* Misión, Visión, Valores */}
+      {/* Mision, Vision, Valores */}
       <section className="text-center mb-16 px-6 md:px-16 mt-20 max-w-5xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-500">
@@ -53,7 +60,7 @@ const QuienesSomosPage = () => {
         </div>
       </section>
 
-      {/* Ubicación con mapa más pequeño */}
+      {/* Ubicacion */}
       <section className="text-center mb-16 px-4 max-w-5xl mx-auto">
         <h2 className="text-2xl font-bold text-blue-700 mb-4">Nuestra Ubicación</h2>
         <div className="w-full max-w-xs mx-auto aspect-square rounded-xl overflow-hidden shadow-lg border-4 border-blue-200">
@@ -68,7 +75,7 @@ const QuienesSomosPage = () => {
         </div>
       </section>
 
-      {/* Footer con solo íconos clickeables */}
+      {/* Footer con iconos actualizados */}
       <footer className="bg-blue-800 text-white py-6 px-4 text-center shadow-lg">
         <p className="text-sm mb-4">© 2025 ASADA Pilangosta. Todos los derechos reservados.</p>
         <div className="flex justify-center gap-8 text-2xl">
@@ -82,13 +89,13 @@ const QuienesSomosPage = () => {
             <FaFacebook />
           </a>
           <a
-            href="https://www.instagram.com/asadapilangosta"
+            href="https://wa.me/50664568177"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-pink-400 transition-colors"
-            aria-label="Instagram"
+            className="hover:text-green-400 transition-colors"
+            aria-label="WhatsApp"
           >
-            <FaInstagram />
+            <FaWhatsapp />
           </a>
           <a
             href="mailto:asada.pilangosta@gmail.com"

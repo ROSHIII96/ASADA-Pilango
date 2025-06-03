@@ -49,12 +49,7 @@ const reportesRoute = createRoute({
 const quienesSomosRoute = createRoute({ 
     getParentRoute: () => rootRoute,
     path: '/quienes-somos',
-    component: () => (
-        //Si no se usa redirectTo="/login", se redirige a la pagina default en privateRoute, en ese caso seria "/""
-        <PrivateRoute redirectTo="/login">
-            <QuienesSomosPage />
-        </PrivateRoute>
-    ),
+    component: QuienesSomosPage,
 })
 
 const contactanosRoute = createRoute({

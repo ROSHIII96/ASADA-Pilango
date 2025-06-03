@@ -1,3 +1,6 @@
+// src/Pages/QuienesSomosPage.tsx
+import React from "react";
+
 import PresidenteImg from "../Fotos/Presidente.png";
 import VicepresidenteImg from "../Fotos/Vicepresidente.png";
 import SecretariaImg from "../Fotos/Secretaria.png";
@@ -6,33 +9,30 @@ import Fontanero1Img from "../Fotos/Fontanero1.png";
 import Fontanero2Img from "../Fotos/Fontanero2.png";
 
 const QuienesSomosPage = () => {
-  const otrosMiembros = [
-    { rol: "Vicepresidente", img: VicepresidenteImg },
-    { rol: "Secretaria", img: SecretariaImg },
-    { rol: "Tesorero", img: TesoreroImg },
-    { rol: "Fontanero", img: Fontanero1Img },
-    { rol: "Fontanero", img: Fontanero2Img },
-  ];
-
   return (
     <div className="min-h-screen bg-blue-50 text-gray-800 font-sans">
 
-      {/* Encabezado */}
-      <header className="text-center py-12 bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-lg">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-wider drop-shadow-lg">
-          ¿Quiénes somos?
-        </h1>
-      </header>
+      {/* Sección ¿Quiénes somos? con hover (sin flecha) */}
+      <section className="group px-6 md:px-16 py-10 bg-gradient-to-r from-blue-600 to-blue-400 rounded-3xl max-w-5xl mx-auto shadow-lg border-t-8 border-blue-700 cursor-pointer select-none">
+        <div className="flex items-center justify-center">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg">
+            ¿Quiénes somos?
+          </h1>
+        </div>
 
-      {/* Descripción */}
-      <section className="text-center px-6 md:px-16 mb-16">
-        <p className="text-lg max-w-3xl mx-auto leading-relaxed text-gray-700">
-          Somos una organización comunal sin fines de lucro que administra el sistema de acueducto en Pilangosta. Nuestro propósito es garantizar agua potable de calidad y promover una gestión responsable del recurso hídrico.
-        </p>
+        <div className="max-h-0 overflow-hidden group-hover:max-h-[1000px] transition-all duration-700 ease-in-out">
+          <p className="text-lg leading-relaxed text-blue-100 max-w-4xl mx-auto mt-8 text-center select-text">
+            Somos una organización comunal sin fines de lucro dedicada a garantizar el acceso al agua potable en Pilangosta, resultado del esfuerzo colectivo de vecinos comprometidos con una gestión eficiente, sostenible y transparente.
+            <br /><br />
+            Nuestro objetivo es asegurar un suministro continuo y de calidad, promoviendo el cuidado ambiental y la participación ciudadana. A lo largo del tiempo, hemos avanzado con nuevas tecnologías, capacitaciones y proyectos de reforestación para proteger nuestras fuentes de agua.
+            <br /><br />
+            Más que una administración, somos una comunidad unida por el bienestar común y el trabajo conjunto.
+          </p>
+        </div>
       </section>
 
       {/* Misión, Visión, Valores */}
-      <section className="text-center mb-16 px-6 md:px-16">
+      <section className="text-center mb-16 px-6 md:px-16 mt-20 max-w-5xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-500">
             <h2 className="text-3xl font-semibold text-white mb-4">Misión</h2>
@@ -48,7 +48,7 @@ const QuienesSomosPage = () => {
           </div>
           <div className="bg-gradient-to-r from-blue-400 to-blue-300 p-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-500">
             <h2 className="text-3xl font-semibold text-white mb-4">Valores</h2>
-            <ul className="text-lg text-white list-disc list-inside leading-relaxed text-left space-y-2">
+            <ul className="text-lg text-white leading-relaxed text-left space-y-2">
               <li>Responsabilidad</li>
               <li>Solidaridad</li>
               <li>Sostenibilidad</li>
@@ -87,16 +87,16 @@ const QuienesSomosPage = () => {
     </div>
   ))}
 </div>
+
       </section>
 
       {/* Ubicación */}
       <section className="text-center mb-16 px-4">
         <h2 className="text-2xl font-bold text-blue-700 mb-4">Nuestra Ubicación</h2>
-        <div className="w-full max-w-2xl mx-auto rounded-xl overflow-hidden shadow-lg border-4 border-blue-200">
+        <div className="w-full max-w-xs mx-auto aspect-square rounded-xl overflow-hidden shadow-lg border-4 border-blue-200">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.773361384773!2d-85.40965372587117!3d10.035551990071625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f9fa5d427ed8a1f%3A0xf4e8778ff000126!2sAsada%20De%20Pilangosta!5e0!3m2!1ses-419!2scr!4v1746990175518!5m2!1ses-419!2scr"
-            width="100%"
-            height="300"
+            className="w-full h-full"
             style={{ border: 0 }}
             allowFullScreen
             loading="lazy"
@@ -105,13 +105,44 @@ const QuienesSomosPage = () => {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Footer con solo íconos clickeables */}
       <footer className="bg-blue-800 text-white py-6 px-4 text-center shadow-lg">
-        <p className="text-sm mb-2">© 2025 ASADA Pilangosta. Todos los derechos reservados.</p>
-        <div className="flex justify-center gap-6 text-sm">
-          <a href="#" className="hover:underline">Facebook</a>
-          <a href="#" className="hover:underline">Instagram</a>
-          <a href="mailto:asada@correo.com" className="hover:underline">asada@correo.com</a>
+        <p className="text-sm mb-4">© 2025 ASADA Pilangosta. Todos los derechos reservados.</p>
+        <div className="flex justify-center gap-8 text-2xl">
+          <a
+            href="https://www.facebook.com/asadapilangosta"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-blue-400 transition-colors"
+            aria-label="Facebook"
+          >
+            <FaFacebook />
+          </a>
+          <a
+            href="https://www.instagram.com/asadapilangosta"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-pink-400 transition-colors"
+            aria-label="Instagram"
+          >
+            <FaInstagram />
+          </a>
+          <a
+            href="mailto:asada.pilangosta@gmail.com"
+            className="hover:text-yellow-300 transition-colors"
+            aria-label="Correo electrónico"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-7 w-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </a>
         </div>
       </footer>
     </div>

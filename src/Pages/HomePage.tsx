@@ -96,7 +96,7 @@ const HomePage = () => {
                 🔧 Mantenimiento Programado
               </h4>
               <p className="text-gray-700">
-                El próximo <strong>jueves 15 de mayo</strong> realizaremos un mantenimiento programado
+                El próximo <strong>jueves 15 de junio</strong> realizaremos un mantenimiento programado
                 en el suministro de agua que afectará temporalmente a varias zonas de Pilangosta.
                 Agradecemos su comprensión.
               </p>
@@ -126,27 +126,9 @@ const HomePage = () => {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             <div className="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400 transform transition-transform duration-300 hover:scale-105">
               <p className="text-gray-800 italic mb-4">
-                "El servicio ha mejorado muchísimo en los últimos años. Siempre están atentos a cualquier problema."
-              </p>
-              <p className="text-blue-800 font-semibold">– Laura G., Pilangosta Centro</p>
-            </div>
-            <div className="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400 transform transition-transform duration-300 hover:scale-105">
-              <p className="text-gray-800 italic mb-4">
-                "Muy agradecido por el acceso constante al agua potable. Excelente trabajo por parte de la ASADA."
-              </p>
-              <p className="text-blue-800 font-semibold">– Marcos R., Barrio Los Pinos</p>
-            </div>
-            <div className="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400 transform transition-transform duration-300 hover:scale-105">
-              <p className="text-gray-800 italic mb-4">
                 "Me encanta que ahora podamos reportar averías fácilmente desde la web. ¡Gran avance!"
               </p>
               <p className="text-blue-800 font-semibold">– Erika M., Calle Las Rosas</p>
-            </div>
-            <div className="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400 transform transition-transform duration-300 hover:scale-105">
-              <p className="text-gray-800 italic mb-4">
-                "La comunicación con la ASADA ha sido clara y eficiente. Me siento escuchado como abonado."
-              </p>
-              <p className="text-blue-800 font-semibold">– Luis A., Pilangosta Norte</p>
             </div>
             <div className="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400 transform transition-transform duration-300 hover:scale-105">
               <p className="text-gray-800 italic mb-4">

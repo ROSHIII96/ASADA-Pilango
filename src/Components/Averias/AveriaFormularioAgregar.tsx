@@ -203,7 +203,7 @@ const AveriaFormularioAgregar = ({ onClose }) => {
         
         <div className="h-48 w-full rounded-md overflow-hidden border border-gray-300">
           <MapContainer 
-            center={[40.4168, -3.7038]}
+            center={[10.1483, -85.4520]}
             zoom={13}
             style={{ height: '100%', width: '100%' }}
             whenCreated={map => { mapRef.current = map }}

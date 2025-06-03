@@ -1,26 +1,26 @@
 // src/Pages/HomePage.tsx
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Carousel from "../Components/Carousel";
 import Proyectos from "../Components/Proyectos";
 
 const HomePage = () => {
-  const { isAuthenticated, logout, user } = useAuth();
   const [showCredentials, setShowCredentials] = useState(false);
-  const [showAbonadosMenu, setShowAbonadosMenu] = useState(false);
+  //const [showAbonadosMenu, setShowAbonadosMenu] = useState(false);
 
-  const toggleCredentials = () => {
+  /*const toggleCredentials = () => {
     setShowCredentials(!showCredentials);
-  };
+  };*/
 
   const passwordToAsterisks = (password: string) => {
     return "*".repeat(password.length);
   };
 
+  /*
   const toggleAbonadosMenu = () => {
     setShowAbonadosMenu(!showAbonadosMenu);
-  };
+  };*/
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-600 via-cyan-400 to-green-400 text-gray-100 font-sans">
@@ -47,26 +47,6 @@ const HomePage = () => {
             >
               Quiénes somos
             </Link>
-
-           {/* Para no autenticados y usuarios normales: mostrar "Reportar Avería" */}
-{(!isAuthenticated || (user && user.role === "user")) && (
-  <Link
-    to="/reporte"
-    className="bg-yellow-600 hover:bg-yellow-500 text-white py-2 px-4 rounded shadow-lg transition duration-300"
-  >
-    Reportar Avería
-  </Link>
-)}
-
-{/* Solo el admin ve "Ver Reportes" */}
-{isAuthenticated && user?.role === "admin" && (
-  <Link
-    to="/reportes/lista"
-    className="bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded shadow-lg transition duration-300"
-  >
-    Ver Reportes
-  </Link>
-)}
           </div>
         )}
 

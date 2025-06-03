@@ -1,12 +1,7 @@
 // src/Pages/QuienesSomosPage.tsx
 import React from "react";
+import { FaFacebook, FaInstagram } from "react-icons/fa";
 
-import PresidenteImg from "../Fotos/Presidente.png";
-import VicepresidenteImg from "../Fotos/Vicepresidente.png";
-import SecretariaImg from "../Fotos/Secretaria.png";
-import TesoreroImg from "../Fotos/Tesorero.png";
-import Fontanero1Img from "../Fotos/Fontanero1.png";
-import Fontanero2Img from "../Fotos/Fontanero2.png";
 
 const QuienesSomosPage = () => {
   return (
@@ -58,40 +53,8 @@ const QuienesSomosPage = () => {
         </div>
       </section>
 
-      {/* Miembros */}
-      <section className="text-center mb-20 px-6">
-        <h2 className="text-3xl font-semibold text-blue-700 mb-10">Nuestros Miembros</h2>
-
-        {/* Presidente destacado */}
-        <div className="mb-16">
-          <div className="flex flex-col items-center">
-            <img
-              src={PresidenteImg}
-              alt="Presidente"
-              className="w-32 h-32 rounded-full mb-4 border-4 border-blue-600 shadow-xl object-cover"
-            />
-            <p className="font-semibold text-lg">Presidente</p>
-          </div>
-        </div>
-
-        {/* Otros miembros */}
-<div className="flex flex-wrap justify-center gap-10">
-  {otrosMiembros.map((miembro, i) => (
-    <div key={i} className="text-center">
-      <img
-        src={miembro.img}
-        alt={miembro.rol}
-        className="w-28 h-28 rounded-full mx-auto mb-2 border-4 border-blue-400 object-cover shadow-lg"
-      />
-      <p className="font-semibold text-sm">{miembro.rol}</p>
-    </div>
-  ))}
-</div>
-
-      </section>
-
-      {/* Ubicación */}
-      <section className="text-center mb-16 px-4">
+      {/* Ubicación con mapa más pequeño */}
+      <section className="text-center mb-16 px-4 max-w-5xl mx-auto">
         <h2 className="text-2xl font-bold text-blue-700 mb-4">Nuestra Ubicación</h2>
         <div className="w-full max-w-xs mx-auto aspect-square rounded-xl overflow-hidden shadow-lg border-4 border-blue-200">
           <iframe

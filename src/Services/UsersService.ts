@@ -29,7 +29,7 @@ export const useUsers = () => {  //Corre la función fetchUsers
     return useQuery({
       queryKey: ['users'],
       queryFn: fetchUsers,
-      staleTime: 0,   // guarda en cache por 5 minutos
+      staleTime: 300000,   // guarda en cache por 5 minutos
       retry: 1,                    // intenta solo 1 vez si falla
     });
   };

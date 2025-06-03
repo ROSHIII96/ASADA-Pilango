@@ -4,7 +4,6 @@ import { createContext, useState, useEffect, useRef } from 'react'
 import { useLogin } from '../Hooks/useLogin'
 import { decodeToken, client as axiosClient } from '../Services/AuthService'
 
-
 interface User {
   email: string;
   password: string;
@@ -47,7 +46,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false)
   const [token, setToken] = useState(null);
   const logoutTimer = useRef(null);
-
   const { mutateAsync: loginMutation, isLoading, isError } = useLogin()
 
   //Nuevo

@@ -50,7 +50,6 @@ const ContactanosPage = () => {
       telefono: "8666-6666",
       imagen: "/fotos/Fontanero2.png",
     },
-
   ];
 
 return (
@@ -88,7 +87,6 @@ return (
     </div>
   </div>
 );
-
 };
 
 export default ContactanosPage;

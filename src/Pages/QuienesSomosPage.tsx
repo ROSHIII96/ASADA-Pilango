@@ -3,6 +3,7 @@ import React from "react";
 import { FaFacebook, FaWhatsapp } from "react-icons/fa";
 import TanqueImg from "../Fotos/Tanque.png";
 
+
 const QuienesSomosPage = () => {
   return (
     <div

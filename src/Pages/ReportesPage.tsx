@@ -1,9 +1,12 @@
+
 import React, { useState } from "react";
 import { useRouter } from '@tanstack/react-router';
+
 import GenericModal from "../Components/GenericModal";
 import AveriaFormularioAgregar from "../Components/Averias/AveriaFormularioAgregar";
 
 const ReportesPage = () => {
+
   const [showAddModal, setShowAddModal] = useState(true);
   const router = useRouter();
 
@@ -17,6 +20,7 @@ const ReportesPage = () => {
     router.navigate({ to: '/' }); // Redirige al Home después de enviar
   };
 
+
   return (
     <GenericModal
       show={showAddModal}
@@ -27,6 +31,7 @@ const ReportesPage = () => {
         onClose={handleClose} // Para cerrar desde botones internos
         onSuccess={handleSubmitSuccess} // Para manejar envío exitoso
       />
+
     </GenericModal>
   )
 };

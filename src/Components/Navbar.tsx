@@ -1,15 +1,13 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useAuth, AuthContext } from "../context/AuthContext";
-import { useEffect, useState, useContext } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useEffect, useState } from "react";
 import LogoASADA from "../Fotos/Logo de ASADA Pilangosta.jpg";
 
 const Navbar = () => {
   const { isAuthenticated, logout, user } = useAuth();
-  const [scrolled, setScrolled] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [ scrolled, setScrolled ] = useState(false);
+  const [ dropdownOpen, setDropdownOpen ] = useState(false);
   const navigate = useNavigate();  
-  //const { user } = useContext(AuthContext)
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,9 +21,6 @@ const Navbar = () => {
     logout();
     navigate({ to: "/" });
   };
-
-  //aqui es donde crashea
-  //const maskedPassword = user?.password.replace(/./g, "*");
 
   // Clase común para botones azul oscuro con texto blanco
   const buttonClass =
@@ -61,7 +56,7 @@ const Navbar = () => {
           </>
         )}
 
-         {isAuthenticated && user?.role === "admin" &&( //Se muestra al admin
+         {user?.role === "admin" &&( //Se muestra al admin
           <>
             <Link to="/listareportes" className={buttonClass}>
               Reportes
@@ -137,7 +132,7 @@ const Navbar = () => {
                 <p className="text-sm text-gray-600 mb-1">Role: {user?.role}</p>
                 <p className="text-sm text-gray-600 mb-1">Correo: {user?.email}</p>
                 <p className="text-sm text-gray-600 mb-4">
-                  Contraseña: <span className="font-mono">{maskedPassword}</span>
+                Contraseña: 
                 </p>
                 <button
                   onClick={handleLogout}

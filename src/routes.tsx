@@ -31,13 +31,21 @@ const loginRoute = createRoute({
 const listaAbonadosRoute = createRoute({ 
     getParentRoute: () => rootRoute,
     path: '/abonados',
-    component: ListaAbonadosPage,
+    component: () => (
+      <PrivateRoute redirectTo="/login" usuarioPermitido="admin">
+        <ListaAbonadosPage />
+      </PrivateRoute>
+    ),
 })
 
 const listaReportesRoute = createRoute({ 
     getParentRoute: () => rootRoute,
     path: '/listareportes',
-    component: ListaReportesPage,
+    component: () => (
+      <PrivateRoute redirectTo="/login" usuarioPermitido={["admin", "fontanero"]}>
+        <ListaReportesPage />
+      </PrivateRoute>
+    ),
 })
 
 const reportesRoute = createRoute({ 

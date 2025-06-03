@@ -1,5 +1,5 @@
 const GenericModal = ({ show, onClose, title, children }) => {
-  if (!show) return null;
+  if (!show) return null;  //Para que el modal no se muestre de un solo
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">

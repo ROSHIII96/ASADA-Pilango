@@ -31,7 +31,7 @@ export const useAverias = () => {  //Corre la función fetchUsers
     return useQuery({
       queryKey: ['averias'],
       queryFn: fetchAverias,
-      staleTime: 1,   // guarda en cache por 5 minutos
+      staleTime: 300000,   // guarda en cache por 5 minutos
       retry: 1,                    // intenta solo 1 vez si falla
     });
   };

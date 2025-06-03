@@ -1,6 +1,3 @@
-// src/Pages/QuienesSomosPage.tsx
-import React from "react";
-
 import PresidenteImg from "../Fotos/Presidente.png";
 import VicepresidenteImg from "../Fotos/Vicepresidente.png";
 import SecretariaImg from "../Fotos/Secretaria.png";
@@ -90,7 +87,6 @@ const QuienesSomosPage = () => {
     </div>
   ))}
 </div>
-
       </section>
 
       {/* Ubicación */}

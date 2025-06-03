@@ -17,7 +17,7 @@ const AveriaBotonAgregar = () =>
                             bg-green-600 rounded-lg hover:bg-blue-700 
                             focus:outline-none focus:ring-4 focus:ring-blue-300"
                 >
-                    Agregar averia
+                    Agregar Averia
                 </button>
             </div>
 

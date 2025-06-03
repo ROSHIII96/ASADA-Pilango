@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+/*import { useState, useRef } from 'react';
 
 export function useUserState() {
   const emailRef = useRef<string>("");
@@ -14,4 +14,4 @@ export function useUserState() {
   };
 
   return { error, emailRef, passwordRef, login, setError };
-}
+}*/

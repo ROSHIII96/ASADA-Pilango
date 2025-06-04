@@ -2,11 +2,15 @@ import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-tabl
 import { useMemo, useState } from "react";
 import { useUsers } from '../../Services/UsersService';
 import ClienteBotonEliminar from "././ClienteBotonEliminar";
-import ClienteBotonActualizar from './ClienteBotonActualizar'
+import ClienteBotonActualizar from './ClienteBotonActualizar';
+import { useGetAbonados } from '../../Hooks/useAbonados';
 
 const ClientesLista = () => {
   //Obtiene los datos de useUsers y los guarda en data
-  const { data, isLoading, isError, error } = useUsers();
+// const { data, isLoading, isError, error } = useUsers();
+ //   const { data: abonados } = useGetAbonados();
+const { data, isLoading, isError, error } = useGetAbonados();
+
 
   // Estado para el filtro de cédula
   const [cedulaFiltro, setCedulaFiltro] = useState('');
@@ -47,6 +51,8 @@ const ClientesLista = () => {
     []
   );
 
+   console.log("los clientes user son:",users)
+
   // Crea la tabla 
   const table = useReactTable({
         data: users,  //aqui funciona igual si se elimina users y se deja data solamente
@@ -60,8 +66,9 @@ const ClientesLista = () => {
   return <div className="p-4">Loading users...</div>;
   }
  if (isError) {
-    return <div className="p-4 text-red-500">Error: {er-ror.message}</div>;
-  }
+if (isError) {
+  return <div className="p-4 text-red-500">Error: {er-ror.message}</div>;
+}  }
 
 return(
 <div className="p-4 bg-gray-100 min-h-screen">

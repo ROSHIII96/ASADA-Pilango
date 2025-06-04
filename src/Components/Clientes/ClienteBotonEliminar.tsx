@@ -1,28 +1,28 @@
-//import GenericModal from "./GenericModal";
-//import ClienteFormularioEliminar from "././ClienteFormularioEliminar";
-//import { useState } from "react";
-
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteUser } from '../../Services/UsersService';
+import { useDeleteAbonado } from '../../Hooks/useAbonados';
 
 const ClienteBotonEliminar = ({ row }) =>
 {
+  const mutation = useDeleteAbonado();
+
   const queryClient = useQueryClient();
 
-  // Configura la mutación para eliminar el usuario
+ /* // Configura la mutación para eliminar el usuario
   const mutation = useMutation({
-    mutationFn: deleteUser, // Asegurarse de usar mutationFn en lugar de pasar directamente la función
+    mutationFn: useDeleteAbonado, // Asegurarse de usar mutationFn en lugar de pasar directamente la función
     onSuccess: () => {
       // Invalida la caché para recargar los datos actualizados
-      queryClient.invalidateQueries(['users']);
+      queryClient.invalidateQueries(['abonados']);
     },
-  });
+  });**/
 
   const handleDelete = () => {
-    const userId = row.original.numMedidor;
-    if (window.confirm(`¿Estás seguro de que deseas eliminar al usuario con numero de medidor -->> ${userId}  ?`)) {
-      mutation.mutate({ userId }); // Llama a la mutación para eliminar el usuario
+    const numMedidor = row.original.numMedidor;
+    if (window.confirm(`¿Estás seguro de que deseas eliminar al usuario con numero de medidor -->> ${numMedidor}  ?`)) {
+      mutation.mutate( numMedidor ); // Llama a la mutación para eliminar el usuario
     }
+    console.log("Eliminando usuario con numero de medidor:", numMedidor);
   };
 
     return (

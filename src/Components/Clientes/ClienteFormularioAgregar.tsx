@@ -1,8 +1,8 @@
 import { useForm } from '@tanstack/react-form'
-import { useAddUser, useUsers } from '../../Services/UsersService'
+import { useAddAbonado, useGetAbonados } from '../../Hooks/useAbonados'
 
 const ClienteFormulario = ({ onClose }) => {
-  const { data: users } = useUsers();
+  const { data: users } = useGetAbonados();
 
 // 1. Obtén todos los números de medidor existentes y ordénalos
   const medidores = users
@@ -21,18 +21,19 @@ const ClienteFormulario = ({ onClose }) => {
 
   // 1) grab your mutation
   const {
-    mutate: addUser,
+    mutate: addAbonado,
     isLoading,
     isAdding,
     isError,
     error,
     isSuccess,
-  } = useAddUser()
+  } = useAddAbonado();
 
      // 1️⃣ Initialize form state with defaultValues and a submit handler
   const form = useForm({
     defaultValues: {
-      numMedidor: nextNumMedidor.toString(), // Usa el prop si está disponible
+     // numMedidor: "15", // Usa el prop si está disponible
+      numMedidor: nextNumMedidor, // Usa el prop si está disponible
       cedula: '',
       name: '',
       email: '',
@@ -40,14 +41,19 @@ const ClienteFormulario = ({ onClose }) => {
     },
      //Cuando se presiona el boton de agregar, se ejecuta la mutacion
     onSubmit: async ({ value }) => {
-      addUser(
-        { newUser: value },
+      if (users.some(u => u.cedula === Number(value.cedula))) {
+        alert('Ya existe un abonado con esta cedula');
+        return;
+      } else{
+ addAbonado(
+        { numMedidor: nextNumMedidor, cedula: Number(value.cedula), name: value.name, email: value.email, direccion: value.direccion },
         {
         onSuccess: () => {
           if (onClose) onClose(); // Cierra el modal al agregar exitosamente
         }
         }
         )
+      }
     },
   })
 
@@ -61,8 +67,6 @@ const ClienteFormulario = ({ onClose }) => {
         }}
       >
 
-        
-        
         {/* ─── Cedula ───────────────────────── */}
         <div className="flex flex-col">
           <label htmlFor="cedula" className="mb-1 text-gray-700 font-medium">
@@ -162,23 +166,3 @@ const ClienteFormulario = ({ onClose }) => {
 }
 
 export default ClienteFormulario;
-
-/*
-{/* ─── Numero medidor Field ───────────────────────── *//*}
-        <div className="flex flex-col">
-          <label htmlFor="numMedidor" className="mb-1 text-gray-700 font-medium">
-            Numero medidor:
-          </label>
-          <form.Field name="numMedidor">
-           /* {field => (
-              <input
-                id="numMedidor"
-                name="numMedidor"
-                value={field.state.value}
-                onChange={e => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            )}
-          </form.Field>
-        </div>*/

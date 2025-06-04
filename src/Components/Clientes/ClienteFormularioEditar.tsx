@@ -1,18 +1,20 @@
 import { useForm } from '@tanstack/react-form'
-import { useUpdateUser } from '../../Services/UsersService'
+//import { useUpdateUser } from '../../Services/UsersService'
+import { useUpdateAbonado } from '../../Hooks/useAbonados'
 
 //const ClienteFormularioEditar = () => {
   const ClienteFormularioEditar = ({ cliente, onClose }) => {
 
+    
   // 1) grab your mutation
   const {
-    mutate: updateuser,
+    mutate: updateAbonado,
     isLoading,
     isAdding,
     isError,
     error,
     isSuccess,
-  } = useUpdateUser()
+  } = useUpdateAbonado()
 
      // 1️⃣ Initialize form state with defaultValues and a submit handler
   const form = useForm({
@@ -26,14 +28,15 @@ import { useUpdateUser } from '../../Services/UsersService'
      // 3) when the user submits, call your mutation
     onSubmit: async ({ value }) => {
       // value is { id, name, email, role }
-      updateuser(
-        { updatedUser: value },
+      updateAbonado(
+        { numMedidor: cliente.numMedidor, cedula:cliente.cedula, name: value.name, email: value.email, direccion: value.direccion },
+       // { updatedUser: value },
         {
         onSuccess: () => {
           if (onClose) onClose(); // Cierra el modal al agregar exitosamente
         }
       }
-      )  //contiene los datos actuales del formulario
+      )
     },
   })
 

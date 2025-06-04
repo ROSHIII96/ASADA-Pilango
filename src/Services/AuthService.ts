@@ -8,7 +8,6 @@ import { jwtDecode } from 'jwt-decode'
 interface AuthService {
   email: string;
   password: string;
-  
 }
 
 export const client = axios.create({

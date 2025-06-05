@@ -103,6 +103,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     localStorage.removeItem('authToken')
+    sessionStorage.removeItem('authToken');
    // delete axiosClient.defaults.headers.common.Authorization
     setIsAuthenticated(false); 
     setToken(null)

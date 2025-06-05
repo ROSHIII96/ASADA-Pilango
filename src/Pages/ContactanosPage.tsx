@@ -53,7 +53,7 @@ const ContactanosPage = () => {
   ];
 
 return (
-  <div className="bg-white py-16 px-4 sm:px-6 lg:px-8">
+  <div className="bg-white py-10 px-4 sm:px-6 lg:px-8">
     <div className="max-w-3xl mx-auto mb-12 bg-gradient-to-r from-blue-600 to-blue-400 rounded-xl p-6 text-center">
       <h2 className="text-3xl font-extrabold text-white">Contáctanos</h2>
       <p className="mt-4 text-lg text-white">

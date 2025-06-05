@@ -1,16 +1,10 @@
+import { useRef, useContext } from "react";
+import { AuthContext } from "../Context/AuthContext";
 import React, { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+//import { useAuth } from "../context/AuthContext";
 import { useRouter } from "@tanstack/react-router";
 
-//---Nuevo
-import { useRef, useContext } from 'react'
-import { AuthContext } from '../Context/AuthContext'
-
-//export default function Login() {
-
 const Login = () => {
-  
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   //const { login } = useAuth();
@@ -18,19 +12,19 @@ const Login = () => {
 
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-    const router = useRouter(); 
+  const router = useRouter();
 
-//---Nuevo
-    const { login, loginLoading, loginError } = useContext(AuthContext)
-    const { logout } = useContext(AuthContext)
-    const { setUser } = useContext(AuthContext)
-    const {loading} = useContext(AuthContext)
+  //---Nuevo
+  const { login, loginLoading, loginError } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
+  const { loading } = useContext(AuthContext);
 
-    const emailRef = useRef()
-    const passwordRef = useRef()
-    const [error, setError] = useState('')
-    const [rememberMe, setRememberMe] = useState(false); // <-- AGREGA ESTA LÍNEA
-/*
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const [error, setError] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  /*
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -49,45 +43,55 @@ const Login = () => {
 
   //---Nuevo
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setErrorMessage(null);
-  setSuccessMessage(null);
+    e.preventDefault();
+    setErrorMessage(null);
+    setSuccessMessage(null);
 
-  try {
-await login(emailRef.current.value, passwordRef.current.value, rememberMe);    setSuccessMessage("--->>> Inicio de sesión exitoso <<<---");
-    setTimeout(() => {
-      setSuccessMessage(null);
-      router.navigate({ to: "/" });
-    }, 700);
-  } catch (error) {
-    setErrorMessage("Usuario o contraseña incorrectos");
-  }
-
-};
+    try {
+      await login(
+        emailRef.current.value,
+        passwordRef.current.value,
+        rememberMe
+      );
+      setSuccessMessage("--->>> Inicio de sesión exitoso <<<---");
+      setTimeout(() => {
+        setSuccessMessage(null);
+        router.navigate({ to: "/" });
+      }, 700);
+    } catch (error) {
+      setErrorMessage("Usuario o contraseña incorrectos");
+    }
+  };
 
   const handleLogout = () => {
-    logout()
-  }
+    logout();
+  };
 
-  return (
-    loading ?
-    
-      (<div className="p-4 text-red-600 font-bold">
-        <button
-          type="button"
-          onClick={handleLogout}
-          className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition disabled:opacity-50"
-        >
-          Cerrar sesión
-        </button>
-        Ingresado exitosamente...</div>)
-      :
-      (
-        <form
+  return loading ? (
+    <div className="p-4 text-red-600 font-bold">
+      <button
+        type="button"
+        onClick={handleLogout}
+        className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition disabled:opacity-50"
+      >
+        Cerrar sesión
+      </button>
+      {/* Hace que se muestre la animacion si las credenciales son correctas */}
+      {successMessage && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-green-600 text-white px-8 py-6 rounded-xl shadow-2xl text-2xl font-bold animate-bounce border-4 border-green-800">
+            {successMessage}
+          </div>
+        </div>
+      )}
+      Ingresado exitosamente...
+    </div>
+  ) : (
+    <form
       onSubmit={handleSubmit}
       className="max-w-sm mx-auto mt-10 p-6 bg-gray-50 rounded-lg shadow"
     >
-      <input        
+      <input
         ref={emailRef}
         placeholder="Correo"
         className="w-full px-3 py-2 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -105,35 +109,35 @@ await login(emailRef.current.value, passwordRef.current.value, rememberMe);    s
         disabled={loginLoading}
         className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition disabled:opacity-50"
       >
-        {loading ? 'Ingresado con exito' : 'Ingresar'}
+        {loading ? "Ingresado con exito" : "Ingresar"}
       </button>
 
-
       <input
-       type="checkbox"
-       checked={rememberMe}
-       onChange={e => setRememberMe(e.target.checked)}
-       id='rememberMe'/>
-      <label htmlFor="rememberMe" className="ml-2">Recordarme</label>
+        type="checkbox"
+        checked={rememberMe}
+        onChange={(e) => setRememberMe(e.target.checked)}
+        id="rememberMe"
+      />
+      <label htmlFor="rememberMe" className="ml-2">
+        Recordarme
+      </label>
 
-      
-        <button
-          type="button"
-          onClick={handleLogout}
-          className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition disabled:opacity-50"
-        >
-          Cerrar sesión
-        </button>
+      <button
+        type="button"
+        onClick={handleLogout}
+        className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition disabled:opacity-50"
+      >
+        Cerrar sesión
+      </button>
 
       {loginError && (
         <p className="mt-2 text-sm text-red-600">Credenciales incorrectas</p>
       )}
     </form>
-    )
   );
 };
 
-export default Login;
+export default Login; /*}
 
 /*
 <div>
@@ -161,8 +165,8 @@ export default Login;
         </button>
       </form>
 
-      {/* Hace que se muestre la animacion si las credenciales son correctas *//*}
-      /*{successMessage && /*(
+      {/* Hace que se muestre la animacion si las credenciales son correctas */ /*}
+/*{successMessage && /*(
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div className="bg-green-600 text-white px-8 py-6 rounded-xl shadow-2xl text-2xl font-bold animate-bounce border-4 border-green-800">
             /*{successMessage}
@@ -170,7 +174,7 @@ export default Login;
         </div>
       )}
 
-      {/* Muestra un mensaje de error si las credenciales son incorrectas *//*}
+      {/* Muestra un mensaje de error si las credenciales son incorrectas */
      /* {errorMessage && (
         <div className="mt-6 flex justify-center">
           <div className="flex items-center gap-2 px-4 py-3 bg-red-600 text-white rounded-lg shadow-lg border-l-4 border-red-800 animate-shake">
@@ -182,4 +186,3 @@ export default Login;
         </div>
       )}
     </div>*/
-    

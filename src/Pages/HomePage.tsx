@@ -10,7 +10,6 @@ const HomePage = () => {
   const [showCredentials, setShowCredentials] = useState(false);
   //const [showAbonadosMenu, setShowAbonadosMenu] = useState(false);
 
-
   /*const toggleCredentials = () => {
     setShowCredentials(!showCredentials);
   };*/
@@ -19,12 +18,10 @@ const HomePage = () => {
     return "*".repeat(password.length);
   };
 
-
   /*
   const toggleAbonadosMenu = () => {
     setShowAbonadosMenu(!showAbonadosMenu);
   };*/
-
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-600 via-cyan-400 to-green-400 text-gray-100 font-sans">
@@ -42,8 +39,12 @@ const HomePage = () => {
         {showCredentials && user && (
           <div className="absolute top-20 right-4 bg-white p-4 border rounded-lg shadow-lg max-w-xs z-30 text-gray-900">
             <h3 className="text-xl font-semibold">Credenciales</h3>
-            <p><strong>Correo:</strong> {user.email}</p>
-            <p><strong>Contraseña:</strong> {passwordToAsterisks(user.password)}</p>
+            <p>
+              <strong>Correo:</strong> {user.email}
+            </p>
+            <p>
+              <strong>Contraseña:</strong> {passwordToAsterisks(user.password)}
+            </p>
 
             <Link
               to="/quienes-somos"
@@ -69,7 +70,6 @@ const HomePage = () => {
                 Ver Reportes
               </Link>
             )}
-
           </div>
         )}
 
@@ -99,8 +99,9 @@ const HomePage = () => {
                 🔧 Mantenimiento Programado
               </h4>
               <p className="text-gray-700">
-                El próximo <strong>jueves 15 de junio</strong> realizaremos un mantenimiento programado
-                en el suministro de agua que afectará temporalmente a varias zonas de Pilangosta.
+                El próximo <strong>jueves 15 de junio</strong> realizaremos un
+                mantenimiento programado en el suministro de agua que afectará
+                temporalmente a varias zonas de Pilangosta.
               </p>
             </div>
             <div className="bg-white border-l-8 border-green-500 p-6 rounded-lg shadow-md hover:shadow-xl transform transition-transform duration-300 hover:scale-105">
@@ -108,8 +109,9 @@ const HomePage = () => {
                 🚰 Proyecto de Expansión
               </h4>
               <p className="text-gray-700">
-                Iniciamos un nuevo proyecto de expansión para mejorar la cobertura de agua potable
-                en zonas rurales. Muy pronto compartiremos los avances.
+                Iniciamos un nuevo proyecto de expansión para mejorar la
+                cobertura de agua potable en zonas rurales. Muy pronto
+                compartiremos los avances.
               </p>
             </div>
           </div>
@@ -128,19 +130,22 @@ const HomePage = () => {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             <div className="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400 hover:scale-105 transition-transform duration-300">
               <p className="text-gray-800 italic mb-4">
-                "Me encanta que ahora podamos reportar averías fácilmente desde la web. ¡Gran avance!"
+                "Me encanta que ahora podamos reportar averías fácilmente desde
+                la web. ¡Gran avance!"
               </p>
               <p className="text-blue-800 font-semibold">– Erika M.</p>
             </div>
             <div className="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400 hover:scale-105 transition-transform duration-300">
               <p className="text-gray-800 italic mb-4">
-                "Desde que se hicieron las mejoras, no hemos tenido cortes inesperados. ¡Gracias ASADA!"
+                "Desde que se hicieron las mejoras, no hemos tenido cortes
+                inesperados. ¡Gracias ASADA!"
               </p>
               <p className="text-blue-800 font-semibold">– Karla V.</p>
             </div>
             <div className="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400 hover:scale-105 transition-transform duration-300">
               <p className="text-gray-800 italic mb-4">
-                "El nuevo sistema de registro de abonados ha facilitado muchos trámites."
+                "El nuevo sistema de registro de abonados ha facilitado muchos
+                trámites."
               </p>
               <p className="text-blue-800 font-semibold">– Don Alfredo C.</p>
             </div>

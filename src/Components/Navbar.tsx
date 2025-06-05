@@ -5,9 +5,15 @@ import LogoASADA from "../Fotos/Logo de ASADA Pilangosta.jpg";
 
 const Navbar = () => {
   const { isAuthenticated, logout, user } = useAuth();
-  const [ scrolled, setScrolled ] = useState(false);
-  const [ dropdownOpen, setDropdownOpen ] = useState(false);
-  const navigate = useNavigate();  
+  const [scrolled, setScrolled] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
+  const userRole =
+    user?.["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+  const userEmail =
+    user?.[
+      "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
+    ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,7 +23,8 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleLogout = () => {  //Cuando se cierra sesión, manda a la pagina home
+  const handleLogout = () => {
+    //Cuando se cierra sesión, manda a la pagina home
     logout();
     navigate({ to: "/" });
   };
@@ -33,7 +40,11 @@ const Navbar = () => {
       }`}
     >
       <Link to="/">
-          <img src={LogoASADA} alt="Logo ASADA Pilangosta" className="h-10 w-auto rounded-full" />
+        <img
+          src={LogoASADA}
+          alt="Logo ASADA Pilangosta"
+          className="h-10 w-auto rounded-full"
+        />
       </Link>
 
       <div className="flex items-center gap-4">
@@ -45,9 +56,12 @@ const Navbar = () => {
           Quienes somos
         </Link>
 
-        { user?.role === "fontanero" &&(  //Se muestra al fontanero
+        {user?.role === "Fontanero" && ( //Se muestra al fontanero
           <>
-            <Link to="/reportes" className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-lg font-semibold transition duration-300">
+            <Link
+              to="/reportes"
+              className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-lg font-semibold transition duration-300"
+            >
               Reportar Avería
             </Link>
             <Link to="/listareportes" className={buttonClass}>
@@ -56,7 +70,7 @@ const Navbar = () => {
           </>
         )}
 
-         {user?.role === "admin" &&( //Se muestra al admin
+        {user?.role === "Admin" && ( //Se muestra al admin
           <>
             <Link to="/listareportes" className={buttonClass}>
               Reportes
@@ -66,16 +80,11 @@ const Navbar = () => {
             </Link>
           </>
         )}
-        <Link to="/listareportes" className={buttonClass}>
-              Reportes
-            </Link>
+
+        {user?.role === "Gestor de cobro" && ( //Se muestra al admin
+          <>
             <Link to="/abonados" className={buttonClass}>
               Abonados
-            </Link>
-        {isAuthenticated && user?.role === "gestorcobro" &&( //Se muestra al admin
-          <>
-            <Link to="/" className={buttonClass}>
-              Solo para probar gestor cobro
             </Link>
           </>
         )}
@@ -105,6 +114,7 @@ const Navbar = () => {
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className={`${buttonClass} flex items-center gap-2`}
             >
+              <span className="font-medium">{userRole} </span>
               <span className="font-medium">{user?.name}</span>
               <svg
                 className={`w-4 h-4 transition-transform ${
@@ -129,11 +139,11 @@ const Navbar = () => {
                 <p className="text-sm font-semibold text-gray-700 mb-1">
                   Nombre: {user?.name}
                 </p>
-                <p className="text-sm text-gray-600 mb-1">Role: {user?.role}</p>
-                <p className="text-sm text-gray-600 mb-1">Correo: {user?.email}</p>
-                <p className="text-sm text-gray-600 mb-4">
-                Contraseña: 
+                <p className="text-sm text-gray-600 mb-1">Role: {userRole}</p>
+                <p className="text-sm text-gray-600 mb-1">
+                  Correo: {userEmail}
                 </p>
+                <p className="text-sm text-gray-600 mb-4">Contraseña:</p>
                 <button
                   onClick={handleLogout}
                   className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded text-sm font-semibold transition"
@@ -150,11 +160,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-/*
-<Link to="/abonados" className={buttonClass}>
-              Abonados
-            </Link>
-<Link to="/listareportes" className={buttonClass}>
-              Reportes
-            </Link>*/

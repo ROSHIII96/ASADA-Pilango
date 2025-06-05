@@ -1,4 +1,4 @@
-import { useForm } from '@tanstack/react-form'
+/*import { useForm } from '@tanstack/react-form'
 import { useDeleteUser } from '../../Services/UsersService'
 
 const AveriaFormularioEliminar = () => {
@@ -33,13 +33,13 @@ const {
           form.handleSubmit()
         }}
       >
-        {/* ─── ID Field ───────────────────────── */}
+        {/* ─── ID Field ───────────────────────── */ /*}
         <div className="flex flex-col">
           <label htmlFor="numMedidor" className="mb-1 text-gray-700 font-medium">
             ID:
           </label>
           <form.Field name="numMedidor">
-            {field => (
+           /* {field => (
               <input
                 id="numMedidor"
                 name="numMedidor"
@@ -52,7 +52,7 @@ const {
           </form.Field>
         </div>
       
-        {/* ─── Buttons ────────────────────────── */}
+        {/* ─── Buttons ────────────────────────── */ /*}
         <div className="flex space-x-4">
           <button
             type="submit"
@@ -73,4 +73,4 @@ const {
     )
 }
 
-export default AveriaFormularioEliminar;
+export default AveriaFormularioEliminar;*/

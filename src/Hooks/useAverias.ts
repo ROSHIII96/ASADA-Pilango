@@ -1,5 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addAbonado, getAbonados, deleteAbonado, updateAbonado } from "../Services/AuthAverias";
+import {
+  addAveria,
+  getAverias,
+  deleteAveria,
+  updateAveria,
+} from "../Services/AuthAverias";
 import { useQuery } from "@tanstack/react-query";
 
 interface AuthAverias {
@@ -8,66 +13,68 @@ interface AuthAverias {
   detalle: string;
   fecha: string;
   hora: string;
-  latidud: number;
-  longitud: number;
+  latitud: string;
+  longitud: string;
+  estado: string;
+  //ubicacion: string;
 }
 
-export function useAddAverias() {
+export function useAddAveria() {
   const queryClient = useQueryClient();
 
   return useMutation({
     // 1) Llama a getAbonado con los datos del abonado
     mutationFn: async (params: AuthAverias) => {
-      return await addAbonado(params);
+      return await addAveria(params);
     },
 
     // 2) En éxito, puedes cachear los datos del abonado
-    onSuccess: (abonado) => {
-      queryClient.setQueryData(['abonado'], abonado);
+    onSuccess: (averia) => {
+      queryClient.setQueryData(["averia"], averia);
     },
 
     // 3) En error, muestra el error
     onError: (err) => {
-      console.error('Login abonado failed:', err);
+      console.error("Login averia failed:", err);
     },
   });
 }
 
-export function useGetAbonados() {
+export function useGetAverias() {
   return useQuery({
-    queryKey: ['abonados'],
-    queryFn: getAbonados,
+    queryKey: ["averias"],
+    queryFn: getAverias,
   });
 }
 
-export function useDeleteAbonado() {
+export function useDeleteAveria() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (numMedidor: string) => {
-      return await deleteAbonado(numMedidor);
+    mutationFn: async (numAveria: number) => {
+      return await deleteAveria(numAveria);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(['abonados']);
+      queryClient.invalidateQueries(["averias"]);
     },
     onError: (err) => {
-      console.error('Delete abonado failed:', err);
+      console.error("Delete averia failed:", err);
     },
   });
 }
 
-export function useUpdateAbonado() {
+export function useUpdateAveria() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (abonadoData: AuthAbonados) => {
-      return await updateAbonado(abonadoData);
+    mutationFn: async (averiaData: AuthAverias) => {
+      return await updateAveria(averiaData);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(['abonados']);
+      queryClient.invalidateQueries(["averias"]);
     },
     onError: (err) => {
-      console.error('Update abonado failed:', err);
+      console.error("Update averias failed:", err);
     },
   });
 }

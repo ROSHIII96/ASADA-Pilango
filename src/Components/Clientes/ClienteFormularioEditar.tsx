@@ -1,5 +1,6 @@
 import { useForm } from "@tanstack/react-form";
 import { useUpdateAbonado } from "../../Hooks/useAbonados";
+import { updateAveria } from "../../Services/AuthAverias";
 
 const ClienteFormularioEditar = ({ abonado, onClose }) => {
   // Grab mutation to update an abonado

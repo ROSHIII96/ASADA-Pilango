@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+/*import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
 // JSONBin de los abonados
@@ -258,3 +258,4 @@ export function useDeleteUser() {
     },
   });
 }
+*/

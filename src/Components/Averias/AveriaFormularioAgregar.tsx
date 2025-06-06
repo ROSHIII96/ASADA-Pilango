@@ -1,5 +1,5 @@
 import { useForm } from "@tanstack/react-form";
-import { useAddUser, useAverias } from "../../Services/AveriasService";
+import { useAddAveria, useGetAverias } from "../../Hooks/useAverias";
 import {
   MapContainer,
   TileLayer,
@@ -9,7 +9,7 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Configuración de iconos de Leaflet
@@ -23,6 +23,7 @@ L.Icon.Default.mergeOptions({
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
 });
 
+// Toma la ubicacion para el marcador de ubicación de la persona
 const LocationMarker = ({ position, setPosition }) => {
   const map = useMap();
 
@@ -37,14 +38,12 @@ const LocationMarker = ({ position, setPosition }) => {
       setPosition(e.latlng);
     },
   });
-
   return position ? <Marker position={position} /> : null;
 };
 
 const AveriaFormularioAgregar = ({ onClose }) => {
   const navigate = useNavigate();
-
-  const { data: users } = useAverias();
+  const { data: averias } = useGetAverias();
   const [position, setPosition] = useState(null);
   const [locationError, setLocationError] = useState(null);
   const [formError, setFormError] = useState("");
@@ -66,14 +65,6 @@ const AveriaFormularioAgregar = ({ onClose }) => {
     const minutes = String(now.getMinutes()).padStart(2, "0");
     return `${hours}:${minutes}`;
   };
-
-  // Obtener próximos IDs
-  const nextId = users
-    ? Math.max(0, ...users.map((u) => parseInt(u.id) || 0)) + 1
-    : 1;
-  const nextNumAveria = users
-    ? Math.max(0, ...users.map((u) => parseInt(u.numAveria) || 0)) + 1
-    : 1;
 
   const getUserLocation = () => {
     if (!navigator.geolocation) {
@@ -97,17 +88,35 @@ const AveriaFormularioAgregar = ({ onClose }) => {
     );
   };
 
-  const { mutate: addUser, isLoading } = useAddUser();
+  const { mutate: addAveria, isLoading } = useAddAveria();
+
+  // Función para obtener el siguiente ID y número de avería
+  function getNextAveriaIds(averias) {
+    const ids = averias.map((a) => Number(a.id)).filter(Number.isFinite);
+    const nums = averias
+      .map((a) => Number(a.numAveria))
+      .filter(Number.isFinite);
+
+    let nextId = 1;
+    while (ids.includes(nextId)) nextId++;
+
+    const nextNumAveria = nums.length > 0 ? Math.max(...nums) + 1 : 1;
+
+    return { nextId, nextNumAveria };
+  }
+
+  const { nextId, nextNumAveria } = getNextAveriaIds(averias ?? []);
 
   const form = useForm({
     defaultValues: {
-      id: nextId.toString(),
-      numAveria: nextNumAveria.toString(),
+      id: nextId,
+      numAveria: nextNumAveria,
       detalle: "",
-      Fecha: getCurrentDate(),
-      hora: getCurrentTime(),
+      Fecha: "",
+      hora: "",
       latitud: "",
       longitud: "",
+      estado: "",
     },
     onSubmit: async ({ value }) => {
       setFormError(""); // Limpiar errores anteriores
@@ -120,36 +129,29 @@ const AveriaFormularioAgregar = ({ onClose }) => {
       }
 
       const finalValue = {
-        ...value,
+        id: nextId,
+        numAveria: nextNumAveria,
         detalle: detalleTrimmed,
-        ...(position
-          ? {
-              latitud: position.lat.toString(),
-              longitud: position.lng.toString(),
-            }
-          : {
-              latitud: "",
-              longitud: "",
-            }),
+        fecha: getCurrentDate(),
+        hora: getCurrentTime(),
+        latitud: position ? position.lat.toString() : "",
+        longitud: position ? position.lng.toString() : "",
+        estado: "En revisión",
       };
 
       console.log("Datos a enviar:", finalValue); // Para depuración
-
-      addUser(
-        { newUser: finalValue },
-        {
-          onSuccess: () => {
-            if (onClose) onClose();
-            navigate("/");
-          },
-          onError: (error) => {
-            console.error("Error al guardar:", error);
-            setFormError(
-              "Error al guardar la avería. Por favor intente nuevamente."
-            );
-          },
-        }
-      );
+      addAveria(finalValue, {
+        onSuccess: () => {
+          if (onClose) onClose();
+          navigate("/");
+        },
+        onError: (error) => {
+          console.error("Error al guardar:", error);
+          setFormError(
+            "Error al guardar la avería. Por favor intente nuevamente."
+          );
+        },
+      });
     },
   });
 
@@ -164,16 +166,48 @@ const AveriaFormularioAgregar = ({ onClose }) => {
     >
       {/* Campos ocultos */}
       <form.Field name="numAveria">
-        {(field) => <input type="hidden" {...field} />}
+        {(field) => (
+          <input
+            type="hidden"
+            name={field.name}
+            value={field.state.value}
+            onChange={(e) => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+          />
+        )}
       </form.Field>
       <form.Field name="id">
-        {(field) => <input type="hidden" {...field} />}
+        {(field) => (
+          <input
+            type="hidden"
+            name={field.name}
+            value={field.state.value}
+            onChange={(e) => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+          />
+        )}
       </form.Field>
       <form.Field name="Fecha">
-        {(field) => <input type="hidden" {...field} />}
+        {(field) => (
+          <input
+            type="hidden"
+            name={field.name}
+            value={field.state.value}
+            onChange={(e) => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+          />
+        )}
       </form.Field>
       <form.Field name="hora">
-        {(field) => <input type="hidden" {...field} />}
+        {(field) => (
+          <input
+            type="hidden"
+            name={field.name}
+            value={field.state.value}
+            onChange={(e) => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+          />
+        )}
       </form.Field>
 
       {/* Campo de detalle */}
@@ -183,14 +217,15 @@ const AveriaFormularioAgregar = ({ onClose }) => {
           {(field) => (
             <>
               <textarea
-                {...field}
+                name={field.name}
                 value={field.state.value}
                 onChange={(e) => {
                   field.handleChange(e.target.value);
                   setFormError(""); // Limpiar error al escribir
                 }}
+                onBlur={field.handleBlur}
                 className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                rows="3"
+                rows={3}
                 placeholder="Describa el problema con detalle (mínimo 5 caracteres)"
               />
               {formError && (
@@ -259,12 +294,24 @@ const AveriaFormularioAgregar = ({ onClose }) => {
       {/* Campos ocultos para coordenadas */}
       <form.Field name="latitud">
         {(field) => (
-          <input type="hidden" value={position?.lat || ""} {...field} />
+          <input
+            type="hidden"
+            name={field.name}
+            value={position?.lat || ""}
+            onChange={(e) => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+          />
         )}
       </form.Field>
       <form.Field name="longitud">
         {(field) => (
-          <input type="hidden" value={position?.lng || ""} {...field} />
+          <input
+            type="hidden"
+            name={field.name}
+            value={position?.lng || ""}
+            onChange={(e) => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+          />
         )}
       </form.Field>
 

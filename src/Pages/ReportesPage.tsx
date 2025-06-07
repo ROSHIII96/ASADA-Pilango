@@ -1,25 +1,19 @@
-
-import React, { useState } from "react";
-import { useRouter } from '@tanstack/react-router';
-
+import { useState } from "react";
 import GenericModal from "../Components/GenericModal";
 import AveriaFormularioAgregar from "../Components/Averias/AveriaFormularioAgregar";
 
 const ReportesPage = () => {
-
   const [showAddModal, setShowAddModal] = useState(true);
-  const router = useRouter();
 
   const handleClose = () => {
     setShowAddModal(false);
-    router.navigate({ to: '/' }); // Redirige al Home al cerrar
+    window.history.back(); // Vuelve a la página anterior
   };
 
   const handleSubmitSuccess = () => {
     setShowAddModal(false);
-    router.navigate({ to: '/' }); // Redirige al Home después de enviar
+    window.history.back(); // Vuelve a la página anterior
   };
-
 
   return (
     <GenericModal
@@ -27,13 +21,12 @@ const ReportesPage = () => {
       onClose={handleClose} // Usa la función que redirige
       title="Agregar nueva avería"
     >
-      <AveriaFormularioAgregar 
+      <AveriaFormularioAgregar
         onClose={handleClose} // Para cerrar desde botones internos
         onSuccess={handleSubmitSuccess} // Para manejar envío exitoso
       />
-
     </GenericModal>
-  )
+  );
 };
 
 export default ReportesPage;

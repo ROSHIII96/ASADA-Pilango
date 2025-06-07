@@ -1,7 +1,8 @@
 import { UserMinus2 } from "lucide-react";
 import AveriaLista from "../Components/Averias/AveriaLista";
 import AveriaBotonAgregar from "../Components/Averias/AveriaBotonAgregar";
-import { useGetAverias } from "../Hooks/useAverias";
+//Para obtener la lista de averias
+import { useGetAverias } from ".././Hooks/useAverias";
 
 const ListaReportesPage = () => {
   const { data: averias, isLoading } = useGetAverias();
@@ -38,7 +39,9 @@ const ListaReportesPage = () => {
     <div className="bg-white py-10 px-4 sm:px-6 lg:px-8 min-h-screen">
       {/* Encabezado con degradado */}
       <div className="max-w-3xl mx-auto mb-8 bg-gradient-to-r from-blue-600 to-blue-400 rounded-xl p-6 text-center">
-        <h2 className="text-3xl font-extrabold text-white mb-4">Lista de averías</h2>
+        <h2 className="text-3xl font-extrabold text-white mb-4">
+          Lista de averías
+        </h2>
         <div className="flex justify-center">
           <AveriaBotonAgregar />
         </div>

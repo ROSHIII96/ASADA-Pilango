@@ -1,5 +1,3 @@
-import React from "react";
-
 const ContactanosPage = () => {
   const contactos = [
     {
@@ -52,41 +50,41 @@ const ContactanosPage = () => {
     },
   ];
 
-return (
-  <div className="bg-white py-10 px-4 sm:px-6 lg:px-8">
-    <div className="max-w-3xl mx-auto mb-12 bg-gradient-to-r from-blue-600 to-blue-400 rounded-xl p-6 text-center">
-      <h2 className="text-3xl font-extrabold text-white">Contáctanos</h2>
-      <p className="mt-4 text-lg text-white">
-        Puedes comunicarte con cualquiera de nuestros representantes.
-      </p>
-    </div>
+  return (
+    <div className="bg-white py-10 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto mb-12 bg-gradient-to-r from-blue-600 to-blue-400 rounded-xl p-6 text-center">
+        <h2 className="text-3xl font-extrabold text-white">Contáctanos</h2>
+        <p className="mt-4 text-lg text-white">
+          Puedes comunicarte con cualquiera de nuestros representantes.
+        </p>
+      </div>
 
-    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
-      {contactos.map((persona, index) => (
-        <div
-          key={index}
-          className="transition-transform duration-300 transform hover:scale-105 rounded-2xl shadow-lg p-6 text-center text-white bg-gradient-to-r from-blue-600 to-blue-400 border-l-8 border-yellow-500"
-        >
-          {/* Imagen */}
-          <div className="mb-4">
-            <img
-              src={persona.imagen}
-              alt="Imagen de contacto"
-              className="mx-auto w-24 h-24 rounded-full object-cover border-2 border-white"
-            />
-          </div>
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
+        {contactos.map((persona, index) => (
+          <div
+            key={index}
+            className="transition-transform duration-300 transform hover:scale-105 rounded-2xl shadow-lg p-6 text-center text-white bg-gradient-to-r from-blue-600 to-blue-400 border-l-8 border-yellow-500"
+          >
+            {/* Imagen */}
+            <div className="mb-4">
+              <img
+                src={persona.imagen}
+                alt="Imagen de contacto"
+                className="mx-auto w-24 h-24 rounded-full object-cover border-2 border-white"
+              />
+            </div>
 
-          {/* Info */}
-          <div className="mt-4">
-            <h3 className="text-xl font-semibold">{persona.nombre}</h3>
-            <p>{persona.puesto}</p>
-            <p>Tel: {persona.telefono}</p>
+            {/* Info */}
+            <div className="mt-4">
+              <h3 className="text-xl font-semibold">{persona.nombre}</h3>
+              <p>{persona.puesto}</p>
+              <p>Tel: {persona.telefono}</p>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
 };
 
 export default ContactanosPage;

@@ -1,20 +1,23 @@
-// src/Components/Proyectos.tsx
-import React from "react";
-
 const proyectos = [
   {
-    imgSrc: "https://img.freepik.com/fotos-premium/trabajo-maquinaria-pesada-perforacion-construccion-8k-hd_1033957-26171.jpg",
-    descripcion: "Proyecto realizado: Mejora de infraestructura hídrica para optimizar el suministro de agua a las comunidades.",
+    imgSrc:
+      "https://img.freepik.com/fotos-premium/trabajo-maquinaria-pesada-perforacion-construccion-8k-hd_1033957-26171.jpg",
+    descripcion:
+      "Proyecto realizado: Mejora de infraestructura hídrica para optimizar el suministro de agua a las comunidades.",
     categoria: "Realizados",
   },
   {
-    imgSrc: "https://th.bing.com/th/id/OIP.5fe-qUFSkDFUGVvIdBL-GwHaEK?cb=iwp2&rs=1&pid=ImgDetMain",
-    descripcion: "Proyecto en curso: Reforestación de cuencas hidrográficas para mejorar la captación de agua de lluvia.",
+    imgSrc:
+      "https://th.bing.com/th/id/OIP.5fe-qUFSkDFUGVvIdBL-GwHaEK?cb=iwp2&rs=1&pid=ImgDetMain",
+    descripcion:
+      "Proyecto en curso: Reforestación de cuencas hidrográficas para mejorar la captación de agua de lluvia.",
     categoria: "En Curso",
   },
   {
-    imgSrc: "https://th.bing.com/th/id/OIP.wC9f981P0dYgOfX2WAJt7wHaE8?cb=iwp2&rs=1&pid=ImgDetMain",
-    descripcion: "Proyecto futuro: Campañas educativas sobre el uso responsable del agua, dirigidas a niños y adultos.",
+    imgSrc:
+      "https://th.bing.com/th/id/OIP.wC9f981P0dYgOfX2WAJt7wHaE8?cb=iwp2&rs=1&pid=ImgDetMain",
+    descripcion:
+      "Proyecto futuro: Campañas educativas sobre el uso responsable del agua, dirigidas a niños y adultos.",
     categoria: "Futuros",
   },
 ];

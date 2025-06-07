@@ -55,7 +55,9 @@ const ClientesLista = () => {
         header: "Correo electrónico",
         accessorKey: "email",
         cell: (info) => (
-          <span className="text-blue-500 hover:underline">{info.getValue()}</span>
+          <span className="text-blue-500 hover:underline">
+            {info.getValue()}
+          </span>
         ),
         size: 200,
       },
@@ -88,11 +90,14 @@ const ClientesLista = () => {
   });
 
   if (isLoading) return <div className="p-4">Cargando clientes...</div>;
-  if (isError) return <div className="p-4 text-red-500">Error: {error.message}</div>;
+  if (isError)
+    return <div className="p-4 text-red-500">Error: {error.message}</div>;
 
   return (
     <div className="p-4 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Listado de Clientes</h1>
+      <h1 className="text-2xl font-bold text-gray-800 mb-6">
+        Listado de Clientes
+      </h1>
 
       {/* Campo y botón de filtro */}
       <div className="mb-6 p-4 bg-white rounded shadow">
@@ -141,7 +146,10 @@ const ClientesLista = () => {
                     className="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider"
                     style={{ width: header.getSize() }}
                   >
-                    {flexRender(header.column.columnDef.header, header.getContext())}
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
                   </th>
                 ))}
               </tr>
@@ -150,16 +158,16 @@ const ClientesLista = () => {
           <tbody className="bg-white divide-y divide-gray-200">
             {table.getRowModel().rows.length > 0 ? (
               table.getRowModel().rows.map((row) => (
-                <tr
-                  key={row.id}
-                  className="hover:scale-[1.02] hover:shadow-md hover:bg-blue-50 transition-all duration-200 transform"
-                >
+                <tr key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <td
                       key={cell.id}
                       className="px-6 py-4 whitespace-nowrap text-sm text-gray-700"
                     >
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </td>
                   ))}
                 </tr>

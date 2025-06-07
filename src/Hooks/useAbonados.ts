@@ -51,6 +51,7 @@ export function useDeleteAbonado() {
       return await deleteAbonado(numMedidor);
     },
     onSuccess: () => {
+      alert("Abonado eliminado correctamente.");
       queryClient.invalidateQueries(["abonados"]);
     },
     onError: (err) => {

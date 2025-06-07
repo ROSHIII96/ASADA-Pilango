@@ -36,11 +36,14 @@ const ListaAbonadosPage = () => {
   }
 
   return (
-    <div className="pt-16">
-      <header className="text-center mb-10">
-        <h1 className="text-4xl font-bold text-white">Lista de Abonados</h1>
-        <ClienteBotonAgregar />
-      </header>
+    <div className="bg-white py-10 px-4 sm:px-6 lg:px-8 min-h-screen">
+      {/* Encabezado con degradado */}
+      <div className="max-w-3xl mx-auto mb-8 bg-gradient-to-r from-blue-600 to-blue-400 rounded-xl p-6 text-center">
+        <h2 className="text-3xl font-extrabold text-white mb-4">Lista de abonados</h2>
+        <div className="flex justify-center">
+          <ClienteBotonAgregar />
+        </div>
+      </div>
       {vacio ? ( //Si vacio es verdadero o falso muestra el mensaje correspondiente
         <div className="pt-16 flex flex-col items-center justify-center mt-20">
           <UserMinus2 className="w-16 h-16 text-gray-400 mb-4" />

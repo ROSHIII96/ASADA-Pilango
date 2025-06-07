@@ -9,6 +9,7 @@ const AveriaBotonEliminar = ({ row }) => {
   const mutation = useMutation({
     mutationFn: deleteAveria, // Asegurarse de usar mutationFn en lugar de pasar directamente la función
     onSuccess: () => {
+      alert("Averia eliminada correctamente");
       // Invalida la caché para recargar los datos actualizados
       queryClient.invalidateQueries(["averias"]);
     },

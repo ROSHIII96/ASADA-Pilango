@@ -17,7 +17,7 @@ export const client = axios.create({
   },
 });
 
-/*export async function login({ email, password }: AuthService) {
+export async function login({ email, password }: AuthService) {
   const { data } = await client.post(
     "/login", //Login es para el endpoint de autenticación en la API, es un nombre que se asigna para identificar la ruta de inicio de sesión.
     {
@@ -26,9 +26,9 @@ export const client = axios.create({
     }
   );
   return data.token;
-}*/
+}
 
-export async function login({ email, password }: AuthService) {
+/*export async function login({ email, password }: AuthService) {
   try {
     const { data } = await client.post("/login", {
       email,
@@ -47,7 +47,7 @@ export async function login({ email, password }: AuthService) {
     }
     throw new Error("Error de conexión o inesperado");
   }
-}
+}*/
 
 export function decodeToken(token) {
   return jwtDecode(token);

@@ -93,6 +93,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
       setToken(newToken);
       const data = decodeToken(newToken);
+      setUser({ ...normalizeUser(data), password });
       setUser(normalizeUser(data)); // Normaliza el usuario y extrae el rol dinámicamente
       setIsAuthenticated(true);
       setUser(foundUser);
@@ -104,7 +105,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  //Cuando se cierra sesion
   const logout = () => {
     localStorage.removeItem("authToken");
     sessionStorage.removeItem("authToken");

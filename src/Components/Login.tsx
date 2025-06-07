@@ -1,40 +1,40 @@
-import { useRef, useContext } from "react";
+import { useRef, useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
-import React, { useState } from "react";
 import { useRouter } from "@tanstack/react-router";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const { login, loginLoading, loginSuccess, loginError } =
+  const { login, loginLoading, loginError, isAuthenticated, logout } =
     useContext(AuthContext);
-  const { logout, isAuthenticated } = useContext(AuthContext);
-  //const { setUser } = useContext(AuthContext);
-  const { loading } = useContext(AuthContext);
   const emailRef = useRef();
   const passwordRef = useRef();
-  //const [error, setError] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const router = useRouter();
-  //const [loginSuccess, setLoginSuccess] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.navigate({ to: "/" });
+    }
+  }, [isAuthenticated]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
     setSuccessMessage(null);
 
-    try {
-      await login(
-        emailRef.current.value,
-        passwordRef.current.value,
-        rememberMe
-      );
+    const result = await login(
+      emailRef.current.value,
+      passwordRef.current.value,
+      rememberMe
+    );
+    if (result) {
       setSuccessMessage("--->>> Inicio de sesión exitoso <<<---");
       setTimeout(() => {
         setSuccessMessage(null);
         router.navigate({ to: "/" });
       }, 700);
-    } catch (error) {
+    } else {
       setErrorMessage("Usuario o contraseña incorrectos");
     }
   };
@@ -43,25 +43,29 @@ const Login = () => {
     logout();
   };
 
-  return isAuthenticated ? (
-    <div className="p-4 text-red-600 font-bold">
-      <button
-        type="button"
-        onClick={handleLogout}
-        className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition disabled:opacity-50"
-      >
-        Cerrar sesión
-      </button>
-      {successMessage && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-green-600 text-white px-8 py-6 rounded-xl shadow-2xl text-2xl font-bold animate-bounce border-4 border-green-800">
-            {successMessage}
+  if (isAuthenticated) {
+    return (
+      <div className="p-4 text-green-600 font-bold">
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition disabled:opacity-50"
+        >
+          Cerrar sesión
+        </button>
+        {successMessage && (
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="bg-green-600 text-white px-8 py-6 rounded-xl shadow-2xl text-2xl font-bold animate-bounce border-4 border-green-800">
+              {successMessage}
+            </div>
           </div>
-        </div>
-      )}
-      Ingresado exitosamente...
-    </div>
-  ) : (
+        )}
+        Ingresado exitosamente...
+      </div>
+    );
+  }
+
+  return (
     <form
       onSubmit={handleSubmit}
       className="max-w-sm mx-auto mt-10 p-6 bg-gray-50 rounded-lg shadow"
@@ -84,7 +88,7 @@ const Login = () => {
         disabled={loginLoading}
         className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition disabled:opacity-50"
       >
-        {isAuthenticated ? "Ingresado con exito" : "Ingresar"}
+        Ingresar
       </button>
 
       <input
@@ -97,8 +101,10 @@ const Login = () => {
         Recordarme
       </label>
 
-      {loginError && (
-        <p className="mt-2 text-sm text-red-600">Credenciales incorrectas</p>
+      {(loginError || errorMessage) && (
+        <p className="mt-2 text-sm text-red-600">
+          Usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.
+        </p>
       )}
     </form>
   );

@@ -35,6 +35,7 @@ const ClienteFormularioEditar = ({ abonado, onClose }) => {
         },
         {
           onSuccess: () => {
+            alert("Cliente actualizado correctamente.");
             if (onClose) onClose(); // Cierra el modal al agregar exitosamente
           },
         }

@@ -58,9 +58,7 @@ const ClienteFormulario = ({ onClose }) => {
           {
             onSuccess: () => {
               if (onClose) onClose(); // Cierra el modal al agregar exitosamente
-              alert(
-                `El abonado con el nombre: ${value.name} fue agregado exitosamente`
-              );
+              alert(`El abonado ${value.name} fue agregado exitosamente`);
             },
           }
         );

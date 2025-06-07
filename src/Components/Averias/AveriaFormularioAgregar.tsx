@@ -139,11 +139,10 @@ const AveriaFormularioAgregar = ({ onClose }) => {
         estado: "En revisión",
       };
 
-      console.log("Datos a enviar:", finalValue); // Para depuración
       addAveria(finalValue, {
         onSuccess: () => {
+          alert("Averia agregada correctamente");
           if (onClose) onClose();
-          //navigate("/listareportes");
         },
         onError: (error) => {
           console.error("Error al guardar:", error);

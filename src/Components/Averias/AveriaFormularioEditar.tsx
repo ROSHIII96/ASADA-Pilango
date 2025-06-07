@@ -59,6 +59,7 @@ const AveriaFormularioEditar = ({ cliente, onClose }) => {
         }, // Spread the current cliente data and the form values
         {
           onSuccess: () => {
+            alert("Averia actualiza");
             if (onClose) onClose(); // Cierra el modal al agregar exitosamente
           },
         }
@@ -104,43 +105,19 @@ const AveriaFormularioEditar = ({ cliente, onClose }) => {
         </form.Field>
       </div>
 
-      {/* ─── Fecha ────────────────────── */}
-      <div className="flex flex-col">
-        <label htmlFor="Fecha" className="mb-1 text-gray-700 font-medium">
-          Fecha:
-        </label>
-        <form.Field name="Fecha">
-          {(field) => (
-            <input
-              id="Fecha"
-              name="Fecha"
-              type="Fecha"
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-              onBlur={field.handleBlur}
-              className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          )}
-        </form.Field>
-      </div>
-
-      {/* ─── Hora ─────────────────────── */}
-      <div className="flex flex-col">
-        <label htmlFor="hora" className="mb-1 text-gray-700 font-medium">
-          Hora:
-        </label>
-        <form.Field name="hora">
-          {(field) => (
-            <input
-              id="hora"
-              name="hora"
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-              onBlur={field.handleBlur}
-              className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          )}
-        </form.Field>
+      <div className="flex flex-col md:flex-row md:space-x-8">
+        <div className="flex flex-col mb-2 md:mb-0">
+          <label className="mb-1 text-gray-700 font-medium">Fecha:</label>
+          <span className="px-3 py-2 bg-gray-100 rounded border border-gray-200">
+            {getCurrentDate()}
+          </span>
+        </div>
+        <div className="flex flex-col">
+          <label className="mb-1 text-gray-700 font-medium">Hora:</label>
+          <span className="px-3 py-2 bg-gray-100 rounded border border-gray-200">
+            {getCurrentTime()}
+          </span>
+        </div>
       </div>
 
       {/* ─── Estado (checkbox) ─────────────────────── */}

@@ -38,7 +38,7 @@ const ListaAbonadosPage = () => {
   return (
     <div className="pt-16">
       <header className="text-center mb-10">
-        <h1 className="text-4xl font-bold text-blue-700">Lista de Abonados</h1>
+        <h1 className="text-4xl font-bold text-white">Lista de Abonados</h1>
         <ClienteBotonAgregar />
       </header>
       {vacio ? ( //Si vacio es verdadero o falso muestra el mensaje correspondiente

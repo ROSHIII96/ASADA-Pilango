@@ -84,7 +84,6 @@ rootRoute.addChildren([
 ]);
 
 const router = createRouter({
-  //Crea el router
   routeTree: rootRoute,
   history: createBrowserHistory(),
   defaultErrorComponent: () => <div>Something went wrong</div>,

@@ -12,7 +12,6 @@ interface AuthAverias {
   latitud: string;
   longitud: string;
   estado: string;
-  // ubicacion: string;
 }
 
 export const averia = axios.create({
@@ -31,18 +30,7 @@ export async function addAveria({
   latitud,
   longitud,
   estado,
-}: //ubicacion,
-AuthAverias) {
-  console.log({
-    id,
-    numAveria,
-    detalle,
-    fecha,
-    hora,
-    /*ubicacion*/ latitud,
-    longitud,
-    estado,
-  });
+}: AuthAverias) {
   const { data } = await averia.post(
     "/api/Averias/getAveria", //Login es para el endpoint de autenticación en la API, es un nombre que se asigna para identificar la ruta de inicio de sesión.
     {
@@ -54,7 +42,6 @@ AuthAverias) {
       latitud,
       longitud,
       estado,
-      //ubicacion,
     }
   );
   return data.averia;

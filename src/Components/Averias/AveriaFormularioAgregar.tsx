@@ -143,7 +143,7 @@ const AveriaFormularioAgregar = ({ onClose }) => {
       addAveria(finalValue, {
         onSuccess: () => {
           if (onClose) onClose();
-          navigate("/");
+          //navigate("/listareportes");
         },
         onError: (error) => {
           console.error("Error al guardar:", error);

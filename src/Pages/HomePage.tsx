@@ -1,78 +1,12 @@
-// src/Pages/HomePage.tsx
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import Carousel from "../Components/Carousel";
 import Proyectos from "../Components/Proyectos";
 import { FaFacebook, FaWhatsapp, FaEnvelope } from "react-icons/fa";
 
 const HomePage = () => {
-  const [showCredentials, setShowCredentials] = useState(false);
-  //const [showAbonadosMenu, setShowAbonadosMenu] = useState(false);
-
-  /*const toggleCredentials = () => {
-    setShowCredentials(!showCredentials);
-  };*/
-
-  const passwordToAsterisks = (password: string) => {
-    return "*".repeat(password.length);
-  };
-
-  /*
-  const toggleAbonadosMenu = () => {
-    setShowAbonadosMenu(!showAbonadosMenu);
-  };*/
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-600 via-cyan-400 to-green-400 text-gray-100 font-sans">
-      {/* Franja superior */}
-      <div className="fixed top-0 left-0 w-full bg-blue-500 z-20 py-2 px-4 shadow-md h-12 flex items-center">
-        <div className="flex justify-between items-center w-full">
-          <div className="flex gap-2"></div>
-          <div className="flex gap-4 items-center"></div>
-        </div>
-      </div>
-
       {/* Contenedor general */}
       <div className="pt-14">
-        {/* Credenciales */}
-        {showCredentials && user && (
-          <div className="absolute top-20 right-4 bg-white p-4 border rounded-lg shadow-lg max-w-xs z-30 text-gray-900">
-            <h3 className="text-xl font-semibold">Credenciales</h3>
-            <p>
-              <strong>Correo:</strong> {user.email}
-            </p>
-            <p>
-              <strong>Contraseña:</strong> {passwordToAsterisks(user.password)}
-            </p>
-
-            <Link
-              to="/quienes-somos"
-              className="bg-blue-700 hover:bg-blue-600 text-white py-2 px-4 rounded shadow-lg transition duration-300 block mt-4"
-            >
-              Quiénes somos
-            </Link>
-
-            {(!isAuthenticated || user?.role === "user") && (
-              <Link
-                to="/reporte"
-                className="bg-yellow-600 hover:bg-yellow-500 text-white py-2 px-4 rounded shadow-lg transition duration-300 block mt-2"
-              >
-                Reportar Avería
-              </Link>
-            )}
-
-            {isAuthenticated && user?.role === "admin" && (
-              <Link
-                to="/reportes/lista"
-                className="bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded shadow-lg transition duration-300 block mt-2"
-              >
-                Ver Reportes
-              </Link>
-            )}
-          </div>
-        )}
-
         {/* Bienvenida */}
         <header className="text-center py-16 bg-blue-700 text-white rounded-xl shadow-lg max-w-4xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4">

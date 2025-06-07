@@ -2,7 +2,6 @@ import { UserMinus2 } from "lucide-react"; // ícono opcional
 import AveriaLista from "../Components/Averias/AveriaLista";
 import AveriaBotonAgregar from "../Components/Averias/AveriaBotonAgregar";
 //Para obtener la lista de averias
-//import { useAverias } from "../Services/AveriasService";
 import { useGetAverias } from ".././Hooks/useAverias";
 
 const ListaReportesPage = () => {

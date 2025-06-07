@@ -90,7 +90,7 @@ const AveriaLista = () => {
                 href={`https://www.google.com/maps?q=${lat},${lng}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-500 hover:underline text-xs"
+                className="text-yellow-500 hover:underline text-xs"
               >
                 Ver mapa
               </a>
@@ -175,50 +175,50 @@ const AveriaLista = () => {
       {/* Tabla de averías */}
       <div className="overflow-x-auto bg-white rounded-lg shadow-md">
         <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th
-                    key={header.id}
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    style={{ width: header.getSize() }}
-                  >
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
+         <thead className="bg-blue-600">
+  {table.getHeaderGroups().map((headerGroup) => (
+    <tr key={headerGroup.id}>
+      {headerGroup.headers.map((header) => (
+        <th
+          key={header.id}
+          className="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider"
+          style={{ width: header.getSize() }}
+        >
+          {flexRender(header.column.columnDef.header, header.getContext())}
+        </th>
+      ))}
+    </tr>
+  ))}
+</thead>
 
           <tbody className="bg-white divide-y divide-gray-200">
-            {table.getRowModel().rows.length > 0 ? (
-              table.getRowModel().rows.map((row) => (
-                <tr key={row.id} className="hover:bg-gray-50 transition-colors">
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="px-6 py-4 whitespace-nowrap">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td
-                  colSpan={columns.length}
-                  className="px-6 py-4 text-center text-gray-500"
-                >
-                  No se encontraron averías
-                </td>
-              </tr>
-            )}
-          </tbody>
+  {table.getRowModel().rows.length > 0 ? (
+    table.getRowModel().rows.map((row) => (
+      <tr
+        key={row.id}
+        className="hover:scale-[1.02] hover:shadow-md hover:bg-blue-50 transition-all duration-200 transform"
+      >
+        {row.getVisibleCells().map((cell) => (
+          <td
+            key={cell.id}
+            className="px-6 py-4 whitespace-nowrap text-sm text-gray-700"
+          >
+            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+          </td>
+        ))}
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td
+        colSpan={columns.length}
+        className="px-6 py-4 text-center text-gray-500"
+      >
+        No se encontraron averías
+      </td>
+    </tr>
+  )}
+</tbody>
         </table>
       </div>
     </div>

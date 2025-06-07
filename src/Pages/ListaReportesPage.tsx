@@ -1,4 +1,4 @@
-import { UserMinus2 } from "lucide-react"; // ícono opcional
+import { UserMinus2 } from "lucide-react";
 import AveriaLista from "../Components/Averias/AveriaLista";
 import AveriaBotonAgregar from "../Components/Averias/AveriaBotonAgregar";
 //Para obtener la lista de averias
@@ -6,8 +6,8 @@ import { useGetAverias } from ".././Hooks/useAverias";
 
 const ListaReportesPage = () => {
   const { data: averias, isLoading } = useGetAverias();
+  const vacio = !averias || averias.length === 0;
 
-  //Cuando isLoading es verdadero, muestra una animación de carga
   if (isLoading) {
     return (
       <div className="pt-16 flex justify-center items-center h-64">
@@ -35,27 +35,34 @@ const ListaReportesPage = () => {
     );
   }
 
-  const vacio = !averias || averias.length === 0;
-
   return (
-    <div className="pt-16">
-      <header className="text-center mb-10">
-        <h1 className="text-4xl font-bold text-blue-700">Lista de averias</h1>
-        <AveriaBotonAgregar />
-      </header>
-      {vacio ? ( //Si vacio es verdadero o falso muestra el mensaje correspondiente
-        <div className="pt-16 flex flex-col items-center justify-center mt-20">
-          <UserMinus2 className="w-16 h-16 text-gray-400 mb-4" />
-          <p className="text-xl text-gray-500">
-            No hay averias registradas aun.
-          </p>
-          <p className="text-sm text-gray-400">
-            Puedes agregar nuevas averias en el boton agregar averias.
-          </p>
+    <div className="bg-white py-10 px-4 sm:px-6 lg:px-8 min-h-screen">
+      {/* Encabezado con degradado */}
+      <div className="max-w-3xl mx-auto mb-8 bg-gradient-to-r from-blue-600 to-blue-400 rounded-xl p-6 text-center">
+        <h2 className="text-3xl font-extrabold text-white mb-4">
+          Lista de averías
+        </h2>
+        <div className="flex justify-center">
+          <AveriaBotonAgregar />
         </div>
-      ) : (
-        <AveriaLista />
-      )}
+      </div>
+
+      {/* Caja azul con bordes redondeados */}
+      <div className="max-w-6xl mx-auto bg-blue-100 rounded-xl p-6">
+        {vacio ? (
+          <div className="pt-16 flex flex-col items-center justify-center mt-20">
+            <UserMinus2 className="w-16 h-16 text-gray-400 mb-4" />
+            <p className="text-xl text-gray-500">
+              No hay averías registradas aún.
+            </p>
+            <p className="text-sm text-gray-400">
+              Puedes agregar nuevas averías en el botón.
+            </p>
+          </div>
+        ) : (
+          <AveriaLista />
+        )}
+      </div>
     </div>
   );
 };

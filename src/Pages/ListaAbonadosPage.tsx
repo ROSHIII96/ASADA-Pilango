@@ -1,14 +1,13 @@
-import { UserMinus2 } from "lucide-react"; // ícono opcional
+import { UserMinus2 } from "lucide-react";
 import ClientesLista from "../Components/Clientes/ClientesLista";
 import ClienteBotonAgregar from "../Components/Clientes/ClienteBotonAgregar";
 //Para obtener la lista de abonados
 import { useGetAbonados } from "../Hooks/useAbonados"; // Importa el hook useUsers para obtener la lista de abonados
 
 const ListaAbonadosPage = () => {
-  // Hook useUsers para obtener la lista de abonados, se obtiene en data y se renombra a users
   const { data: users, isLoading } = useGetAbonados();
+  const vacio = !users || users.length === 0;
 
-  //Cuando isLoading es verdadero, muestra una animación de carga
   if (isLoading) {
     return (
       <div className="pt-16 flex justify-center items-center h-64">
@@ -35,8 +34,6 @@ const ListaAbonadosPage = () => {
       </div>
     );
   }
-
-  const vacio = !users || users.length === 0;
 
   return (
     <div className="pt-16">

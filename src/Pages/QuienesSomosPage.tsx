@@ -1,20 +1,16 @@
-// src/Pages/QuienesSomosPage.tsx
 import React from "react";
 import { FaFacebook, FaWhatsapp } from "react-icons/fa";
-import TanqueImg from "../Fotos/Tanque.png";
-
 
 const QuienesSomosPage = () => {
   return (
-    <div
-      className="min-h-screen text-gray-800 font-sans"
-      style={{
-        backgroundImage: `url(${TanqueImg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
+   <div
+  className="min-h-screen w-full flex flex-col justify-center items-center text-gray-800 font-sans"
+  style={{
+    background: "linear-gradient(135deg, #f0fff9 0%, #d9fff4 40%, #e9fff8 80%, #f5fffb 100%)",
+  }}
+>
+
+
       <section className="group px-6 md:px-16 py-10 bg-gradient-to-r from-blue-600 to-blue-400 rounded-3xl max-w-5xl mx-auto shadow-lg border-t-8 border-blue-700 cursor-pointer select-none">
         <div className="flex items-center justify-center">
           <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg">
@@ -71,12 +67,13 @@ const QuienesSomosPage = () => {
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
+            title="Ubicación ASADA Pilangosta"
           ></iframe>
         </div>
       </section>
 
       {/* Footer con iconos actualizados */}
-      <footer className="bg-blue-800 text-white py-6 px-4 text-center shadow-lg">
+      <footer className="bg-blue-800 text-white py-6 px-4 text-center shadow-lg w-full">
         <p className="text-sm mb-4">© 2025 ASADA Pilangosta. Todos los derechos reservados.</p>
         <div className="flex justify-center gap-8 text-2xl">
           <a

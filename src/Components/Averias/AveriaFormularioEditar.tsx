@@ -1,11 +1,8 @@
 import { useForm } from "@tanstack/react-form";
-//import { useUpdateUser } from "../../Services/AveriasService";
 import { useUpdateAveria, useGetAverias } from "../../Hooks/useAverias";
 
-//const ClienteFormularioEditar = () => {
 const AveriaFormularioEditar = ({ cliente, onClose }) => {
   const { data: averia } = useGetAverias();
-  // 1) grab your mutation
   const {
     mutate: updateaveria,
     isLoading,
@@ -17,6 +14,15 @@ const AveriaFormularioEditar = ({ cliente, onClose }) => {
 
   const averiaActual = averia?.find((a) => a.numAveria === cliente.numAveria);
 
+  // Si aún no hay datos, muestra un loader
+  if (!averiaActual) {
+    return (
+      <div className="p-4 text-center text-blue-600">
+        Cargando datos de la avería...
+      </div>
+    );
+  }
+
   const getCurrentDate = () => {
     const now = new Date();
     const day = String(now.getDate()).padStart(2, "0");
@@ -25,7 +31,6 @@ const AveriaFormularioEditar = ({ cliente, onClose }) => {
     return `${day}/${month}/${year}`;
   };
 
-  // Función para obtener la hora actual en formato HH:MM
   const getCurrentTime = () => {
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, "0");
@@ -33,36 +38,34 @@ const AveriaFormularioEditar = ({ cliente, onClose }) => {
     return `${hours}:${minutes}`;
   };
 
-  // 1️⃣ Initialize form state with defaultValues and a submit handler
+  const fechaActual = getCurrentDate();
+  const horaActual = getCurrentTime();
+
   const form = useForm({
     defaultValues: {
-      id: Number,
+      id: averiaActual.id,
       numAveria: cliente.numAveria,
       detalle: "",
-      Fecha: "",
-      hora: "",
-      estado: averiaActual?.estado ?? "Inactivo",
+      estado: averiaActual.estado ?? "Inactivo",
     },
-    // 3) when the user submits, call your mutation
     onSubmit: async ({ value }) => {
       updateaveria(
         {
           id: averiaActual.id,
           numAveria: cliente.numAveria,
           detalle: value.detalle,
-          fecha: getCurrentDate(),
-          hora: getCurrentTime(),
+          fecha: fechaActual,
+          hora: horaActual,
           latitud: averiaActual.latitud,
           longitud: averiaActual.longitud,
-          //ubicacion: averiaActual, // Assuming ubicacion is part of cliente
           estado: value.estado,
-        }, // Spread the current cliente data and the form values
+        },
         {
           onSuccess: () => {
-            if (onClose) onClose(); // Cierra el modal al agregar exitosamente
+            if (onClose) onClose();
           },
         }
-      ); //contiene los datos actuales del formulario
+      );
     },
   });
 
@@ -75,7 +78,7 @@ const AveriaFormularioEditar = ({ cliente, onClose }) => {
         form.handleSubmit();
       }}
     >
-      {/* ─── Numero de cedula ─────────────────────── */}
+      {/* Numero de averia */}
       <div className="flex flex-col items-center">
         <label
           htmlFor="numAveria"
@@ -85,7 +88,7 @@ const AveriaFormularioEditar = ({ cliente, onClose }) => {
         </label>
       </div>
 
-      {/* ─── detalle ─────────────────────── */}
+      {/* Detalle */}
       <div className="flex flex-col">
         <label htmlFor="detalle" className="mb-1 text-gray-700 font-medium">
           Detalle:
@@ -104,46 +107,19 @@ const AveriaFormularioEditar = ({ cliente, onClose }) => {
         </form.Field>
       </div>
 
-      {/* ─── Fecha ────────────────────── */}
-      <div className="flex flex-col">
-        <label htmlFor="Fecha" className="mb-1 text-gray-700 font-medium">
-          Fecha:
-        </label>
-        <form.Field name="Fecha">
-          {(field) => (
-            <input
-              id="Fecha"
-              name="Fecha"
-              type="Fecha"
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-              onBlur={field.handleBlur}
-              className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          )}
-        </form.Field>
+      {/* Fecha y Hora automáticas (solo mostrar, no editar) */}
+      <div className="flex flex-col md:flex-row md:space-x-8">
+        <div className="flex flex-col mb-2 md:mb-0">
+          <label className="mb-1 text-gray-700 font-medium">Fecha:</label>
+          <span className="px-3 py-2 bg-gray-100 rounded border border-gray-200">{fechaActual}</span>
+        </div>
+        <div className="flex flex-col">
+          <label className="mb-1 text-gray-700 font-medium">Hora:</label>
+          <span className="px-3 py-2 bg-gray-100 rounded border border-gray-200">{horaActual}</span>
+        </div>
       </div>
 
-      {/* ─── Hora ─────────────────────── */}
-      <div className="flex flex-col">
-        <label htmlFor="hora" className="mb-1 text-gray-700 font-medium">
-          Hora:
-        </label>
-        <form.Field name="hora">
-          {(field) => (
-            <input
-              id="hora"
-              name="hora"
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-              onBlur={field.handleBlur}
-              className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          )}
-        </form.Field>
-      </div>
-
-      {/* ─── Estado (checkbox) ─────────────────────── */}
+      {/* Estado (checkbox) */}
       <div className="flex items-center space-x-2">
         <form.Field name="estado">
           {(field) => (
@@ -171,7 +147,7 @@ const AveriaFormularioEditar = ({ cliente, onClose }) => {
         </form.Field>
       </div>
 
-      {/* ─── Buttons ────────────────────────── */}
+      {/* Botones */}
       <div className="flex space-x-4">
         <button
           type="submit"

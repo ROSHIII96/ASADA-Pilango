@@ -143,11 +143,16 @@ const Navbar = () => {
                 <p className="text-sm text-gray-600 mb-1">
                   Correo: {userEmail}
                 </p>
-                <p className="text-sm text-gray-600 mb-4">Contraseña:</p>
-                <button
-                  onClick={handleLogout}
-                  className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded text-sm font-semibold transition"
-                >
+    <p className="text-sm text-gray-600 mb-4">
+      Contraseña:{" "}
+      {user?.password
+        ? "*".repeat(user.password.length)
+        : ""}
+    </p>
+    <button
+      onClick={handleLogout}
+      className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded text-sm font-semibold transition"
+    >
                   Cerrar sesión
                 </button>
               </div>

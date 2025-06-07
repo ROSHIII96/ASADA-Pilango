@@ -1,4 +1,3 @@
-// src/Pages/HomePage.tsx
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -23,8 +22,16 @@ const HomePage = () => {
     setShowAbonadosMenu(!showAbonadosMenu);
   };*/
 
+  // Si usas autenticación, descomenta y ajusta:
+  // const { user, isAuthenticated } = useAuth();
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 via-cyan-400 to-green-400 text-gray-100 font-sans">
+    <div
+      className="min-h-screen text-gray-100 font-sans"
+      style={{
+        background: "linear-gradient(135deg, #a7ffeb 0%, #b2f7ef 40%, #eafff1 80%, #e0ffe6 100%)",
+      }}
+    >
       {/* Franja superior */}
       <div className="fixed top-0 left-0 w-full bg-blue-500 z-20 py-2 px-4 shadow-md h-12 flex items-center">
         <div className="flex justify-between items-center w-full">
@@ -36,6 +43,7 @@ const HomePage = () => {
       {/* Contenedor general */}
       <div className="pt-14">
         {/* Credenciales */}
+        {/* 
         {showCredentials && user && (
           <div className="absolute top-20 right-4 bg-white p-4 border rounded-lg shadow-lg max-w-xs z-30 text-gray-900">
             <h3 className="text-xl font-semibold">Credenciales</h3>
@@ -72,6 +80,7 @@ const HomePage = () => {
             )}
           </div>
         )}
+        */}
 
         {/* Bienvenida */}
         <header className="text-center py-16 bg-blue-700 text-white rounded-xl shadow-lg max-w-4xl mx-auto px-6">

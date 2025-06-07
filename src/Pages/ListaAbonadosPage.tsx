@@ -2,7 +2,6 @@ import { UserMinus2 } from "lucide-react"; // ícono opcional
 import ClientesLista from "../Components/Clientes/ClientesLista";
 import ClienteBotonAgregar from "../Components/Clientes/ClienteBotonAgregar";
 //Para obtener la lista de abonados
-//import { useUsers } from '../Services/UsersService'
 import { useGetAbonados } from "../Hooks/useAbonados"; // Importa el hook useUsers para obtener la lista de abonados
 
 const ListaAbonadosPage = () => {

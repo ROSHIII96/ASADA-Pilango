@@ -1,5 +1,5 @@
 // src/context/AuthContext.tsx
-import { useContext, ReactNode } from "react";
+import React, { useContext, ReactNode } from "react";
 import { createContext, useState, useEffect, useRef } from "react";
 import { useLogin } from "../Hooks/useLogin";
 import { decodeToken, client as axiosClient } from "../Services/AuthService";
@@ -29,8 +29,9 @@ export const AuthContext = createContext<AuthContextType | undefined>(
   undefined
 );
 
-//Para obtener el rol del usuario de manera dinámica
-(typeof process !== "undefined" && process.env.REACT_APP_ROLE_CLAIM_KEY) ||
+//Para obtener el role de forma dinamica
+const ROLE_CLAIM_KEY =
+  (typeof process !== "undefined" && process.env.REACT_APP_ROLE_CLAIM_KEY) ||
   "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
 // Función para normalizar el usuario y extraer el role dinámicamente
 const normalizeUser = (jwtPayload) => {
@@ -45,7 +46,6 @@ const normalizeUser = (jwtPayload) => {
   };
 };
 
-//Funcion principal del contexto de autenticación
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logoutTimer = useRef(null);
   const { mutateAsync: loginMutation, isLoading, isError } = useLogin();
 
-  // Para programar logout automático
+  // Para programar el logout automático
   const scheduleAutoLogout = (jwt) => {
     if (!jwt) return;
     const { exp } = decodeToken(jwt);
@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
   }, [token]);
 
-  // Función para iniciar sesión
+  //Funcion para iniciar sesion
   const login = async (email: string, password: string, rememberMe) => {
     setLoading(false);
     try {
@@ -104,6 +104,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  //Cuando se cierra sesion
   const logout = () => {
     localStorage.removeItem("authToken");
     sessionStorage.removeItem("authToken");
@@ -120,7 +121,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
     if (stored) {
       setToken(stored);
-      // axiosClient.defaults.headers.common.Authorization = `Bearer ${stored}`
       const data = decodeToken(stored);
       //setUser({ email: data.email, ...data })
       setUser(normalizeUser(data));

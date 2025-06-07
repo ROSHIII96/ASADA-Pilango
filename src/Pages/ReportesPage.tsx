@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { useRouter } from "@tanstack/react-router";
-
 import GenericModal from "../Components/GenericModal";
 import AveriaFormularioAgregar from "../Components/Averias/AveriaFormularioAgregar";
 

@@ -120,6 +120,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const data = decodeToken(stored)
       //setUser({ email: data.email, ...data })
       setUser(normalizeUser(data));  
+      setIsAuthenticated(true);s
     }
   }, [])
 

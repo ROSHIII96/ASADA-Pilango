@@ -1,15 +1,12 @@
-import { UserMinus2 } from "lucide-react"; // ícono opcional
+import { UserMinus2 } from "lucide-react";
 import ClientesLista from "../Components/Clientes/ClientesLista";
 import ClienteBotonAgregar from "../Components/Clientes/ClienteBotonAgregar";
-//Para obtener la lista de abonados
-//import { useUsers } from '../Services/UsersService'
-import { useGetAbonados } from "../Hooks/useAbonados"; // Importa el hook useUsers para obtener la lista de abonados
+import { useGetAbonados } from "../Hooks/useAbonados";
 
 const ListaAbonadosPage = () => {
-  // Hook useUsers para obtener la lista de abonados, se obtiene en data y se renombra a users
   const { data: users, isLoading } = useGetAbonados();
+  const vacio = !users || users.length === 0;
 
-  //Cuando isLoading es verdadero, muestra una animación de carga
   if (isLoading) {
     return (
       <div className="pt-16 flex justify-center items-center h-64">
@@ -37,27 +34,32 @@ const ListaAbonadosPage = () => {
     );
   }
 
-  const vacio = !users || users.length === 0;
-
   return (
-    <div className="pt-16">
-      <header className="text-center mb-10">
-        <h1 className="text-4xl font-bold text-blue-700">Lista de Abonados</h1>
-        <ClienteBotonAgregar />
-      </header>
-      {vacio ? ( //Si vacio es verdadero o falso muestra el mensaje correspondiente
-        <div className="pt-16 flex flex-col items-center justify-center mt-20">
-          <UserMinus2 className="w-16 h-16 text-gray-400 mb-4" />
-          <p className="text-xl text-gray-500">
-            No hay abonados registrados todavía.
-          </p>
-          <p className="text-sm text-gray-400">
-            Puedes agregar nuevos abonados en el boton agregar abonado.
-          </p>
+    <div className="bg-white py-10 px-4 sm:px-6 lg:px-8 min-h-screen">
+      {/* Encabezado con degradado */}
+      <div className="max-w-3xl mx-auto mb-8 bg-gradient-to-r from-blue-600 to-blue-400 rounded-xl p-6 text-center">
+        <h2 className="text-3xl font-extrabold text-white mb-4">Lista de abonados</h2>
+        <div className="flex justify-center">
+          <ClienteBotonAgregar />
         </div>
-      ) : (
-        <ClientesLista />
-      )}
+      </div>
+
+      {/* Caja azul con bordes redondeados */}
+      <div className="max-w-6xl mx-auto bg-blue-100 rounded-xl p-6">
+        {vacio ? (
+          <div className="pt-16 flex flex-col items-center justify-center mt-20">
+            <UserMinus2 className="w-16 h-16 text-gray-400 mb-4" />
+            <p className="text-xl text-gray-500">
+              No hay abonados registrados todavía.
+            </p>
+            <p className="text-sm text-gray-400">
+              Puedes agregar nuevos abonados en el botón.
+            </p>
+          </div>
+        ) : (
+          <ClientesLista />
+        )}
+      </div>
     </div>
   );
 };
